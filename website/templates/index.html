@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!-- Język strony internetowej -->
+<html lang="pl-PL">
+<head>
+    <!-- Kodowanie strony internetowej -->
+    <meta charset="UTF-8">
+
+    <!-- Coś co powoduje, że strona działa na Internet Explorer -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Podpięcie pliku formataującego wygląd strony -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Tytuł strony internetowej -->
+    <title>Guess The Song - Home</title>
+</head>
+<body>
+
+    <div id="container" >
+        <form>
+            <label for="nickname">Podaj nazwę gracza:</label>
+            <input type="text" name="nickname" id="nickname" placeholder="CoolNickname3443">
+            <input type="submit" value="START">
+        </form>
+        <form method="POST">
+            <label for="link">Podaj link do utworu:</label>
+            <input type="text" name="link" id="link" placeholder="https://youtu.be/dQw4w9WgXcQ?si=YbzpKWlAu9btoQkZ">
+            <input type="submit" value="PLAY">
+        </form>
+    </div>
+
+    
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='index.js') }}"
+    ></script>
+
+</body>
+</html>

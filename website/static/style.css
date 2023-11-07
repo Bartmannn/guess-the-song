@@ -1,0 +1,50 @@
+body {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color: #110B11;
+    color: #F2F4CB;
+    font-size: 1.5rem;
+}
+
+input {
+    background-color: #332D33;
+    color: #F2F4CB;
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: #B7990D;
+    border-image: none;
+    border-style: outset;
+}
+
+input[type="text"] {
+    font-size: 1.5rem;
+    margin: 1rem;
+}
+
+input[type="submit"] {
+    font-size: 1.2rem;
+}
+
+input[type="submit"]:hover {
+    cursor: pointer;
+}
+
+#container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin: 25px;
+}
+
+
