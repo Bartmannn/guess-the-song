@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, Response, request
-from .downloader import download_music 
+from downloader import download_music 
 
 views = Blueprint("views", __name__)
 
