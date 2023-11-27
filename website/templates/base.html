@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!-- Język strony internetowej -->
+<html lang="pl-PL">
+<head>
+    <!-- Kodowanie strony internetowej -->
+    <meta charset="UTF-8">
+
+    <!-- Coś co powoduje, że strona działa na Internet Explorer -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Podpięcie pliku formataującego wygląd strony -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Tytuł strony internetowej -->
+    <title>{% block title %}{% endblock %} - Guess The Song</title>
+</head>
+<body>
+
+    {% block content %}
+    
+    {% endblock %}
+    
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='index.js') }}"
+    ></script>
+
+</body>
+</html>
