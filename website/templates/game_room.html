@@ -3,22 +3,29 @@
 {% block title %}Room{% endblock %}
 
 {% block content %}
-<h1>Room: {{ room_name }}</h1>
-<h2>Hello, There!</h2>
 <div class="game_room">
     <div class="players">
+        <h3>Hello, There!</h3>
         <ol>
-            <li>Bartman</li>
+            <li>Użytkownik1</li>
+            <li>Użytkownik2</li>
+            <li>Użytkownik3</li>
+            <li>Użytkownik4</li>
+            <li>[. . .]</li>
         </ol>
     </div>
 
     <div class="game_board">
-
+        <h1>Room: {{ room_name }}</h1>
     </div>
 
     <div class="chat">
-
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis justo elementum, auctor ipsum at, vulputate lacus. Phasellus fringilla odio in tellus tincidunt, quis laoreet massa convallis. Suspendisse potenti. Morbi imperdiet massa sed laoreet imperdiet. Donec ornare leo ut metus finibus dictum. Aliquam ac felis vehicula, pretium lorem ac, dignissim arcu. Pellentesque ut metus eu ante ullamcorper accumsan in quis tortor. Nulla pharetra maximus consectetur. Ut non eros eget ligula porttitor tempor. Cras aliquet, arcu ac congue dapibus, magna nunc tristique massa, nec vestibulum dui purus eget neque. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis convallis urna placerat velit sagittis consequat.
+        </p>
     </div>
 </div>
+<textarea id="inviteLink" style="display: none;">{{ invite_link }}</textarea>
+<input type="button" id="copyToClipboard" value="Copy invite link to clipboard">
 
 {% endblock %}

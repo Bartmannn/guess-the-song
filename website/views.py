@@ -4,6 +4,7 @@ from .wtform_fields import *
 from .models import *
 from .consts import HOST_URL
 from random import randint
+import sys
 
 views = Blueprint("views", __name__)
 
@@ -11,7 +12,10 @@ views = Blueprint("views", __name__)
 def home():
 
     new_game_form = CreatingGameForm()
-    if new_game_form.validate_on_submit():
+    joining_form = JoiningGameForm()
+
+    if new_game_form.submit_new_game.data and new_game_form.validate():
+        print("New Game", file=sys.stderr)
         username = new_game_form.username.data
 
         user = User(username=username, is_admin=True)
@@ -37,14 +41,16 @@ def home():
 
         return redirect(url_for("views.new_game", game_id=server_id))
 
-    joining_form = JoiningGameForm()
-    if joining_form.validate_on_submit():
+    if joining_form.submit_joining_game.data and joining_form.validate():
+        print("Joining Game", file=sys.stderr)
+        username = joining_form.username.data
         link = joining_form.link.data
 
         user = User(username=username, is_admin=False)
         db.session.add(user)
 
-        room = Room.query.filter_by(invitation_link=invitation_link).first()
+        room = Room.query.filter_by(invitation_link=link).first()
+        print(room.id, link)
         if room == None:
             return "Game does not exist"
 
@@ -52,7 +58,7 @@ def home():
         db.session.add(relation)
         db.session.commit()
 
-        return redirect(url_for("views.new_game", game_id=room.link[-15::]))
+        return redirect(url_for("views.new_game", game_id=link[-15::]))
 
 
     return render_template("index.html", creating_game=new_game_form, joining_game=joining_form)
@@ -78,4 +84,4 @@ def home():
 @views.route("/<game_id>", methods=["GET", "POST"])
 def new_game(game_id):
 
-    return render_template("game_room.html", room_name=game_id)
+    return render_template("game_room.html", room_name=game_id, invite_link=HOST_URL+game_id)

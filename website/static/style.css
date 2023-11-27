@@ -55,8 +55,31 @@ hr {
 .game_room {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     border-width: 1px;
     width: 80vw;
+    margin-top: 20px;
+}
+
+.game_room .chat {
+    width: 25vw;
+    padding: 10px;
+    /* height: 150px; */
+    background-color: grey;
+} 
+
+input[type="button"] {
+    width: 300px;
+    height: 100px;
+    font-size: large;
+    transition: .2s;
+}
+
+input[type="button"]:hover {
+    cursor: pointer;
+    width: 300px;
+    height: 100px;
+    transform:scale(1.1) ;
+    transition: .2s;
 }

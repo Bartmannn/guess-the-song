@@ -14,7 +14,7 @@ class CreatingGameForm(FlaskForm):
             Length(min=4, max=25, message="Username must be between 4 and 25 characters")
         ]
     )
-    submit_button = SubmitField("Start")
+    submit_new_game = SubmitField("Start")
 
 
 
@@ -32,7 +32,7 @@ class JoiningGameForm(FlaskForm):
             InputRequired(message="Invitation link required")
         ]
     )
-    submit_button = SubmitField("Join game")
+    submit_joining_game = SubmitField("Join game")
 
 
         

@@ -14,7 +14,7 @@
         {{ displayField(creating_game.username, 'Username', autocomplete="off", autofocus=true) }}
 
         <div>
-            {{ creating_game.submit_button }}
+            {{ creating_game.submit_new_game }}
         </div>
 
         {{ creating_game.csrf_token }}
@@ -23,11 +23,11 @@
     <hr>
     <form method="POST">
 
-        {{ displayField(joining_game.username, 'Username', autocomplete="off", autofocus=true) }}
+        {{ displayField(joining_game.username, 'Username', autocomplete="off") }}
         {{ displayField(joining_game.link, 'link') }}
 
         <div>
-            {{ joining_game.submit_button }}
+            {{ joining_game.submit_joining_game }}
         </div>
 
         {{ joining_game.csrf_token }}
