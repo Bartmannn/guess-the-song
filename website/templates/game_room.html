@@ -20,12 +20,18 @@
     </div>
 
     <div class="chat">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis justo elementum, auctor ipsum at, vulputate lacus. Phasellus fringilla odio in tellus tincidunt, quis laoreet massa convallis. Suspendisse potenti. Morbi imperdiet massa sed laoreet imperdiet. Donec ornare leo ut metus finibus dictum. Aliquam ac felis vehicula, pretium lorem ac, dignissim arcu. Pellentesque ut metus eu ante ullamcorper accumsan in quis tortor. Nulla pharetra maximus consectetur. Ut non eros eget ligula porttitor tempor. Cras aliquet, arcu ac congue dapibus, magna nunc tristique massa, nec vestibulum dui purus eget neque. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis convallis urna placerat velit sagittis consequat.
-        </p>
+        <div id="messages_area">
+<p>Messages</p>
+        </div>
+        <input type="text" name="user_message" id="user_message">
+        <button type="button" id="send_message">Send</button>
     </div>
 </div>
+
 <textarea id="inviteLink" style="display: none;">{{ invite_link }}</textarea>
 <input type="button" id="copyToClipboard" value="Copy invite link to clipboard">
 
+<!-- socketIO JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='socketio.js') }}"></script>
 {% endblock %}

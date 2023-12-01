@@ -4,9 +4,15 @@ from .wtform_fields import *
 from .models import *
 from .consts import HOST_URL
 from random import randint
+from flask_login import LoginManager, login_user, current_user, login_required, logout_user
 import sys
 
 views = Blueprint("views", __name__)
+login  = LoginManager()
+
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 @views.route("/", methods=["GET", "POST"])
 def home():
@@ -34,11 +40,12 @@ def home():
         new_game = Room(invitation_link=invitation_link+server_id)
         db.session.add(new_game)
 
-        relation = User_Room(room_id=user.id, user_id=new_game.id)
+        relation = User_Room(room_id=new_game.id, user_id=user.id)
         db.session.add(relation)
 
         db.session.commit()
 
+        login_user(user)
         return redirect(url_for("views.new_game", game_id=server_id))
 
     if joining_form.submit_joining_game.data and joining_form.validate():
@@ -58,10 +65,15 @@ def home():
         db.session.add(relation)
         db.session.commit()
 
+        login_user(user)
         return redirect(url_for("views.new_game", game_id=link[-15::]))
 
-
     return render_template("index.html", creating_game=new_game_form, joining_game=joining_form)
+
+@views.route("/<game_id>", methods=["GET", "POST"])
+def new_game(game_id):
+    return render_template("game_room.html", room_name=game_id, invite_link=HOST_URL+game_id, username=current_user.username)
+
 
 # @views.route("/mp3")
 # def streamp3():
@@ -80,8 +92,3 @@ def home():
 #                     yield data
 #                     data = fmp3.read(1024)
 #     return Response(generate(), mimetype="audio/mp3")
-
-@views.route("/<game_id>", methods=["GET", "POST"])
-def new_game(game_id):
-
-    return render_template("game_room.html", room_name=game_id, invite_link=HOST_URL+game_id)

@@ -7,8 +7,7 @@
 {% block content %}
 
     <!-- <h2>Login now!</h2> -->
-    <p>Enter your username to begin</p>
-
+    <p>Create new game</p>
     <form method="POST">
 
         {{ displayField(creating_game.username, 'Username', autocomplete="off", autofocus=true) }}
@@ -21,6 +20,7 @@
 
     </form>
     <hr>
+    <p>Join game</p>
     <form method="POST">
 
         {{ displayField(joining_game.username, 'Username', autocomplete="off") }}

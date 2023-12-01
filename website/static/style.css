@@ -80,6 +80,11 @@ input[type="button"]:hover {
     cursor: pointer;
     width: 300px;
     height: 100px;
+    background-color: #443E44;
     transform:scale(1.1) ;
     transition: .2s;
+}
+
+input[type="button"]:active {
+    background-color: #242E34;
 }
