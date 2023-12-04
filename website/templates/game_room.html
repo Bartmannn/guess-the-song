@@ -6,12 +6,8 @@
 <div class="game_room">
     <div class="players">
         <h3>Hello, There!</h3>
-        <ol>
-            <li>Użytkownik1</li>
-            <li>Użytkownik2</li>
-            <li>Użytkownik3</li>
-            <li>Użytkownik4</li>
-            <li>[. . .]</li>
+        <ol id="users_list">
+            
         </ol>
     </div>
 
@@ -20,8 +16,9 @@
     </div>
 
     <div class="chat">
+        <p>Messages</p>
         <div id="messages_area">
-<p>Messages</p>
+
         </div>
         <input type="text" name="user_message" id="user_message">
         <button type="button" id="send_message">Send</button>
@@ -32,6 +29,10 @@
 <input type="button" id="copyToClipboard" value="Copy invite link to clipboard">
 
 <!-- socketIO JS -->
+<script type="text/javascript">
+    const username = `{{ username }}`;
+    const room_name = `{{ room_name }}`;
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
 <script src="{{ url_for('static', filename='socketio.js') }}"></script>
 {% endblock %}

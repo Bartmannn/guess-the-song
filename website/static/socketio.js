@@ -1,22 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
     var socket = io();
 
-    // let room = "Longue";
-    // joinRoom("Longue");
+    joinRoom(room_name);
 
     // Display messages
     socket.on("message", data => {
         const p = document.createElement("p");
         const span_username = document.createElement("span");
-        // const span_timestamp = document.createElement("span");
-        const br = document.createElement("br");
 
-        p.innerHTML = data.msg
-        document.querySelector("#messages_area").append(p);
+        span_username.style = "font-size: 1rem; color: darkgrey;";
+
+        const br = document.createElement("br");
 
         if (data.username) {
             span_username.innerHTML = data.username;
-            p.innerHTML = span_username + br + data.msg
+            p.innerHTML = span_username.outerHTML + br.outerHTML + data.msg;
             document.querySelector("#messages_area").append(p);
         } else {
             printSysMsg(data.msg);
@@ -25,25 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Send message
     document.querySelector("#send_message").onclick = () => {
-        socket.send({"msg": document.querySelector("#user_message").value});
+        socket.send({"msg": document.querySelector("#user_message").value, "username": username, "room": room_name});
         // Clear input area
         document.querySelector("#user_message").value = "";
     }
-
-    // Room selection
-    // document.querySelectorAll(".select-room").forEach(p => {
-    //     p.onclick = () => {
-    //         let newRoom = p.innerHTML;
-    //         if (newRoom == room) {
-    //             msg = `You are already in ${room} room.`
-    //             printSysMsg(msg);
-    //         } else {
-    //             leaveRoom(room);
-    //             joinRoom(newRoom);
-    //             room = newRoom;
-    //         }
-    //     }
-    // });
 
     // Leave room
     function leaveRoom(room) {
@@ -53,9 +36,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // Join room
     function joinRoom(room) {
         socket.emit("join", {"username": username, "room": room})
-        // Clear message area
-        document.querySelector("#messages-section").innerHTML = "";
-        // Autofocus on text box
+
+        const ul = document.createElement("ul");
+
+
+        document.querySelector("#users_list")
+
+        document.querySelector("#messages_area").innerHTML = "";
         document.querySelector("#user_message").focus();
     }
 
@@ -63,7 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function printSysMsg(msg) {
         const p = document.createElement("p");
         p.innerHTML = msg;
-        document.querySelector("#messages-section").append(p);
+        p.style = "font-size: 1rem;";
+        document.querySelector("#messages_area").append(p);
     }
 
 });
