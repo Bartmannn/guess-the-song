@@ -37,10 +37,11 @@ document.addEventListener("DOMContentLoaded", () => {
     function joinRoom(room) {
         socket.emit("join", {"username": username, "room": room})
 
-        const ul = document.createElement("ul");
+        const li = document.createElement("li");
+        li.innerHTML = username;
 
 
-        document.querySelector("#users_list")
+        document.querySelector("#users_list").append(li);
 
         document.querySelector("#messages_area").innerHTML = "";
         document.querySelector("#user_message").focus();
