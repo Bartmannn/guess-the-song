@@ -34,6 +34,17 @@ class JoiningGameForm(FlaskForm):
     )
     submit_joining_game = SubmitField("Join game")
 
+class JoiningGameFromLinkForm(FlaskForm):
+
+    username = StringField("username_label",
+        validators = [
+            InputRequired(message="Username required"),
+            Length(min=4, max=25, message="Username must be between 4 and 25 characters")
+        ]
+    )
+    submit_joining_game_from_link = SubmitField("Join game")
+
+
 
 class JoiningGameFromLinkForm(FlaskForm):
 
