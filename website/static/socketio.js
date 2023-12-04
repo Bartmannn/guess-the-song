@@ -39,8 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const li = document.createElement("li");
         li.innerHTML = username;
-
-
         document.querySelector("#users_list").append(li);
 
         document.querySelector("#messages_area").innerHTML = "";
@@ -55,4 +53,16 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#messages_area").append(p);
     }
 
+    // window.unload = function() {
+    //     leaveRoom(room_name);
+    // };
+
 });
+
+document.addEventListener("onbeforeunloaded", function() {
+    socket.emit("leave", {"username": username, "room": room});
+});
+
+// window.addEventListener("onunload", () => {
+//     socket.emit("leave", {"username": username, "room": room});
+// });

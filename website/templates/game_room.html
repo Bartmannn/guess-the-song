@@ -1,37 +1,58 @@
-{% extends "base.html" %}
 
-{% block title %}Room{% endblock %}
+<!DOCTYPE html>
+<!-- Język strony internetowej -->
+<html lang="pl-PL">
+<head>
+    <!-- Kodowanie strony internetowej -->
+    <meta charset="UTF-8">
 
-{% block content %}
-<div class="game_room">
-    <div class="players">
-        <h3>Hello, There!</h3>
-        <ol id="users_list">
-        </ol>
-    </div>
+    <!-- Coś co powoduje, że strona działa na Internet Explorer -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <div class="game_board">
-        <h1>Room: {{ room_name }}</h1>
-    </div>
+    <!-- Podpięcie pliku formataującego wygląd strony -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 
-    <div class="chat">
-        <p>Messages</p>
-        <div id="messages_area">
+    <!-- Tytuł strony internetowej -->
+    <title>{% block title %}Room{% endblock %} - Guess The Song</title>
+</head>
+<body>
 
+    <div class="game_room">
+        <div class="players">
+            <h3>Hello, There!</h3>
+            <ol id="users_list">
+            </ol>
         </div>
-        <input type="text" name="user_message" id="user_message">
-        <button type="button" id="send_message">Send</button>
+    
+        <div class="game_board">
+            <h1>Room: {{ room_name }}</h1>
+        </div>
+    
+        <div class="chat">
+            <p>Messages</p>
+            <div id="messages_area">
+    
+            </div>
+            <input type="text" name="user_message" id="user_message">
+            <button type="button" id="send_message">Send</button>
+        </div>
     </div>
-</div>
+    
+    <textarea id="inviteLink" style="display: none;">{{ invite_link }}</textarea>
+    <input type="button" id="copyToClipboard" value="Copy invite link to clipboard">
+    
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='index.js') }}"
+    ></script>
 
-<textarea id="inviteLink" style="display: none;">{{ invite_link }}</textarea>
-<input type="button" id="copyToClipboard" value="Copy invite link to clipboard">
+    <!-- socketIO JS -->
+    <script type="text/javascript">
+        const username = `{{ username }}`;
+        const room_name = `{{ room_name }}`;
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='socketio.js') }}"></script>
 
-<!-- socketIO JS -->
-<script type="text/javascript">
-    const username = `{{ username }}`;
-    const room_name = `{{ room_name }}`;
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
-<script src="{{ url_for('static', filename='socketio.js') }}"></script>
-{% endblock %}
+</body>
+</html>
