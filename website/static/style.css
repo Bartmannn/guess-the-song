@@ -4,19 +4,23 @@ body {
     justify-content: center;
     align-items: center;
     margin: 0;
-    background-color: #110B11;
-    color: #F2F4CB;
+    background-color: #d4d6a7;
+    color: #110B11;
     font-size: 1.5rem;
+    height: 100vh;
+    font-family: Arial, sans-serif;
 }
 
 input {
-    background-color: #332D33;
-    color: #F2F4CB;
+    background-color: #F2F4CB;
+    color: #110B11;
     border-radius: 5px;
     border-width: 1px;
     border-color: #B7990D;
     border-image: none;
     border-style: outset;
+    padding: 10px;
+    margin: 5px 0;
 }
 
 input[type="text"] {
@@ -63,28 +67,46 @@ hr {
 }
 
 .game_room .chat {
-    width: 25vw;
-    padding: 10px;
-    /* height: 150px; */
-    background-color: grey;
-} 
+    width: 30vw;
+    padding: 15px;
+    background-color: #F2F4CB;
+}
+
+#messages_area {
+    height: 300px;
+    overflow-y: scroll;
+}
 
 input[type="button"] {
     width: 300px;
-    height: 100px;
+    height: 50px;
     font-size: large;
     transition: .2s;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
 }
 
-input[type="button"]:hover {
+input[type="button"]:hover{
     cursor: pointer;
-    width: 300px;
-    height: 100px;
-    background-color: #443E44;
-    transform:scale(1.1) ;
+    background-color: #3B9E39;
+    transform:scale(.95) ;
     transition: .2s;
 }
 
 input[type="button"]:active {
-    background-color: #242E34;
+    background-color: #2B8E29;
+}
+
+img {
+    max-width: 100%;
+    max-height: calc(2 * (10px + 20px));
+    height: auto;
+    margin: 10px 0;
+}
+
+h3 {
+    margin: 5px 0;
 }

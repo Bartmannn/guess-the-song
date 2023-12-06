@@ -1,5 +1,8 @@
+## importing socket module
+from socket import gethostbyname, gethostname
+
 # HOSTING #
-HOST_ADDR = "127.0.0.1"
+HOST_ADDR = f"{gethostbyname(gethostname())}"
 HOST_PORT = 5000
 HOST_URL = f"http://{HOST_ADDR}:{HOST_PORT}/"
 

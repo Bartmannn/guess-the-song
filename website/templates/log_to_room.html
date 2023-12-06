@@ -1,0 +1,79 @@
+{% from "form_helper.html" import displayField %}
+
+{% extends "base.html" %}
+
+{% block title %}Joining room{% endblock %}
+
+{% block content %}
+
+<!-- <head>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        img {
+            max-width: 100%;
+            max-height: calc(2 * (10px + 20px));
+            height: auto;
+            margin: 10px 0;
+        }
+
+        h3 {
+            margin: 5px 0;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head> -->
+<!-- <body> -->
+
+    <img src="" alt="Room Image">
+    <h3>Nr pokoju: <span id="room_name">{{room_name}}</span></h3>
+    <form method="POST">
+
+        {{ displayField(joining_game.username, 'Username', autocomplete="off", autofocus=true) }}
+        <div style="display: none;">
+            {{ displayField(joining_game.link, value=room_name) }}
+        </div>
+
+        <div>
+            {{ joining_game.submit_joining_game }}
+        </div>
+
+        {{ joining_game.csrf_token }}
+
+    </form>
+
+    <br>
+
+
+    <!-- <script>
+        function submitForm() {
+            var roomNumber = document.getElementById('{{room_name}}').innerText;
+            var username = document.getElementById('{{username}}').value;
+            
+        }
+    </script> -->
+<!-- </body>
+</html> -->
+
+{% endblock %}

@@ -18,7 +18,7 @@ def load_user(id):
 def home():
 
     new_game_form = CreatingGameForm()
-    joining_form = JoiningGameForm()
+    # joining_form = JoiningGameForm()
 
     if new_game_form.submit_new_game.data and new_game_form.validate():
         print("New Game", file=sys.stderr)
@@ -27,7 +27,7 @@ def home():
         user = User(username=username, is_admin=True)
         db.session.add(user)
 
-        invitation_link = HOST_URL
+        # invitation_link = HOST_URL
         server_id = ""
         for i in range(15):
             match randint(0, 2):
@@ -37,9 +37,12 @@ def home():
                     server_id += f"{chr(randint(65, 90))}"
                 case 2:
                     server_id += f"{chr(randint(65, 90))}".lower()
-        new_game = Room(invitation_link=invitation_link+server_id)
+        new_game = Room(invitation_link=server_id)
         db.session.add(new_game)
 
+        test = Room.query.filter_by(invitation_link=server_id).first()
+
+        print("\n\n", new_game.id, " ", user.id)
         relation = User_Room(room_id=new_game.id, user_id=user.id)
         db.session.add(relation)
 
@@ -48,16 +51,42 @@ def home():
         login_user(user)
         return redirect(url_for("views.new_game", game_id=server_id))
 
+    # if joining_form.submit_joining_game.data and joining_form.validate():
+    #     print("Joining Game", file=sys.stderr)
+    #     username = joining_form.username.data
+    #     link = joining_form.link.data
+
+    #     user = User(username=username, is_admin=False)
+    #     db.session.add(user)
+
+    #     room = Room.query.filter_by(invitation_link=link).first()
+    #     if room == None:
+    #         return "Game does not exist"
+
+    #     relation = User_Room(room_id=room.id, user_id=user.id)
+    #     db.session.add(relation)
+    #     db.session.commit()
+
+    #     login_user(user)
+    #     return redirect(url_for("views.new_game", game_id=link[-15::]))
+
+    return render_template("index.html", creating_game=new_game_form)
+
+@views.route("/<game_id>", methods=["GET", "POST"])
+def new_game(game_id):
+    if current_user.is_authenticated:
+        return render_template("game_room.html", room_name=game_id, invite_link=HOST_URL+game_id, code=game_id, username=current_user.username)
+
+    joining_form = JoiningGameForm()
     if joining_form.submit_joining_game.data and joining_form.validate():
-        print("Joining Game", file=sys.stderr)
+        # print("Joining Game", file=sys.stderr)
         username = joining_form.username.data
-        link = joining_form.link.data
+        code = joining_form.link.data
 
         user = User(username=username, is_admin=False)
         db.session.add(user)
 
-        room = Room.query.filter_by(invitation_link=link).first()
-        print(room.id, link)
+        room = Room.query.filter_by(invitation_link=code).first()
         if room == None:
             return "Game does not exist"
 
@@ -66,14 +95,12 @@ def home():
         db.session.commit()
 
         login_user(user)
-        return redirect(url_for("views.new_game", game_id=link[-15::]))
+        return redirect(url_for("views.new_game", game_id=code))
 
-    return render_template("index.html", creating_game=new_game_form, joining_game=joining_form)
+    return render_template("log_to_room.html", room_name=game_id, joining_game=joining_form)
+    
 
-@views.route("/<game_id>", methods=["GET", "POST"])
-def new_game(game_id):
-    return render_template("game_room.html", room_name=game_id, invite_link=HOST_URL+game_id, username=current_user.username)
-
+    
 
 # @views.route("/mp3")
 # def streamp3():

@@ -19,19 +19,5 @@
         {{ creating_game.csrf_token }}
 
     </form>
-    <hr>
-    <p>Join game</p>
-    <form method="POST">
-
-        {{ displayField(joining_game.username, 'Username', autocomplete="off") }}
-        {{ displayField(joining_game.link, 'link') }}
-
-        <div>
-            {{ joining_game.submit_joining_game }}
-        </div>
-
-        {{ joining_game.csrf_token }}
-
-    </form>
 
 {% endblock %}

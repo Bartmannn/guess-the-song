@@ -1,7 +1,9 @@
-document.addEventListener("DOMContentLoaded", () => {
-    var socket = io();
+var socket = io();
 
+document.addEventListener("DOMContentLoaded", () => {
+    
     joinRoom(room_name);
+    socket.emit('request_audio');
 
     // Display messages
     socket.on("message", data => {
@@ -21,10 +23,33 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    socket.on('stream_audio', function(data) {
+        var audioPlayer = document.getElementById('audioPlayer');
+        var audioSource = document.getElementById('audioSource');
+
+        var blob = new Blob([data.audio_data], { type: 'audio/mpeg' });
+        var url = URL.createObjectURL(blob);
+
+        audioSource.src = url;
+        audioPlayer.load();
+    });
+
+    socket.on("list_players", data => {
+        if (code == data["code"]) {
+            document.querySelector("#users_list").innerHTML = "";
+            var players_list = data["players"];
+            var li;
+            for (var i = 0; i < players_list.length; i++) {
+                li = document.createElement("li");
+                li.innerHTML = players_list[i];
+                document.querySelector("#users_list").append(li);
+            }
+        }
+    });
+
     // Send message
     document.querySelector("#send_message").onclick = () => {
         socket.send({"msg": document.querySelector("#user_message").value, "username": username, "room": room_name});
-        // Clear input area
         document.querySelector("#user_message").value = "";
     }
 
@@ -35,17 +60,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Join room
     function joinRoom(room) {
-        socket.emit("join", {"username": username, "room": room})
-
-        const li = document.createElement("li");
-        li.innerHTML = username;
-        document.querySelector("#users_list").append(li);
-
-        document.querySelector("#messages_area").innerHTML = "";
-        document.querySelector("#user_message").focus();
+        socket.emit("join", {"username": username, "room": room});
+        socket.emit("list_players", code);
     }
 
-    // Print system message
     function printSysMsg(msg) {
         const p = document.createElement("p");
         p.innerHTML = msg;
@@ -53,16 +71,8 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#messages_area").append(p);
     }
 
-    // window.unload = function() {
-    //     leaveRoom(room_name);
-    // };
+    window.onbeforeunload = function() {
+        leaveRoom(code);
+    }
 
 });
-
-document.addEventListener("onbeforeunloaded", function() {
-    socket.emit("leave", {"username": username, "room": room});
-});
-
-// window.addEventListener("onunload", () => {
-//     socket.emit("leave", {"username": username, "room": room});
-// });
