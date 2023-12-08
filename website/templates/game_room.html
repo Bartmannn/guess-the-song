@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<!-- Język strony internetowej -->
+<html lang="pl-PL">
+<head>
+    <!-- Kodowanie strony internetowej -->
+    <meta charset="UTF-8">
+
+    <!-- Coś co powoduje, że strona działa na Internet Explorer -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Podpięcie pliku formataującego wygląd strony -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Tytuł strony internetowej -->
+    <title>{% block title %}Room{% endblock %} - Guess The Song</title>
+</head>
+<body>
+
+    <h1>Room: {{ room_name }} - <span id="current_round"></span></h1>
+
+    <div class="game_room">
+        <div class="players">
+            <h3>Hello, There!</h3>
+            <ol id="users_list">
+            </ol>
+        </div>
+    
+        <div class="game_board">
+            <audio id="audioPlayer" autoplay>
+                <source src="" type="audio/mpeg" id="audioSource">
+            </audio>
+        </div>
+    
+        <div class="chat">
+            <p>Messages</p>
+            <div id="messages_area">
+    
+            </div>
+            <input type="text" name="user_message" id="user_message">
+            <button type="button" id="send_message">Send</button>
+        </div>
+    </div>
+    
+    <textarea id="inviteLink" style="display: none;">{{ inviteLink }}</textarea>
+    <input type="button" id="copyToClipboard" value="Copy invite link to clipboard">
+
+    <input type="button" id="next_round_button" value="Next round">
+    
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='index.js') }}"
+    ></script>
+
+    <!-- socketIO JS -->
+    <script type="text/javascript">
+        const username = `{{ username }}`;
+        const room_name = `{{ room_name }}`;
+        const code = `{{ code }}`;   
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='socketio.js') }}"></script>
+    <script src="{{ url_for('static', filename='chat_page.js')}}"></script>
+</body>
+</html>

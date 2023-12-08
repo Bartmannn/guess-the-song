@@ -1,39 +1,23 @@
-<!DOCTYPE html>
-<!-- Język strony internetowej -->
-<html lang="pl-PL">
-<head>
-    <!-- Kodowanie strony internetowej -->
-    <meta charset="UTF-8">
+{% from "form_helper.html" import displayField %}
 
-    <!-- Coś co powoduje, że strona działa na Internet Explorer -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "base.html" %}
 
-    <!-- Podpięcie pliku formataującego wygląd strony -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+{% block title %}Home{% endblock %}
 
-    <!-- Tytuł strony internetowej -->
-    <title>Guess The Song - Home</title>
-</head>
-<body>
+{% block content %}
 
-    <div id="container" >
-        <form>
-            <label for="nickname">Podaj nazwę gracza:</label>
-            <input type="text" name="nickname" id="nickname" placeholder="CoolNickname3443">
-            <input type="submit" value="START">
-        </form>
-        <form method="POST">
-            <label for="link">Podaj link do utworu:</label>
-            <input type="text" name="link" id="link" placeholder="https://youtu.be/dQw4w9WgXcQ?si=YbzpKWlAu9btoQkZ">
-            <input type="submit" value="PLAY">
-        </form>
-    </div>
+    <!-- <h2>Login now!</h2> -->
+    <p>Create new game</p>
+    <form method="POST">
 
-    
-    <script
-      type="text/javascript"
-      src="{{ url_for('static', filename='index.js') }}"
-    ></script>
+        {{ displayField(creating_game.username, 'Username', autocomplete="off", autofocus=true) }}
 
-</body>
-</html>
+        <div>
+            {{ creating_game.submit_new_game }}
+        </div>
+
+        {{ creating_game.csrf_token }}
+
+    </form>
+
+{% endblock %}

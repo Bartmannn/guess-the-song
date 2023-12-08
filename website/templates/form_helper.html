@@ -1,0 +1,11 @@
+{% macro displayField(fieldName, placeholderValue) %}
+
+<div>
+    {{ fieldName(
+        class_="form-control",
+        placeholder=placeholderValue,
+        **kwargs
+    ) }}
+</div>
+
+{% endmacro %}
