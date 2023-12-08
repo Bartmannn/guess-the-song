@@ -27,11 +27,13 @@ def leave(data):
     list_players(data["room"])
 
 @socketio.on('request_audio')
-def handle_request_audio():
-    audio_path = "./website/static/music/Armaty.mp3" # url_for("static", "music/Armaty.mp3")
+def handle_request_audio(data):
+    musics_folder = "./website/static/music/"
+    songs_titles = ["Armaty.mp3", "Enough.mp3", "Początek.mp3", "Świt.mp3", "Venger.mp3", "Write This Down.mp3", "Wroclove.mp3"]
+    audio_path = "{0}{1}".format(musics_folder, songs_titles[data["round"]%len(songs_titles)]) # TODO: TYMCZASOWE ROZWIĄZANIE!
     with open(audio_path, 'rb') as audio_file:
         audio_data = audio_file.read()
-        socketio.emit('stream_audio', {'audio_data': audio_data})
+        socketio.emit('stream_audio', {'audio_data': audio_data}, room=data["room"])
 
 @socketio.on("list_players")
 def list_players(code):
@@ -39,7 +41,7 @@ def list_players(code):
     users_room = User_Room.query.filter_by(room_id=game.id).all()
     ids = [con.user_id for con in users_room]
     usernames = [User.query.filter_by(id=id).first().username for id in ids]
-    socketio.emit("list_players", {"players": usernames, "code": code})
+    socketio.emit("list_players", {"players": usernames}, room=code)
     print(f"\n{code}\n{game}\n{users_room}\n{ids}\n{usernames}\n");
     if len(usernames) == 0:
         Room.query.filter_by(invitation_link=code).delete()

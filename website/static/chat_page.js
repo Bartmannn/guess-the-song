@@ -7,4 +7,5 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelector("#send_message").click();
         }
     })
+
 });

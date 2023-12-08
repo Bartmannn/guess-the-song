@@ -17,7 +17,7 @@
 </head>
 <body>
 
-    <h1>Room: {{ room_name }}</h1>
+    <h1>Room: {{ room_name }} - <span id="current_round"></span></h1>
 
     <div class="game_room">
         <div class="players">
@@ -27,7 +27,7 @@
         </div>
     
         <div class="game_board">
-            <audio id="audioPlayer" controls>
+            <audio id="audioPlayer" autoplay>
                 <source src="" type="audio/mpeg" id="audioSource">
             </audio>
         </div>
@@ -44,6 +44,8 @@
     
     <textarea id="inviteLink" style="display: none;">{{ inviteLink }}</textarea>
     <input type="button" id="copyToClipboard" value="Copy invite link to clipboard">
+
+    <input type="button" id="next_round_button" value="Next round">
     
     <script
       type="text/javascript"
