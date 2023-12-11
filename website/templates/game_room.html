@@ -27,7 +27,16 @@
         </div>
     
     <div id="room_content">
+        <select name='songs' id='songs'>
+            <option value='popular'>Utwory popularne w Polsce</option>
+            <option value='all'>Wszystko</option>
+            <option value='films'>Filmy</option>
+            <option value='games'>Gry</option>
+        </select>
 
+        <audio id='audioPlayer' autoplay style="display: none;">
+            <source src='' type='audio/mpeg' id='audioSource'>
+        </audio>
     </div>
     
         <div class="chat">
@@ -43,7 +52,8 @@
     <input type="button" id="copyToClipboard" onclick="copy_invite_link()" value="Invite">
     <span id="copy_result" style="display:none; font-size: 0.5rem; opacity: 0.8; color: black;">Link copied!</span>
 
-    <input type="button" id="next_round_button" value="Start">
+    <input type="button" id="start_game_button" value="Start">
+    <input type="button" id="next_round_button" value="Next">
     
 
     <!-- giving some variables to scripts -->
