@@ -17,7 +17,7 @@
 </head>
 <body>
 
-    <h1>Room: {{ room_name }} - <span id="current_round"></span></h1>
+    <h1>Room: {{ room_name }}</h1>
 
     <div class="game_room">
         <div class="players">
@@ -26,11 +26,9 @@
             </ol>
         </div>
     
-        <div class="game_board">
-            <audio id="audioPlayer" autoplay>
-                <source src="" type="audio/mpeg" id="audioSource">
-            </audio>
-        </div>
+    <div id="room_content">
+
+    </div>
     
         <div class="chat">
             <p>Messages</p>
@@ -42,24 +40,45 @@
         </div>
     </div>
     
-    <textarea id="inviteLink" style="display: none;">{{ inviteLink }}</textarea>
-    <input type="button" id="copyToClipboard" value="Copy invite link to clipboard">
+    <input type="button" id="copyToClipboard" onclick="copy_invite_link()" value="Invite">
+    <span id="copy_result" style="display:none; font-size: 0.5rem; opacity: 0.8; color: black;">Link copied!</span>
 
-    <input type="button" id="next_round_button" value="Next round">
+    <input type="button" id="next_round_button" value="Start">
     
-    <script
-      type="text/javascript"
-      src="{{ url_for('static', filename='index.js') }}"
-    ></script>
 
-    <!-- socketIO JS -->
+    <!-- giving some variables to scripts -->
     <script type="text/javascript">
         const username = `{{ username }}`;
         const room_name = `{{ room_name }}`;
         const code = `{{ code }}`;   
+        const invite_link = `{{ invite_link }}`;
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='socketio.js') }}"></script>
-    <script src="{{ url_for('static', filename='chat_page.js')}}"></script>
+
+    <!-- content loader -->
+    <script 
+        type="text/javascript"
+        src="{{ url_for('static', filename='scripts/content_loader.js') }}"
+    ></script>
+
+    <!-- some functionalities to elements -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='scripts/index.js') }}"
+    ></script>
+
+    <!-- socketIO JS -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+        integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+        crossorigin="anonymous"
+    ></script>
+    <script
+        src="{{ url_for('static', filename='scripts/socketio.js') }}"
+    ></script>
+
+    <!-- better chat  -->
+    <script
+        src="{{ url_for('static', filename='scripts/chat_page.js')}}"
+    ></script>
 </body>
 </html>

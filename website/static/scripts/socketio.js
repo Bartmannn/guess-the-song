@@ -28,7 +28,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     socket.on('stream_audio', function(data) {
         current_round += 1;
-        document.querySelector("#current_round").innerHTML = current_round + ". round";
+        if (current_round % 10 == 0) {
+            document.getElementById("room_content").innerHTML = config;
+            document.getElementById("start_game_button").style.display = "block";
+            document.getElementById("next_round_button").style.display = "none";
+            return;
+        }
+        // document.querySelector("#current_round").innerHTML = current_round + ". round";
+        printSysMsg(current_round + ". round")
 
         var audioSource = document.getElementById('audioSource');
 
