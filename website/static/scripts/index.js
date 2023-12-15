@@ -17,12 +17,3 @@ startButton.onclick = function() {
     mediaPlayer.style.display = "block";
 }
 
-// copyButton.onclick = function() {
-//     // var copyText = document.getElementById("inviteLink").textContent;
-//     alert("COPY:", invite_link);
-//     // TODO: POPRAWIĆ TO!
-//     navigator.clipboard.writeText(invite_link);
-//     // navigator.clipboard.writeText(inviteLink);
-//     document.getElementById("copy_result").style.display = "block";
-// }
-
