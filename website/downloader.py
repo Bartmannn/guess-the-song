@@ -39,6 +39,32 @@ def remove_numbering(text: str, numbering_char: str) -> str:
 def cut_by_string(text: str, divider: str) -> str:
     return text.split(divider)[0]
 
+def format_text(text: str) -> str:
+    if text == "" or text is None:
+        return ""
+
+    text = remove_between_chars(text, "(", ")")
+    text = remove_between_chars(text, "[", "]")
+    text = remove_between_chars(text, "{", "}")
+    text = remove_icons(text)
+    text = remove_numbering(text, "No.")
+    text = remove_numbering(text, "#")
+
+    # tutaj problem z nazwami utworów z " - " takim patternem
+    text = text.split(" - ")[-1]
+    text = text.split(" – ")[-1]
+
+
+    text = cut_by_string(text, " ft.")
+    text = cut_by_string(text, " feat")
+    text = cut_by_string(text, " | ")
+    text = text.replace(" Official Video", "")
+
+    if text[-1] == " ":
+        text = text[:-1]
+    
+    return text
+
 def get_basic_info(url: str) -> (str, int):
 
     # powinienem to jeszcze rozszerzyć o pobieranie tego pliku itd.abs
@@ -57,25 +83,27 @@ def get_basic_info(url: str) -> (str, int):
         video_title = info_dict.get("title", None)
         video_duration = info_dict.get("duration", None)
 
-    video_title = remove_between_chars(video_title, "(", ")")
-    video_title = remove_between_chars(video_title, "[", "]")
-    video_title = remove_between_chars(video_title, "{", "}")
-    video_title = remove_icons(video_title)
-    video_title = remove_numbering(video_title, "No.")
-    video_title = remove_numbering(video_title, "#")
+    # video_title = remove_between_chars(video_title, "(", ")")
+    # video_title = remove_between_chars(video_title, "[", "]")
+    # video_title = remove_between_chars(video_title, "{", "}")
+    # video_title = remove_icons(video_title)
+    # video_title = remove_numbering(video_title, "No.")
+    # video_title = remove_numbering(video_title, "#")
 
-    # tutaj problem z nazwami utworów z " - " takim patternem
-    video_title = video_title.split(" - ")[-1]
-    video_title = video_title.split(" – ")[-1]
+    # # tutaj problem z nazwami utworów z " - " takim patternem
+    # video_title = video_title.split(" - ")[-1]
+    # video_title = video_title.split(" – ")[-1]
 
 
-    video_title = cut_by_string(video_title, " ft.")
-    video_title = cut_by_string(video_title, " feat")
-    video_title = cut_by_string(video_title, " | ")
-    video_title = video_title.replace(" Official Video", "")
+    # video_title = cut_by_string(video_title, " ft.")
+    # video_title = cut_by_string(video_title, " feat")
+    # video_title = cut_by_string(video_title, " | ")
+    # video_title = video_title.replace(" Official Video", "")
 
-    if video_title[-1] == " ":
-        video_title = video_title[:-1]
+    # if video_title[-1] == " ":
+    #     video_title = video_title[:-1]
+
+    video_title = format_text(video_title)
 
     return video_title, int(video_duration)
 
@@ -209,35 +237,109 @@ def download_music(URLs: list, extention: str, dest_path:str, duration: int = DU
         titles.append(audio_title)
 
     return titles
+
+def test(links: str):
+    from yt_dlp import YoutubeDL
+
+    options = {
+        "quiet": True,
+        "no-warnings": True,
+    }
+
+    for link in links:
+        with YoutubeDL(options) as ydl:
+            info_dict = ydl.extract_info(link, download=True)
+            album = info_dict.get("album")
+            artist = info_dict.get("artist")
+            track = info_dict.get("track")
+            print(album, artist, track)
     
+def test_download(links):
+    
+    from yt_dlp import YoutubeDL
+    from yt_dlp.utils import download_range_func
+    from random import randint
+
+    start_time = 10
+    end_time = 20
+
+    info_options = {
+        "quiet": True,
+    }
+
+    for link in links:
+        with YoutubeDL(info_options) as ydl:
+            info_dict = ydl.extract_info(link, download=False)
+            album = format_text(info_dict.get("album"))
+            artist = format_text(info_dict.get("artist"))
+            track = format_text(info_dict.get("track"))
+            duration = info_dict.get("duration")
+            start_time = randint(0, duration-15)
+            end_time = start_time + 15
+
+        download_options = {
+            "quiet": True,
+            'format': 'mp3/bestaudio/best',
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': 'mp3',
+            }],
+            "verbose": True,
+            "download_ranges": download_range_func(None, [(start_time, end_time)]),
+            "force_keyframes_at_cuts": True,
+            "outtmpl": f"{artist} - {track} - {album}",
+        }
+
+        with YoutubeDL(download_options) as ydl:
+            ydl.download(link)
+
+def get_links(path_file):
+
+    links = []
+
+    with open(path_file, "r") as file:
+        for line in file.readlines()[:-1]:
+            links.append(line.replace("\n", ""))
+    
+    return links
 
 if __name__ == "__main__":
 
-    URLs = [
-        "https://youtu.be/dBHj3m96LpI?si=pu7KSPBGMEpTaOWx",
-        "https://youtu.be/kPM8WktA7Kk?si=gNeH9flApCXzklws",
-        "https://youtu.be/sMIMn9_nFpo?si=amEPleJf02esif_s",
-        "https://youtu.be/QRxH-II0OsA?si=XHQdx__rT1OCYTiB",
-        "https://youtu.be/uG1ls8fbVN0?si=Mjy4npcPD4b5bWOa",
-        "https://youtu.be/WbnHutA1u_0?si=uVfaiVSSRlNKQFJn",
-        "https://youtu.be/dBHj3m96LpI?si=dHN2AenV42n4k853",
-        "https://youtu.be/WDQW08NbKGI?si=7_tOLmEXymnVrVCq"
-    ]
+    # yt-dlp --flat-playlist -i --print-to-file url file.txt "playlist-url"
 
-    for url in URLs:
+    urls = get_links(".\\modern.txt")
+    # print(urls)
+    test_download(urls)
 
-        audio_title, audio_length = get_basic_info(url=url)
-        relative_path = f"{DEST_PATH}{audio_title}.{EXTENTION}"
 
-        # cała zabawa zaczyna się w tej funkcji
-        download_audio_section(
-            url,
-            DEST_PATH,
-            audio_title,
-            EXTENTION,
-            audio_length,
-            DURATION
-        )
+
+
+
+    # URLs = [
+    #     "https://youtu.be/dBHj3m96LpI?si=pu7KSPBGMEpTaOWx",
+    #     "https://youtu.be/kPM8WktA7Kk?si=gNeH9flApCXzklws",
+    #     "https://youtu.be/sMIMn9_nFpo?si=amEPleJf02esif_s",
+    #     "https://youtu.be/QRxH-II0OsA?si=XHQdx__rT1OCYTiB",
+    #     "https://youtu.be/uG1ls8fbVN0?si=Mjy4npcPD4b5bWOa",
+    #     "https://youtu.be/WbnHutA1u_0?si=uVfaiVSSRlNKQFJn",
+    #     "https://youtu.be/dBHj3m96LpI?si=dHN2AenV42n4k853",
+    #     "https://youtu.be/WDQW08NbKGI?si=7_tOLmEXymnVrVCq"
+    # ]
+
+    # for url in URLs:
+
+    #     audio_title, audio_length = get_basic_info(url=url)
+    #     relative_path = f"{DEST_PATH}{audio_title}.{EXTENTION}"
+
+    #     # cała zabawa zaczyna się w tej funkcji
+    #     download_audio_section(
+    #         url,
+    #         DEST_PATH,
+    #         audio_title,
+    #         EXTENTION,
+    #         audio_length,
+    #         DURATION
+    #     )
 
         # play_audio(relative_path)
 
