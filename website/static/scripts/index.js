@@ -1,19 +1,28 @@
-// copyButton = document.getElementById("copyToClipboard");
-startButton = document.getElementById("start_game_button");
-nextButton = document.getElementById("next_round_button");
-songsChoices = document.getElementById("songs");
-mediaPlayer = document.getElementById("audioPlayer");
+// var startButton = document.getElementById("start_game_button");
+// var nextButton = document.getElementById("next_round_button");
+// var songsChoices = document.getElementById("songs");
+// var mediaPlayer = document.getElementById("audioPlayer");
+// var cathegory = ""
 
 function copy(text) {
-    // alert(text);
     navigator.clipboard.writeText(text);
 }
 
-startButton.onclick = function() {
-    startButton.style.display = "none";
-    nextButton.style.display = "block";
+// startButton.onclick = () => {
+//     console.log("CLI")
 
-    songsChoices.style.display = "none";
-    mediaPlayer.style.display = "block";
-}
+    // startButton.style.display = "none";
+    // nextButton.style.display = "block";
+
+    // songsChoices.style.display = "none";
+    // mediaPlayer.style.display = "block";
+
+//     cathegory = document.getElementById("songs").value
+// }
+
+// if (is_admin) {
+//     startButton.disabled = true
+// } else if (!is_admin) {
+//     startButton.disabled = false
+// }
 
