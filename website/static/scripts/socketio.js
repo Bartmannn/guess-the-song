@@ -1,6 +1,6 @@
 var startButton = document.getElementById("start_game_button");
 var nextButton = document.getElementById("next_round_button");
-var songsChoices = document.getElementById("songs");
+var songsChoice = document.getElementById("songs");
 var mediaPlayer = document.getElementById("audioPlayer");
 console.log(mediaPlayer)
 var cathegory = "";
@@ -86,8 +86,10 @@ document.addEventListener("DOMContentLoaded", () => {
         startButton.style.display = "none";
         nextButton.style.display = "block";
 
-        songsChoices.style.display = "none";
+        songsChoice.style.display = "none";
         mediaPlayer.style.display = "block";
+
+        cathegory = songsChoice.value
 
         socket.emit('request_audio', {"room": room_name, "round": current_round, "cathegory": cathegory});
     }
