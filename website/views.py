@@ -18,7 +18,6 @@ def load_user(id):
 def home():
 
     new_game_form = CreatingGameForm()
-    # joining_form = JoiningGameForm()
 
     if new_game_form.submit_new_game.data and new_game_form.validate():
         print("New Game", file=sys.stderr)
@@ -27,7 +26,6 @@ def home():
         user = User(username=username, is_admin=True)
         db.session.add(user)
 
-        # invitation_link = HOST_URL
         server_id = ""
         for i in range(15):
             match randint(0, 2):
@@ -49,37 +47,19 @@ def home():
         db.session.commit()
 
         login_user(user)
-        return redirect(url_for("views.new_game", game_id=server_id))
-
-    # if joining_form.submit_joining_game.data and joining_form.validate():
-    #     print("Joining Game", file=sys.stderr)
-    #     username = joining_form.username.data
-    #     link = joining_form.link.data
-
-    #     user = User(username=username, is_admin=False)
-    #     db.session.add(user)
-
-    #     room = Room.query.filter_by(invitation_link=link).first()
-    #     if room == None:
-    #         return "Game does not exist"
-
-    #     relation = User_Room(room_id=room.id, user_id=user.id)
-    #     db.session.add(relation)
-    #     db.session.commit()
-
-    #     login_user(user)
-    #     return redirect(url_for("views.new_game", game_id=link[-15::]))
+        return redirect(url_for("views.new_game", game_id=server_id, is_admin=True))
 
     return render_template("index.html", creating_game=new_game_form)
 
 @views.route("/<game_id>", methods=["GET", "POST"])
 def new_game(game_id):
     if current_user.is_authenticated:
-        return render_template("game_room.html", room_name=game_id, invite_link=HOST_URL+game_id, code=game_id, username=current_user.username)
+        is_admin = User.query.filter_by(id=current_user.id).first().is_admin
+        print(is_admin)
+        return render_template("game_room.html", room_name=game_id, invite_link=HOST_URL+game_id, code=game_id, username=current_user.username, is_admin=is_admin)
 
     joining_form = JoiningGameForm()
     if joining_form.submit_joining_game.data and joining_form.validate():
-        # print("Joining Game", file=sys.stderr)
         username = joining_form.username.data
         code = joining_form.link.data
 
@@ -99,23 +79,3 @@ def new_game(game_id):
 
     return render_template("log_to_room.html", room_name=game_id, joining_game=joining_form)
     
-
-    
-
-# @views.route("/mp3")
-# def streamp3():
-
-#     links = request.args["link"]
-#     links = links.replace(" ", "").split(",")
-#     dest_path = "./website/static/music/"
-#     ext = "mp3"
-#     titles = download_music(links, ext, dest_path, 15)
-    
-#     def generate(path=dest_path, titles=titles, ext=ext):
-#         for title in titles:
-#             with open(f"{path}{title}.{ext}", "rb") as fmp3:
-#                 data = fmp3.read(1024)
-#                 while data:
-#                     yield data
-#                     data = fmp3.read(1024)
-#     return Response(generate(), mimetype="audio/mp3")
