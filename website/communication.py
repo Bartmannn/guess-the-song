@@ -50,6 +50,7 @@ def handle_request_audio(data):
     
     songs_titles = get_titles(musics_folder.replace("/", "\\")) # Auto branie utworów z pliq
     audio_path = "{0}{1}".format(musics_folder, songs_titles[data["round"]%len(songs_titles)]) # TODO: TYMCZASOWE ROZWIĄZANIE!
+    game_states[data['room']].set_songs = get_titles(musics_folder.replace("/", "\\"))
     with open(audio_path, 'rb') as audio_file:
         audio_data = audio_file.read()
         socketio.emit('stream_audio', {'audio_data': audio_data}, room=data["room"])
