@@ -1,12 +1,24 @@
+var startButton = document.getElementById("start_game_button");
+var nextButton = document.getElementById("next_round_button");
+var songsChoice = document.getElementById("songs");
+var mediaPlayer = document.getElementById("audioPlayer");
+console.log(mediaPlayer)
+var cathegory = "";
+
 document.addEventListener("DOMContentLoaded", () => {
     var socket = io();
+
+    if (is_admin) {
+        startButton.disabled = false;
+    } else if (!is_admin) {
+        startButton.disabled = true;
+    }
     
-    current_round = -1;
+    current_round = 0;
     joinRoom(room_name);
-    socket.emit('request_audio', {"room": room_name, "round": current_round});
+    var audioPlayer = document.getElementById("audioPlayer");
     socket.emit("list_players", code);
-    var audioPlayer = document.getElementById("audioPlayer")
-    printSysMsg("To start click \"Next round\" button.")
+    printSysMsg("To start click \"Next round\" button.");
 
     // Display messages
     socket.on("message", data => {
@@ -28,14 +40,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     socket.on('stream_audio', function(data) {
         current_round += 1;
-        document.querySelector("#current_round").innerHTML = current_round + ". round";
+        if (current_round % 10 == 0) {
+            startButton.style.display = "block";
+            nextButton.style.display = "none";
+
+            songsChoices.style.display = "block";
+            audioPlayer.style.display = "none";
+            return;
+        }
+        // document.querySelector("#current_round").innerHTML = current_round + ". round";
+        printSysMsg(current_round + ". round");
 
         var audioSource = document.getElementById('audioSource');
 
         var blob = new Blob([data.audio_data], { type: 'audio/mpeg' });
         var url = URL.createObjectURL(blob);
 
-        audioPlayer.currentTime += 15
+        audioPlayer.currentTime += 15;
         audioSource.src = url;
         audioPlayer.load();
     });
@@ -58,7 +79,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     document.querySelector("#next_round_button").onclick = () => {
-        socket.emit("request_audio", {"room": room_name, "round": current_round});
+        socket.emit("request_audio", {"room": room_name, "round": current_round, "cathegory": cathegory});
+    }
+
+    startButton.onclick = () => {
+        startButton.style.display = "none";
+        nextButton.style.display = "block";
+
+        songsChoice.style.display = "none";
+        mediaPlayer.style.display = "block";
+
+        cathegory = songsChoice.value
+
+        socket.emit('request_audio', {"room": room_name, "round": current_round, "cathegory": cathegory});
     }
 
     // Leave room
