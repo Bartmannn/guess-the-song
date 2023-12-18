@@ -1,56 +1,58 @@
-Game of thrones
-gladiator
-interstellar
-helikopter w ogniu
-szklana pułapka
-django
-transporter
-taksówkarz
-baby driver
-sharknado
-piła
-jak wytresować smoka
-harry potter
-shrek
-forest gump
-skazani na shawshank
-American sniper
-Nietykalni
-Zielona mila
-Ojciec chrzestny
-Zmierzch
-Władca pierścieni
-Włatcy much
-Pulp fiction
-Siedem
-Avatar
-Pianista
-Joker
-Podziemny krąg
-Piękny umysł
-Incepcja
-Transformers
-Gran torino
-Matrix
-Coco
-Król lew
-Wyspa tajemnic
-Madagaskar
-Leon zawodowiec
-Green Book
-Dzień świra
-Symetria
-Szeregowiec Rayman
-Braveheart
-Chłopiec w pasiastej piżamie
-Kunfu panda
-Szczęki
-Czas apokalipsy
-Buntownik z wyboru
-Przełęcz ocalonych
-Prestiż
-Hobbit
-Avengers
+Game of thrones #
+gladiator ##
+interstellar #
+helikopter w ogniu #
+szklana pułapka #
+django #
+transporter #
+taksówkarz #
+baby driver #
+sharknado #
+piła #
+jak wytresować smoka #
+harry potter  #
+shrek  #
+forest gump ?
+skazani na shawshank ?
+American sniper ?
+Nietykalni - ciężko o odpowiedni ost
+Zielona mila #
+Ojciec chrzestny ?
+Zmierzch ?
+Władca pierścieni #
+Włatcy much ?
+Pulp fiction ?
+Siedem ?
+Avatar #
+Pianista # 
+Joker #
+Podziemny krąg #
+samurai jack  #
+Piękny umysł #
+Incepcja #
+Transformers #
+Gran torino #
+Lalaland #
+Matrix #
+Coco #
+Król lew # 
+Wyspa tajemnic ?
+Madagaskar #
+Leon zawodowiec ?
+Green Book #
+Dzień świra ?
+Symetria ?
+Szeregowiec Rayman #
+Braveheart #
+Chłopiec w pasiastej piżamie ?
+Kunfu panda #
+Szczęki #
+Czas apokalipsy ?
+Buntownik z wyboru #
+Przełęcz ocalonych #
+Prestiż # 
+Hobbit #
+Avengers #
 Dobry, zły i brzydki
 300
 Mroczny rycerz

@@ -10,9 +10,10 @@ def get_titles(path: str) -> list:
     from os import listdir
     res = listdir(path)
     titles = []
+    print(res)
     for title in res:
-        print(title.split("."))
-        if title.split(".")[1] == "mp3":
+        print(title, " ", title.split("."))
+        if "mp3" in title.split("."):
             titles.append(title)
     # titles = [title in title in res]
     return titles
@@ -41,8 +42,8 @@ def leave(data):
 @socketio.on('request_audio')
 def handle_request_audio(data):
     musics_folder = f"./website/static/music/{data['cathegory']}/"
-    print(musics_folder)
     # songs_titles = ["Armaty.mp3", "Enough.mp3", "Początek.mp3", "Świt.mp3", "Venger.mp3", "Write This Down.mp3", "Wroclove.mp3"]
+    
     songs_titles = get_titles(musics_folder.replace("/", "\\")) # Auto branie utworów z pliq
     audio_path = "{0}{1}".format(musics_folder, songs_titles[data["round"]%len(songs_titles)]) # TODO: TYMCZASOWE ROZWIĄZANIE!
     with open(audio_path, 'rb') as audio_file:
@@ -56,7 +57,7 @@ def list_players(code):
     ids = [con.user_id for con in users_room]
     usernames = [User.query.filter_by(id=id).first().username for id in ids]
     socketio.emit("list_players", {"players": usernames}, room=code)
-    print(f"\n{code}\n{game}\n{users_room}\n{ids}\n{usernames}\n");
+    print(f"\n{code}\n{game}\n{users_room}\n{ids}\n{usernames}\n")
     if len(usernames) == 0:
         Room.query.filter_by(invitation_link=code).delete()
         db.session.commit()
