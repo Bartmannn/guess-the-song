@@ -110,3 +110,34 @@ img {
 h3 {
     margin: 5px 0;
 }
+
+/* Ustawienia dla widoku mobilnego */
+@media only screen and (max-width: 600px) {
+    body {
+        font-size: 1rem;
+    }
+
+    input {
+        width: 80%;
+        margin: 5px 0;
+    }
+
+    #container {
+        flex-direction: column;
+    }
+
+    .game_room {
+        flex-direction: column;
+        width: 90vw;
+    }
+
+    .game_room .chat {
+        width: 80vw;
+    }
+
+    input[type="button"] {
+        width: 80%;
+        height: 40px;
+        font-size: medium;
+    }
+}
