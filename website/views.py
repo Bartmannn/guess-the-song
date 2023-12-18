@@ -97,20 +97,8 @@ def new_game(game_id):
         login_user(user)
         return redirect(url_for("views.new_game", game_id=code))
 
-<<<<<<< HEAD
     return render_template("log_to_room.html", room_name=game_id, joining_game=joining_form)
     
-=======
-    return render_template("index.html", creating_game=new_game_form, joining_game=joining_form)
-
-@views.route("/<game_id>", methods=["GET", "POST"])
-def new_game(game_id):
-    if current_user == None:
-        joining_form_from_link = JoiningGameFromLinkForm
-        return render_template("log_to_room.html", room_name=game_id, joining_game=joining_form_from_link)
-    else:
-        return render_template("game_room.html", room_name=game_id, invite_link=HOST_URL+game_id, username=current_user.username)
->>>>>>> 8bc4a76 (Dołączanie bezpośrednio z linku, podejscie 1)
 
     
 
