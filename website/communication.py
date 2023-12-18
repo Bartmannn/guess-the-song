@@ -3,7 +3,7 @@ from flask_login import logout_user, current_user
 from .models import User, User_Room, db
 from flask import url_for
 from .models import *
-
+from views import game_states
 socketio = SocketIO()
 
 def get_titles(path: str) -> list:
@@ -22,6 +22,10 @@ def get_titles(path: str) -> list:
 @socketio.on("message")
 def message(data):
     print(f"\n\n{data}\n\n")
+    if game_states[data["room"]].check_song(int(data["round"]), data["msg"]):
+        print("zgadłes!!!!!")
+    else:
+        print("niezgadles ;((")
     send({"msg": data["msg"], "username": data["username"]}, room=data["room"])
 
 @socketio.on("join")
