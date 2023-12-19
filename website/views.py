@@ -6,11 +6,9 @@ from .consts import HOST_URL
 from random import randint
 from flask_login import LoginManager, login_user, current_user, login_required, logout_user
 import sys
-from game_manager import Game_manager
+from .game_manager import GameManager
 views = Blueprint("views", __name__)
 login  = LoginManager()
-
-game_states = {}
 
 @login.user_loader
 def load_user(id):
@@ -47,8 +45,6 @@ def home():
         db.session.add(relation)
 
         db.session.commit()
-        
-        game_states[server_id] = Game_manager(server_id)
 
         login_user(user)
         return redirect(url_for("views.new_game", game_id=server_id, is_admin=True))

@@ -40,14 +40,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     socket.on('stream_audio', function(data) {
         current_round += 1;
-        if (current_round % 10 == 0) {
-            startButton.style.display = "block";
-            nextButton.style.display = "none";
+        // if (current_round % 10 == 0) {
+        //     startButton.style.display = "block";
+        //     nextButton.style.display = "none";
 
-            songsChoices.style.display = "block";
-            audioPlayer.style.display = "none";
-            return;
-        }
+        //     songsChoices.style.display = "block";
+        //     audioPlayer.style.display = "none";
+        //     return;
+        // }
         // document.querySelector("#current_round").innerHTML = current_round + ". round";
         printSysMsg(current_round + ". round");
 
@@ -72,6 +72,30 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    socket.on("server_info", data => {
+        printSysMsg(data["msg"]);
+    });
+
+    socket.on("start_game", () => {
+        startButton.style.display = "none";
+        nextButton.style.display = "block";
+
+        songsChoice.style.display = "none";
+        mediaPlayer.style.display = "block";
+
+        printSysMsg("Gra rozpoczęta!");
+    });
+
+    socket.on("game_over", () => {
+        startButton.style.display = "block";
+        nextButton.style.display = "none";
+
+        songsChoice.style.display = "block";
+        mediaPlayer.style.display = "none";
+
+        printSysMsg("Gra zakończona!");
+    });
+
     // Send message
     document.querySelector("#send_message").onclick = () => {
         socket.send({"msg": document.querySelector("#user_message").value, "username": username, "room": room_name});
@@ -79,24 +103,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     document.querySelector("#next_round_button").onclick = () => {
-        socket.emit("request_audio", {"room": room_name, "round": current_round, "cathegory": cathegory});
+        socket.emit("request_audio", {"room": room_name, "round": current_round});
     }
 
     startButton.onclick = () => {
-        startButton.style.display = "none";
-        nextButton.style.display = "block";
-
-        songsChoice.style.display = "none";
-        mediaPlayer.style.display = "block";
-
         cathegory = songsChoice.value
-
-        socket.emit('request_audio', {"room": room_name, "round": current_round, "cathegory": cathegory});
+        socket.emit('start', {"room": room_name, "cathegory": cathegory});
     }
 
     // Leave room
     function leaveRoom(room) {
-        // socket.emit("leave", {"username": username, "room": room});
+        socket.emit("leave", {"username": username, "room": room});
     }
 
     // Join room
@@ -111,8 +128,8 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#messages_area").append(p);
     }
 
-    window.onbeforeunload = function() {
-        leaveRoom(code);
-    }
+    // window.onbeforeunload = function() {
+    //     leaveRoom(code);
+    // }
 
 });
