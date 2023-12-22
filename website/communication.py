@@ -42,13 +42,16 @@ def start(data):
     game_states[data['room']] = GameManager(data["room"])
     game_states[data['room']].set_cathegory(data["cathegory"])
     emit("start_game", room=data["room"])
+    emit("server_info", {"msg": "Gra rozpoczęta!"}, room=data["room"])
+    request_audio(data)
 
 @socketio.on('request_audio')
-def handle_request_audio(data):
+def request_audio(data):
     next_song = game_states[data['room']].next_song()
     if next_song == None:
         emit("game_over", room=data["room"])
     else:
+        socketio.emit("server_info", {"msg": f"Runda: {game_states[data['room']].round+1}"}, room=data["room"])
         with open(next_song, 'rb') as audio_file:
             audio_data = audio_file.read()  
             socketio.emit('stream_audio', {'audio_data': audio_data}, room=data["room"])
