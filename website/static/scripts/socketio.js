@@ -99,8 +99,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         songsChoice.style.display = "block";
         mediaPlayer.style.display = "none";
-
-        printSysMsg("Gra zakończona!");
     });
 
     // Send message

@@ -3,10 +3,18 @@
 // var songsChoices = document.getElementById("songs");
 // var mediaPlayer = document.getElementById("audioPlayer");
 // var cathegory = ""
+var copyButton = document.getElementById("copyToClipboard")
 
-function copy(text) {
-    navigator.clipboard.writeText(text);
+copyButton.onclick = () => {
+    var copyText = document.getElementById("invite_link");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(copyText.value);
 }
+
+// function copy(text) {
+//     navigator.clipboard.writeText(text);
+// }
 
 // startButton.onclick = () => {
 //     console.log("CLI")

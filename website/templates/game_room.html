@@ -51,8 +51,9 @@
 
     </div>
     
-    <input type="button" id="copyToClipboard" onclick="copy_invite_link()" value="Invite">
+    <input type="button" id="copyToClipboard" value="Invite">
     <span id="copy_result" style="display:none; font-size: 0.5rem; opacity: 0.8; color: black;">Link copied!</span>
+    <input type="text" id="invite_link" value="{{ invite_link }}" style="display: none;">
 
     <input type="button" id="start_game_button" value="Start">
     <input type="button" id="next_round_button" value="Next" style="display: none;">

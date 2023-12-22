@@ -50,6 +50,7 @@ def request_audio(data):
     next_song = game_states[data['room']].next_song()
     if next_song == None:
         emit("game_over", room=data["room"])
+        emit("server_info", {"msg"})
     else:
         socketio.emit("server_info", {"msg": f"Runda: {game_states[data['room']].round+1}"}, room=data["room"])
         with open(next_song, 'rb') as audio_file:
