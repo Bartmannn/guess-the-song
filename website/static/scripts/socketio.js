@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     socket.on("message", data => {
         const p = document.createElement("p");
         const span_username = document.createElement("span");
+        var messages = document.querySelector("#messages_area");
 
         span_username.style = "font-size: 1rem; color: darkgrey;";
 
@@ -32,23 +33,24 @@ document.addEventListener("DOMContentLoaded", () => {
         if (data.username) {
             span_username.innerHTML = data.username;
             p.innerHTML = span_username.outerHTML + br.outerHTML + data.msg;
-            document.querySelector("#messages_area").append(p);
+            messages.append(p);
         } else {
             printSysMsg(data.msg);
         }
+
+        console.log(messages.scrollTop + " " + messages.clientHeight + " " + messages.scrollHeight)
+
+        // shouldScroll = messages.scrollTop + messages.clientHeight === messages.scrollHeight;
+        if (messages.scrollTop + messages.clientHeight !== messages.scrollHeight) {
+            // messages.scrollTop = messages.scrollHeight;
+            messages.scrollTop = messages.scrollHeight;
+
+        }
+
     });
 
     socket.on('stream_audio', function(data) {
         current_round += 1;
-        // if (current_round % 10 == 0) {
-        //     startButton.style.display = "block";
-        //     nextButton.style.display = "none";
-
-        //     songsChoices.style.display = "block";
-        //     audioPlayer.style.display = "none";
-        //     return;
-        // }
-        // document.querySelector("#current_round").innerHTML = current_round + ". round";
         printSysMsg(current_round + ". round");
 
         var audioSource = document.getElementById('audioSource');
