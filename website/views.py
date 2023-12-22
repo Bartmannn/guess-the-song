@@ -6,7 +6,7 @@ from .consts import HOST_URL
 from random import randint
 from flask_login import LoginManager, login_user, current_user, login_required, logout_user
 import sys
-
+from .game_manager import GameManager
 views = Blueprint("views", __name__)
 login  = LoginManager()
 
