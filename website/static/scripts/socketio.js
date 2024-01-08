@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Send message
     document.querySelector("#send_message").onclick = () => {
-        socket.send({"msg": document.querySelector("#user_message").value, "username": username, "room": room_name});
+        socket.send({"msg": document.querySelector("#user_message").value, "username": username, "room": room_name, "admin": is_admin});
         document.querySelector("#user_message").value = "";
     }
 

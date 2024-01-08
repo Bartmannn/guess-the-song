@@ -77,7 +77,7 @@ class GameManager:
     def get_points(self):
         results = ""
         for key, value in self.points.items():
-            results += f"{key} : {value} points\n"
+            results += f"{key} : {value} points&#13;"
         return results
 
     def add_player(self, nickname):
