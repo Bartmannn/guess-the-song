@@ -3,26 +3,37 @@ from flask_login import logout_user, current_user
 from .models import User, User_Room, db
 from flask import url_for
 from .models import *
+from .game_manager import GameManager
 
 socketio = SocketIO()
-
-def get_titles(path: str) -> list:
-    from os import listdir
-    res = listdir(path)
-    titles = []
-    print(res)
-    for title in res:
-        print(title, " ", title.split("."))
-        if "mp3" in title.split("."):
-            titles.append(title)
-    # titles = [title in title in res]
-    return titles
+game_states = {}
 
 
 @socketio.on("message")
 def message(data):
-    print(f"\n\n{data}\n\n")
-    send({"msg": data["msg"], "username": data["username"]}, room=data["room"])
+    if data["msg"][0] != "\\":
+        send({"msg": data["msg"], "username": data["username"]}, room=data["room"])
+    else:
+        try:
+            game_manager = game_states[data["room"]]
+        except KeyError:
+            emit("server_info", {"msg": "Game has not been started! Do not guess yet."}, room=data["room"])
+        else:
+            match game_manager.check_song(data["msg"]):
+                case 0:
+                    game_manager.add_point(data["username"])
+                    emit("server_info", {"msg": f"{data['username']} zgadł/zgadła autora!"}, room=data["room"])
+                case 1:
+                    game_manager.add_point(data["username"])
+                    emit("server_info", {"msg": f"{data['username']} zgadł/zgadła tytuł!"}, room=data["room"])
+                case 2:
+                    game_manager.add_point(data["username"])
+                    emit("server_info", {"msg": f"{data['username']} zgadł/zgadła tytuł dzieła, z którego jest utwór!"}, room=data["room"])
+                case 3:
+                    info = game_manager.check_similarity(data["msg"])
+                    if info != None:
+                        emit("server_info", {"msg": info}, room=data["room"])
+
 
 @socketio.on("join")
 def join(data):
@@ -39,16 +50,42 @@ def leave(data):
     send({"msg": data["username"] + " has left the room."}, room=data["room"])
     list_players(data["room"])
 
+@socketio.on("start")
+def start(data):
+    game_states[data['room']] = GameManager(data["room"])
+    game_states[data['room']].set_cathegory(data["cathegory"])
+
+    room_id = Room.query.filter_by(invitation_link=data["room"]).first().id
+    connections = User_Room.query.filter_by(room_id=room_id).all()
+    players_ids = [con.user_id for con in connections]
+    players_nicknames = [User.query.filter_by(id=id).first().username for id in players_ids]
+
+    for nickname in players_nicknames:
+        game_states[data["room"]].add_player(nickname)
+
+    emit("start_game", room=data["room"])
+    emit("server_info", {"msg": "Gra rozpoczęta!"}, room=data["room"])
+    request_audio(data)
+
 @socketio.on('request_audio')
-def handle_request_audio(data):
-    musics_folder = f"./website/static/music/{data['cathegory']}/"
-    # songs_titles = ["Armaty.mp3", "Enough.mp3", "Początek.mp3", "Świt.mp3", "Venger.mp3", "Write This Down.mp3", "Wroclove.mp3"]
-    
-    songs_titles = get_titles(musics_folder.replace("/", "\\")) # Auto branie utworów z pliq
-    audio_path = "{0}{1}".format(musics_folder, songs_titles[data["round"]%len(songs_titles)]) # TODO: TYMCZASOWE ROZWIĄZANIE!
-    with open(audio_path, 'rb') as audio_file:
-        audio_data = audio_file.read()
-        socketio.emit('stream_audio', {'audio_data': audio_data}, room=data["room"])
+def request_audio(data):
+    next_song = game_states[data['room']].next_song()
+    if next_song == None:
+        emit("game_over", room=data["room"])
+        emit("server_info", {"msg":game_states[data["room"]].get_points()})
+    else:
+        socketio.emit("server_info", {"msg": f"Runda: {game_states[data['room']].round+1}"}, room=data["room"])
+        with open(next_song, 'rb') as audio_file:
+            audio_data = audio_file.read()  
+            socketio.emit('stream_audio', {'audio_data': audio_data}, room=data["room"])
+
+@socketio.on("repeat_audio")
+def repeat_audio(data):
+    curr_song = game_states[data["room"]].get_song()
+    socketio.emit("server_info", {"msg": f"Repeating song"}, room=data["room"])
+    with open(curr_song, 'rb') as audio_file:
+            audio_data = audio_file.read()  
+            socketio.emit('stream_audio', {'audio_data': audio_data}, room=data["room"])
 
 @socketio.on("list_players")
 def list_players(code):
@@ -57,7 +94,19 @@ def list_players(code):
     ids = [con.user_id for con in users_room]
     usernames = [User.query.filter_by(id=id).first().username for id in ids]
     socketio.emit("list_players", {"players": usernames}, room=code)
-    print(f"\n{code}\n{game}\n{users_room}\n{ids}\n{usernames}\n")
+
     if len(usernames) == 0:
         Room.query.filter_by(invitation_link=code).delete()
         db.session.commit()
+
+@socketio.on("update_state")
+def update_state(data):
+    state: list
+    try:
+        state = game_states[data["room"]]
+    except KeyError:
+        print("\nGame did not start\n")
+    else:
+        # state.add_player(data["nickname"])
+        socketio.emit("update_state", room=data["room"])
+        repeat_audio(data)

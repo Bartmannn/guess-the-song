@@ -307,7 +307,7 @@ if __name__ == "__main__":
 
     # yt-dlp --flat-playlist -i --print-to-file url file.txt "playlist-url"
 
-    urls = get_links(".\\films.txt")
+    urls = get_links(".\\links.txt")
     # urls = ["https://music.youtube.com/watch?v=6LASz6HAL7E&si=duLuY-Nzb55GDtrv"]
     # print(urls)
     test_download(urls)
