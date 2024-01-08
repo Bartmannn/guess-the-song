@@ -1,50 +1,50 @@
 Mario Bros
 Ultrakill
-Wiedźmin III
+Wiedźmin III #
 Chicken Invaders
-Final Fantasy
+Final Fantasy #
 League Of Legends
-Humankind
-Endless Space
-The Walking Dead
-Wall World
-Yet Another Zombie Survivors
-Dying Light
-Battlefield
-Magicka
-Mortal Kombat
-Rayman Legends
-Road Redemtpion
-Stick Fight: The Game
-Trackamania
-Counter-String
-Europa Universalis IV
-Stellaris
-Middle-earth: shadow of war
-Payday 2
+Humankind #
+Endless Space #
+The Walking Dead #
+Wall World # 
+Yet Another Zombie Survivors #
+Dying Light #
+Battlefield #
+Magicka #
+Mortal Kombat #
+Rayman Legends #
+Road Redemtpion #
+Stick Fight: The Game #
+Trackamania #
+Counter-String #
+Europa Universalis IV #
+Stellaris #
+Middle-earth: shadow of war #
+Payday 2 # 
 Star Wars Battlefront 
 7 Days to Die
-Age of Empires III
+Age of Empires III #
 Borderlands
-Call of Duty
+Call of Duty # 
 Call of Juarez
 Dead Island
 Deep Rock Galactic
-Don't starve together
-The Elder Scrolls V
+Don't starve together #
+The Elder Scrolls V # 
 Factorio
-Far Cry
+Far Cry #
 For Honor
 The Forest
 Dwarf Fortress
 Gothic
 Grid
-Hades
+Hades #
 Just Cause
 Left 4 Dead
-Metal Gear Rising Revengeance
+Metal Gear Rising Revengeance #
 Metro
-Mount and blade
+Mount and blade #
 Saints Row
 Red Orchestra 2
 Shadow Warrior
@@ -52,26 +52,26 @@ Civ VI
 Sleeping dogs
 space engineers
 spore
-Stronghold Crushader
-Team Fortress
-Terraria
-Minecraft
-Titanfall
-Total War
+Stronghold Crushader #
+Team Fortress #
+Terraria #
+Minecraft #
+Titanfall #
+Total War #
 Toy soldiers
-Undertale
-war thunder
-world of tanks
+Undertale #
+war thunder #
+world of tanks 
 war for the overworld
-Dead by daylight
+Dead by daylight #
 GTAV
 The binding of issac
 rainbow six siege
 the evil within
 worms
 stick of truth
-mass effect
-dark souls
+mass effect #
+dark souls 
 inscryption
 ales from the borderlands
 resident evil
@@ -81,7 +81,7 @@ outlast
 for the king
 enemy front
 the wolf among us
-batman
+batman #
 kangurek kao
 sniper elite
 need for speed

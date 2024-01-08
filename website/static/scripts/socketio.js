@@ -8,16 +8,13 @@ var cathegory = "";
 document.addEventListener("DOMContentLoaded", () => {
     var socket = io();
 
-    if (is_admin) {
-        startButton.disabled = false;
-    } else if (!is_admin) {
-        startButton.disabled = true;
-    }
+    joinRoom();
+    // updateState()
 
-    joinRoom(room_name);
     var audioPlayer = document.getElementById("audioPlayer");
-    socket.emit("list_players", code);
+    socket.emit("list_players", room_name);
     printSysMsg("To start click \"Next round\" button.");
+    printSysMsg("To guess song type \"\\<your guess>\" and send.")
 
     // Display messages
     socket.on("message", data => {
@@ -94,11 +91,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     socket.on("game_over", () => {
+        if (audioSource.src[0] != "h") {
+            audioPlayer.currentTime += 15;
+        }
+
         startButton.style.display = "block";
         nextButton.style.display = "none";
 
         songsChoice.style.display = "block";
         mediaPlayer.style.display = "none";
+    });
+
+    socket.on("update_state", () => {
+        startButton.style.display = "none";
+        nextButton.style.display = "block";
+        songsChoice.style.display = "none";
+        mediaPlayer.style.display = "block";
+
+        // socket.emit("update_state")
     });
 
     // Send message
@@ -117,14 +127,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Leave room
-    function leaveRoom(room) {
+    function leaveRoom() {
         socket.emit("leave", {"username": username, "room": room});
     }
 
     // Join room
-    function joinRoom(room) {
-        socket.emit("join", {"username": username, "room": room});
+    function joinRoom() {
+        socket.emit("join", {"username": username, "room": room_name});
+        socket.emit("update_state", {"room": room_name});
     }
+
+    // function getCurrentState() {
+    //     socket.emit("update_state", {"username"})
+    // }
 
     function printSysMsg(msg) {
         const p = document.createElement("p");

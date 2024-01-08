@@ -55,7 +55,6 @@ def home():
 def new_game(game_id):
     if current_user.is_authenticated:
         is_admin = User.query.filter_by(id=current_user.id).first().is_admin
-        print(is_admin)
         return render_template("game_room.html", room_name=game_id, invite_link=HOST_URL+game_id, code=game_id, username=current_user.username, is_admin=is_admin)
 
     joining_form = JoiningGameForm()
