@@ -111,6 +111,10 @@ h3 {
     margin: 5px 0;
 }
 
+p {
+    overflow-x: hidden;
+}
+
 /* Ustawienia dla widoku mobilnego */
 @media only screen and (max-width: 600px) {
     body {

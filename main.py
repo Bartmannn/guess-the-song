@@ -1,7 +1,7 @@
 from website import create_app
+from website.consts import HOST_PORT
 
 socketio, app = create_app()
-# socketio = get_socketio()
-
 if __name__ == "__main__":
-    socketio.run(app, debug=True, host="0.0.0.0")
+    # wymagana biblioteka pyopenssl 
+    socketio.run(app, debug=True, host="0.0.0.0", port=HOST_PORT, ssl_context="adhoc")
