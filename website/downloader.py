@@ -9,6 +9,22 @@ EXTENTION = "mp3"
 DURATION = 15
 
 def remove_between_chars(text: str, char1: str, char2: str) -> str:
+    """Usuwa wszystkie znaki z danego tekstu, które znajdują się pomiędzy dwoma wybranymi znakami.
+        
+        :param text: Tekst do zmodyfikowania.
+        :type text: str
+
+        :param char1: Znak, od którego zaczyna się usuwanie.
+        :type char1: str
+
+        :param char2: Znak, na którym kończy się usuwanie.
+        :type char2: str
+
+        :return: Zmodyfikowany tekst.
+        :rtype: str
+    
+    """
+    
     pattern = r"\ \{}.*?\{}".format(char1, char2)
     pattern_match = True
     while pattern_match:
@@ -22,6 +38,17 @@ def remove_between_chars(text: str, char1: str, char2: str) -> str:
     return text
 
 def remove_icons(text: str) -> str:
+    """Usuwa emoji lub inne ikonki z tektu.
+        
+        :param text: Tekst do zmodyfikowania.
+        :type text: str
+
+        :return: Zmodyfikowany tekst.
+        :rtype: str
+
+    """
+    
+
     new_text: str = u"{}".format(text)
     emoji_pattern = re.compile("["
         u"\U0001F600-\U0001F64F"  # emoticons
@@ -32,14 +59,52 @@ def remove_icons(text: str) -> str:
     return emoji_pattern.sub(r'', new_text).replace("  ", " ")
 
 def remove_numbering(text: str, numbering_char: str) -> str:
+    """Usuwa numerowanie w tekście.
+        
+        :param text: Tekst do zmodyfikowania.
+        :type text: str
+
+        :param numbering_char: Znak okreslający numerowanie (np. #)
+        :type numbering_char: str
+
+        :return: Zmodyfikowany tekst.
+        :rtype: str
+
+    """
+    
+
+
     pattern = r"{}\d*".format(numbering_char)
     new_text = re.sub(pattern, "", text).replace("  ", " ")
     return new_text
 
 def cut_by_string(text: str, divider: str) -> str:
+    """Ucina tekst w wybranym miejscu.
+    
+        :param text: Tekst do zmodyfikowania.
+        :type text: str
+
+        :param divider: Znak, który określa miejsce cięcia.
+        :type divider: str
+
+        :retrun: Zwraca pierwszy z uzyskanych kawałków.
+        :rtype: str
+
+    """
+    
     return text.split(divider)[0]
 
 def format_text(text: str) -> str:
+    """Modyfikuje tekst, pozbywając się zbędnych znaków.
+
+        :param text: Tekst do zmodyfikowania.
+        :type text: str
+
+        :return: Zmodyfikowany tekst.
+        :rtype: str
+
+    """
+    
     if text == "" or text is None:
         return ""
 
@@ -66,9 +131,16 @@ def format_text(text: str) -> str:
     return text
 
 def get_basic_info(url: str) -> (str, int):
+    """Pobiera informacje o utworach z YouTube'a.
+        
+        :param url: Link do filmu na YouTube.
+        :type url: str
 
-    # powinienem to jeszcze rozszerzyć o pobieranie tego pliku itd.abs
-    # ale to później, jeszcze nie sprawdzałem biblioteki do pythona
+        :return: Tytuł wraz z długością trwania filmu.
+        :rtype: (str, int)
+
+    """
+    
 
     from yt_dlp import YoutubeDL
     
@@ -83,34 +155,19 @@ def get_basic_info(url: str) -> (str, int):
         video_title = info_dict.get("title", None)
         video_duration = info_dict.get("duration", None)
 
-    # video_title = remove_between_chars(video_title, "(", ")")
-    # video_title = remove_between_chars(video_title, "[", "]")
-    # video_title = remove_between_chars(video_title, "{", "}")
-    # video_title = remove_icons(video_title)
-    # video_title = remove_numbering(video_title, "No.")
-    # video_title = remove_numbering(video_title, "#")
-
-    # # tutaj problem z nazwami utworów z " - " takim patternem
-    # video_title = video_title.split(" - ")[-1]
-    # video_title = video_title.split(" – ")[-1]
-
-
-    # video_title = cut_by_string(video_title, " ft.")
-    # video_title = cut_by_string(video_title, " feat")
-    # video_title = cut_by_string(video_title, " | ")
-    # video_title = video_title.replace(" Official Video", "")
-
-    # if video_title[-1] == " ":
-    #     video_title = video_title[:-1]
-
     video_title = format_text(video_title)
 
     return video_title, int(video_duration)
 
 def get_seconds(time: str) -> int:
-    """
-        Przyjmuje czas w formacie mm:ss jako tekst.
-        Zwraca z danego czasu sekundy w formacie int.
+    """Zwraca z danego czasu sekundy w formacie int.
+
+        :param time: Czas w formacie mm:ss.
+        :type time: str
+
+        :return: Liczba sekund.
+        :rtype: int
+
     """
 
     # na tym etapie minuty i sekundy to jeszcze string'i
@@ -121,10 +178,14 @@ def get_seconds(time: str) -> int:
     return int(min)*60 + int(sec)
 
 def to_two_places(number: int) -> str:
-    """
-        Uzupełnia podaną liczbę do miejsc dziesiętnych.
-        Zamienia format czasu m:s na mm:ss.
-        Zmieniony format zwraca w postaci string'a.
+    """ Uzupełnia podaną liczbę do miejsc dziesiętnych m.in. zamienia format czasu m:s na mm:ss.
+
+        :param number: Liczba do zmodyfikowania.
+        :type number: int
+
+        :return: Zmodyfikowana liczba.
+        :rtype: str
+
     """
     
     # jeśli długość liczby jest równa 2 nic nie rób
@@ -135,9 +196,14 @@ def to_two_places(number: int) -> str:
     return f"0{number}"
 
 def get_time(allSeconds: int) -> str:
-    """
-        Przekształca czas podany w sekundach na czas w formacie mm:ss.
-        Zwracany czas jest w formacie string'a.
+    """Przekształca czas podany w sekundach na czas w formacie mm:ss.
+        
+        :param allSeconds: Liczba sekund.
+        :type allSeconds: int
+
+        :return: Czas w formacie mm:ss.
+        :rtype: str
+
     """
     
     # dzielenie całkowite podanych sekund na minuty
@@ -150,28 +216,32 @@ def get_time(allSeconds: int) -> str:
     return f"{to_two_places(min)}:{to_two_places(sec)}"
 
 def download_audio_section(url: str, dest_path: str, audio_name: str, ext: str, audio_length: int, duration: int=15) -> None:
-    """
-        Pobiera i zapisuje pliki muzyczne na podanej ścieżce pod określoną nazwą.
-        Duration to czas trwania utworu w sekundach.
+    """Pobiera i zapisuje pliki muzyczne na podanej ścieżce pod określoną nazwą.
+        Zapisany plik muzyczny jest obcinany do wybranej długości trwania.
+        
+        :param url: Link do utworu.
+        :type url: str
+
+        :param dest_path: Ścieżka zapisu.
+        :type dest_path: str
+        
+        :param audio_name: Nazwa pliku.
+        :type audio_name: str
+        
+        :param ext: Rozszerzenie pliku.
+        :type ext: str
+        
+        :param audio_length: Długość trwania utworu.
+        :type audio_length: int
+        
+        :param duration: Pożądana długość utworu.
+        :type duration: int
+
     """
 
     # biblioteki importuję tutaj, dla wygody przy zrozumieniu kodu
     from subprocess import run, PIPE
     from random import randint
-
-    # dowiaduję się ile czasu trwa dany utwór na YouTube'ie
-    # argumenty dla konsoli podaję w liście (reszta to chyba sposób komunikacji)
-    # result = run(["yt-dlp", "--get-duration", url], stdout=PIPE, text=True)
-
-    # zczytuję z PIPE'a wynik działania polecenia i zapisuję w output'cie
-    # output = result.stdout.strip()
-
-    # długość całego utworu
-    # audio_length = get_seconds(output)
-
-
-    # audio_length = length
-    # audio_name, audio_length = get_basic_info(url)
 
     # początek utworu losuję, żeby ta sama piosenka zaczynała się w różnych momentach
     audio_start = randint(0, audio_length-duration)
@@ -199,8 +269,11 @@ def download_audio_section(url: str, dest_path: str, audio_name: str, ext: str, 
     # przedział czasowy działa przy pobieraniu, więc można zaoszczędzić sporo danych
 
 def play_audio(path: str) -> None:
-    """
-        Odtworzenie utworu z konkretnej ścieżki.
+    """Odtworzenie utworu z konkretnej ścieżki.
+
+        :param path: Ścieżka do utworu.
+        :type path: str
+
     """
 
     from time import sleep
@@ -216,6 +289,26 @@ def play_audio(path: str) -> None:
     sleep(DURATION+1)
 
 def download_music(URLs: list, extention: str, dest_path:str, duration: int = DURATION) -> list:
+    """Pobiera utowry z listy.
+
+        :param URLs: Lista linków do utworów, które mają zostać pobrane.
+        :type URLs: list
+        
+        :param extention: Rozszerzenie w jakim mają być zapisane utwory.
+        :type extention: str
+        
+        :param dest_path: Ścieżka docelowa zapisu utworów.
+        :type dest_path: str
+        
+        :param: duration: Docelowa długość trwania utworu.
+        :type duration: int
+
+        :return: Lista tytułów pobranych utworów.
+        :rtype: list
+
+    """
+    
+
 
     titles = []
 
@@ -238,7 +331,16 @@ def download_music(URLs: list, extention: str, dest_path:str, duration: int = DU
 
     return titles
 
-def test(links: str):
+def test(links: str) -> None:
+    """Funkcja testowa. Sprawdzanie działania programu.
+    
+        :param links: Link do utworu.
+        :type links: str    
+
+    """
+    
+
+
     from yt_dlp import YoutubeDL
 
     options = {
@@ -254,7 +356,14 @@ def test(links: str):
             track = info_dict.get("track")
             print(album, artist, track)
     
-def test_download(links):
+def test_download(links: list) -> None:
+    """Funkcja testowa. Sprawdzanie pobierania utworów masowo.
+    
+        :param links: Lista linków utworów do pobrania.
+        :type links: list
+
+    """
+    
     
     from yt_dlp import YoutubeDL
     from yt_dlp.utils import download_range_func
@@ -293,7 +402,17 @@ def test_download(links):
         with YoutubeDL(download_options) as ydl:
             ydl.download(link)
 
-def get_links(path_file):
+def get_links(path_file: str) -> list:
+    """Pobieranie ścieżek do utworów.
+    
+        :param path_file: Ścieżka do folderu z utworami.
+        :type path_file: str
+
+        :return: Lista utworów.
+        :rtype: list
+        
+    """
+    
 
     links = []
 

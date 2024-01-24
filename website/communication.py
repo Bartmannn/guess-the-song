@@ -1,3 +1,12 @@
+"""
+    KOMUNIKACJA
+    -----------
+
+    Komunikacja serwer - użytkownik.
+    Tutaj znajdują się odpowiedzialne za to metody.
+
+"""
+
 from flask_socketio import SocketIO, send, emit, join_room, leave_room
 from flask_login import logout_user, current_user
 from .models import User, User_Room, db
@@ -5,12 +14,24 @@ from flask import url_for
 from .models import *
 from .game_manager import GameManager
 
+
 socketio = SocketIO()
 game_states = {}
 
-
 @socketio.on("message")
 def message(data):
+    """Przyjmuje wysyłane wiadomości na czacie i je przetwarza.
+    
+    :param data: Przechowuje wysłane dane od użytkownika.
+    :type data: dict
+
+    :param data["msg"]: (str) treść wiadomości
+    :param data["username"]: (str) nazwa nadawcy
+    :param data["room"]: (str) nazwa pokoju
+
+    """
+
+
     if data["msg"][0] != "\\":
         send({"msg": data["msg"], "username": data["username"]}, room=data["room"])
     else:
@@ -34,14 +55,35 @@ def message(data):
                     if info != None:
                         emit("server_info", {"msg": info}, room=data["room"])
 
-
 @socketio.on("join")
 def join(data):
+    """Przyjęcie informacji o dołączeniu nowego gracza do danego pokoju.
+    
+    Parameters
+    ----------
+    data : dict
+        Dane wysłane przez klienta 
+            data['room'] - nazwa pokoju,
+            data['username'] - nazwa użytkownika
+
+    """
+    
     join_room(data["room"])
     send({"msg": data["username"] + " has joined the room."}, room=data["room"])
  
 @socketio.on("leave")
 def leave(data):
+    """Przyjęcie informacji o wyjściu z danego pokoju konkretnej osoby.
+    
+    Parameters
+    ----------
+    data : dict
+        Dane wysłane przez wychodzącego klienta 
+            data['room'] - nazwa pokoju,
+            data['username'] - nazwa użytkownika
+
+    """
+    
     leave_room(data["room"])
     User_Room.query.filter_by(user_id=current_user.id).delete()
     User.query.filter_by(id=current_user.id).delete()
@@ -52,6 +94,17 @@ def leave(data):
 
 @socketio.on("start")
 def start(data):
+    """Przyjęcie informacji o rozpoczęciu nowego meczu w danym pokoju.
+    
+    Parameters
+    ----------
+    data : dict
+        Dane wysłane przez klienta
+            data['room'] - nazwa pokoju,
+            data['cathegory'] - kategoria muzyczna
+
+    """
+    
     game_states[data['room']] = GameManager(data["room"])
     game_states[data['room']].set_cathegory(data["cathegory"])
 
@@ -69,6 +122,16 @@ def start(data):
 
 @socketio.on('request_audio')
 def request_audio(data):
+    """Przyjęcie żądania utworu przez klienta.
+    
+    Parametry
+    ---------
+    data : dict
+        Dane wysłane przez klienta
+            data['room'] - nazwa pokoju
+
+    """
+
     next_song = game_states[data['room']].next_song()
     if next_song == None:
         emit("game_over", room=data["room"])
@@ -81,6 +144,16 @@ def request_audio(data):
 
 @socketio.on("repeat_audio")
 def repeat_audio(data):
+    """Prośba o powtórzenie utworu w danym pokoju.
+    
+    Parametry
+    ---------
+    data : dict
+        Dane wysłane przez klienta
+            data['room'] - nazwa pokoju
+
+    """
+
     curr_song = game_states[data["room"]].get_song()
     socketio.emit("server_info", {"msg": f"Repeating song"}, room=data["room"])
     with open(curr_song, 'rb') as audio_file:
@@ -89,6 +162,15 @@ def repeat_audio(data):
 
 @socketio.on("list_players")
 def list_players(code):
+    """Prośba klienta o odświerzenie punktacji w pokoju, w którym się znajduje.
+    
+    Parameters
+    ----------
+    code : str
+        Nazwa pokoju
+            
+    """
+
     game = Room.query.filter_by(invitation_link=code).first()
     users_room = User_Room.query.filter_by(room_id=game.id).all()
     ids = [con.user_id for con in users_room]
@@ -101,12 +183,21 @@ def list_players(code):
 
 @socketio.on("update_state")
 def update_state(data):
+    """Prośba o zaktualizowanie stanu gry po dołączeniu nowej osoby.
+    
+    Parameters
+    ----------
+    data : dict
+        Dane wysłane przez klienta
+            data['room'] - nazwa pokoju,
+
+    """
+
     state: list
     try:
         state = game_states[data["room"]]
     except KeyError:
         print("\nGame did not start\n")
     else:
-        # state.add_player(data["nickname"])
         socketio.emit("update_state", room=data["room"])
         repeat_audio(data)

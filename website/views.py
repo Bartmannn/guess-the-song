@@ -12,10 +12,26 @@ login  = LoginManager()
 
 @login.user_loader
 def load_user(id):
+    """! Nadpisuje metody znajdowania użytkowników po id.
+
+    @param id   Id szukanego użytkownika.
+
+    @return     Obiekt bazy danych przechowujący dane użytkownika.
+    """
+
+    # print("\n\n", type(result), "\n\n")
     return User.query.get(int(id))
 
 @views.route("/", methods=["GET", "POST"])
 def home():
+    """Obsługa żądań klienta na stronę główną.
+
+    Zwraca
+    ------
+    str
+        Wygenerowana strona w formie tekstowej
+    """
+
 
     new_game_form = CreatingGameForm()
 
@@ -48,11 +64,24 @@ def home():
 
         login_user(user)
         return redirect(url_for("views.new_game", game_id=server_id, is_admin=True))
-
     return render_template("index.html", creating_game=new_game_form)
 
 @views.route("/<game_id>", methods=["GET", "POST"])
 def new_game(game_id):
+    """Obsługa żądań klienta na podstronę pokoju.
+
+    Parametry
+    ---------
+    game_id : str
+        Nazwa pokoju
+
+    Zwraca
+    ------
+    str
+        Wygenerowana strona w formie tekstowej
+
+    """
+
     if current_user.is_authenticated:
         is_admin = User.query.filter_by(id=current_user.id).first().is_admin
         return render_template("game_room.html", room_name=game_id, invite_link=HOST_URL+game_id, code=game_id, username=current_user.username, is_admin=is_admin)

@@ -5,8 +5,6 @@ from flask_socketio import SocketIO
 from .communication import *
 from .views import login
 
-
-
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = "DowolnyKluczPRYWATNY561835818356"
