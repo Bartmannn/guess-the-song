@@ -4,8 +4,13 @@ from flask_login import UserMixin
 db = SQLAlchemy()
 
 class User(UserMixin, db.Model):
+    """Model użytkownika
 
-    """ User model """
+        :id: Id użytkownika.
+        :username: Nazwa użytkownika.
+        :is_admin: Czy użytkownika jest administratorem gry.
+    
+    """
 
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
@@ -14,8 +19,13 @@ class User(UserMixin, db.Model):
 
 
 class User_Room(db.Model):
-
-    """ User-Room relation model """
+    """Model Użytkownik-Pokój (dla relacji)
+    
+        :id: Id relacji.
+        :room_id: Id pokoju.
+        :user_id: Id użytkownika.
+    
+    """
 
     __tablename__ = "user_room"
     id = db.Column(db.Integer, primary_key=True)
@@ -24,48 +34,14 @@ class User_Room(db.Model):
 
 
 class Room(db.Model):
-
-    """ Room model """
+    """Model pokoju
+    
+        :id: Id pokoju.
+        :invitation_link: Nazwa pokoju.
+    
+    """
 
     __tablename__ = "rooms"
     id = db.Column(db.Integer, primary_key=True)
     # chat_id = db.Column(db.Integer, db.ForeignKey("messages.id"))
     invitation_link = db.Column(db.String(100), unique=True)
-
-# class Room_Message(db.Model):
-
-#     """ Room-Messages relation model """
-
-#     __tablename__ = "room_message"
-#     id = db.Column(db.Integer, primary_key=True)
-#     room_id = db.Column(db.Integer) # db.ForeignKey("rooms.is")
-#     message_id = db.Column(db.Integer) # db.ForeignKey("messages.id")
-
-
-# class Message(db.Model):
-
-#     """ Chat model """
-    
-#     __tablename__ = "messages"
-#     id = db.Column(db.Integer, primary_key=True)
-#     nickname = db.Column(db.String(30))
-#     message = db.Column(db.Text)
-
-# class Song_Room(db.Model):
-
-#     """ Song-Server relation model """
-
-#     __tablename__ = "song_room"
-#     id = db.Column(db.Integer, primary_key=True)
-#     room_id = db.Column(db.Integer) # , db.ForeignKey("rooms.id")
-#     song_id = db.Column(db.Integer) # , db.ForeignKey("songs.id")
-    
-# class Songs(db.Model):
-
-#     """ Songs model """
-
-#     __tablename__ = "songs"
-#     id = db.Column(db.Integer, primary_key=True)
-#     link = db.Column(db.String(150))
-#     category = db.Column(db.String(10))
-

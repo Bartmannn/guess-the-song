@@ -43,7 +43,6 @@
             cursor: pointer;
         }
     </style>
-<<<<<<< HEAD
 </head> -->
 <!-- <body> -->
 
@@ -52,9 +51,6 @@
     <form method="POST">
 
         {{ displayField(joining_game.username, 'Username', autocomplete="off", autofocus=true) }}
-        <div style="display: none;">
-            {{ displayField(joining_game.link, value=room_name) }}
-        </div>
 
         <div>
             {{ joining_game.submit_joining_game }}
@@ -78,29 +74,3 @@
 </html> -->
 
 {% endblock %}
-=======
-</head>
-<body>
-    <img src="" alt="Room Image">
-
-    <h3>Nr pokoju: <span id="room_name">{{room_name}}</span></h3>
-
-    {{ displayField(joining_game.username, 'Username', autocomplete="off") }}
-
-    <br>
-
-    {{ joining_game.submit_joining_game_from_link }}
-
-    <script>
-        function submitForm() {
-            var roomNumber = document.getElementById('{{room_name}}').innerText;
-            var username = document.getElementById('{{username}}').value;
-
-            {{ displayField(joining_game.username, 'Username', autocomplete="off") }}
-            
-        }
-    </script>
-</body>
-</html>
-
->>>>>>> 8bc4a76 (Dołączanie bezpośrednio z linku, podejscie 1)

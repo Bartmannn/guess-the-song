@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
      * @event click
      */
     document.querySelector("#send_message").onclick = () => {
-        socket.send({"msg": document.querySelector("#user_message").value, "username": username, "room": room_name, "admin": is_admin});
+        socket.send({"msg": document.querySelector("#user_message").value, "username": username, "room": room_name, "is_admin": is_admin});
         document.querySelector("#user_message").value = "";
     }
 
