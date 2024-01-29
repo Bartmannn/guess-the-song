@@ -98,13 +98,14 @@ def leave(data):
 def start(data):
     """Przyjęcie informacji o rozpoczęciu nowego meczu w danym pokoju.
     
-    :param data: 
-    Parameters
-    ----------
-    data : dict
-        Dane wysłane przez klienta
-            data['room'] - nazwa pokoju,
-            data['cathegory'] - kategoria muzyczna
+    :param data: Dane wysyłane przez klienta.
+    :type data: dict
+
+    :param data['room']: Nazwa pokoju.
+    :type data['room']: str
+
+    :param data['cathegory']: Kategoria muzyczna.
+    :type data['cathegory']: str
 
     """
     
@@ -126,12 +127,12 @@ def start(data):
 @socketio.on('request_audio')
 def request_audio(data):
     """Przyjęcie żądania utworu przez klienta.
-    
-    Parametry
-    ---------
-    data : dict
-        Dane wysłane przez klienta
-            data['room'] - nazwa pokoju
+
+    :param data: Dane wysłane przez klienta.
+    :type data: dict
+
+    :param data['room']: Nazwa pokoju.
+    :type data['room']: str
 
     """
 
@@ -149,8 +150,8 @@ def request_audio(data):
 def repeat_audio(data):
     """Prośba o powtórzenie utworu w danym pokoju.
     
-    Parametry
-    ---------
+    :param data: Dane wysyłane przez klienta
+
     data : dict
         Dane wysłane przez klienta
             data['room'] - nazwa pokoju
