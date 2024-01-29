@@ -1,3 +1,7 @@
+/**
+ * HTML content representing the game room.
+ * @type {string}
+ */
 const gameContent = "\
 <h1>Room: "+ room_name +" - <span id='current_round'></span></h1>\
 <div class='game_room'>\
@@ -25,6 +29,10 @@ const gameContent = "\
 <input type='button' style='display: block;' id='next_round_button' value='Next'>\
 "
 
+/**
+ * HTML content representing the configuration view of the room.
+ * @type {string}
+ */
 const configContent = "\
 <h1>Room: "+ room_name +"</h1>\
     <div class='game_room'>\
@@ -52,6 +60,10 @@ const configContent = "\
 <input type='button' style='display: none;' id='next_round_button' value='Next'>\
 "
 
+/**
+ * HTML content representing a configuration section with a dropdown for song selection.
+ * @type {string}
+ */
 const config = "\
 <select name='songs' id='songs'>\
     <option value='popular'>Utwory popularne w Polsce</option>\
@@ -61,6 +73,10 @@ const config = "\
 </select>\
 "
 
+/**
+ * HTML content representing an audio player for music playback.
+ * @type {string}
+ */
 const music = "\
 <audio id='audioPlayer' autoplay>\
     <source src='' type='audio/mpeg' id='audioSource'>\
