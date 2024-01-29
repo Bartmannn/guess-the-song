@@ -48,41 +48,64 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">website</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">website package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#komunikacja-z-serwerem">Komunikacja z serwerem</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-consts">Stałe</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-downloader">Downloader</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#downloader.cut_by_string"><code class="docutils literal notranslate"><span class="pre">cut_by_string()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#downloader.download_audio_section"><code class="docutils literal notranslate"><span class="pre">download_audio_section()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#downloader.download_music"><code class="docutils literal notranslate"><span class="pre">download_music()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#downloader.format_text"><code class="docutils literal notranslate"><span class="pre">format_text()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#downloader.get_basic_info"><code class="docutils literal notranslate"><span class="pre">get_basic_info()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#downloader.get_links"><code class="docutils literal notranslate"><span class="pre">get_links()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#downloader.get_seconds"><code class="docutils literal notranslate"><span class="pre">get_seconds()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#downloader.get_time"><code class="docutils literal notranslate"><span class="pre">get_time()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#downloader.play_audio"><code class="docutils literal notranslate"><span class="pre">play_audio()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#downloader.remove_between_chars"><code class="docutils literal notranslate"><span class="pre">remove_between_chars()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#downloader.remove_icons"><code class="docutils literal notranslate"><span class="pre">remove_icons()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#downloader.remove_numbering"><code class="docutils literal notranslate"><span class="pre">remove_numbering()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#downloader.test"><code class="docutils literal notranslate"><span class="pre">test()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#downloader.test_download"><code class="docutils literal notranslate"><span class="pre">test_download()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#downloader.to_two_places"><code class="docutils literal notranslate"><span class="pre">to_two_places()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-website.communication">Komunikacja z serwerem</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#website.communication.join"><code class="docutils literal notranslate"><span class="pre">join()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.communication.leave"><code class="docutils literal notranslate"><span class="pre">leave()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.communication.list_players"><code class="docutils literal notranslate"><span class="pre">list_players()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.communication.message"><code class="docutils literal notranslate"><span class="pre">message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.communication.repeat_audio"><code class="docutils literal notranslate"><span class="pre">repeat_audio()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.communication.request_audio"><code class="docutils literal notranslate"><span class="pre">request_audio()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.communication.start"><code class="docutils literal notranslate"><span class="pre">start()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.communication.update_state"><code class="docutils literal notranslate"><span class="pre">update_state()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#module-game_manager">Zarządzanie stanem gry</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-website.consts">Stałe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-website.downloader">Downloader</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#website.downloader.cut_by_string"><code class="docutils literal notranslate"><span class="pre">cut_by_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.downloader.download_audio_section"><code class="docutils literal notranslate"><span class="pre">download_audio_section()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.downloader.download_music"><code class="docutils literal notranslate"><span class="pre">download_music()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.downloader.format_text"><code class="docutils literal notranslate"><span class="pre">format_text()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.downloader.get_basic_info"><code class="docutils literal notranslate"><span class="pre">get_basic_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.downloader.get_links"><code class="docutils literal notranslate"><span class="pre">get_links()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.downloader.get_seconds"><code class="docutils literal notranslate"><span class="pre">get_seconds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.downloader.get_time"><code class="docutils literal notranslate"><span class="pre">get_time()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.downloader.play_audio"><code class="docutils literal notranslate"><span class="pre">play_audio()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.downloader.remove_between_chars"><code class="docutils literal notranslate"><span class="pre">remove_between_chars()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.downloader.remove_icons"><code class="docutils literal notranslate"><span class="pre">remove_icons()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.downloader.remove_numbering"><code class="docutils literal notranslate"><span class="pre">remove_numbering()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.downloader.test"><code class="docutils literal notranslate"><span class="pre">test()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.downloader.test_download"><code class="docutils literal notranslate"><span class="pre">test_download()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.downloader.to_two_places"><code class="docutils literal notranslate"><span class="pre">to_two_places()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-website.game_manager">Zarządzanie stanem gry</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#game-manager">Game Manager</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#game_manager.GameManager"><code class="docutils literal notranslate"><span class="pre">GameManager</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#game_manager.levenshtein_distance"><code class="docutils literal notranslate"><span class="pre">levenshtein_distance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.game_manager.GameManager"><code class="docutils literal notranslate"><span class="pre">GameManager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.game_manager.levenshtein_distance"><code class="docutils literal notranslate"><span class="pre">levenshtein_distance()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#module-models">Struktura bazy danych</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#models.Room"><code class="docutils literal notranslate"><span class="pre">Room</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#models.User"><code class="docutils literal notranslate"><span class="pre">User</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#models.User_Room"><code class="docutils literal notranslate"><span class="pre">User_Room</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-website.models">Struktura bazy danych</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#website.models.Room"><code class="docutils literal notranslate"><span class="pre">Room</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.models.User"><code class="docutils literal notranslate"><span class="pre">User</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.models.User_Room"><code class="docutils literal notranslate"><span class="pre">User_Room</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#zarzadzanie-podstronami">Zarządzanie podstronami</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#wzory-formularzy">Wzory formularzy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-website.views">Zarządzanie podstronami</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#website.views.home"><code class="docutils literal notranslate"><span class="pre">home()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.views.load_user"><code class="docutils literal notranslate"><span class="pre">load_user()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.views.new_game"><code class="docutils literal notranslate"><span class="pre">new_game()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-website.wtform_fields">Wzory formularzy</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#website.wtform_fields.CreatingGameForm"><code class="docutils literal notranslate"><span class="pre">CreatingGameForm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.wtform_fields.JoiningGameForm"><code class="docutils literal notranslate"><span class="pre">JoiningGameForm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#website.wtform_fields.JoiningGameFromLinkForm"><code class="docutils literal notranslate"><span class="pre">JoiningGameFromLinkForm</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-website">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#website.create_app"><code class="docutils literal notranslate"><span class="pre">create_app()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -116,11 +139,132 @@
              
   <section id="website-package">
 <h1>website package<a class="headerlink" href="#website-package" title="Link to this heading"></a></h1>
-<section id="komunikacja-z-serwerem">
-<h2>Komunikacja z serwerem<a class="headerlink" href="#komunikacja-z-serwerem" title="Link to this heading"></a></h2>
+<section id="module-website.communication">
+<span id="komunikacja-z-serwerem"></span><h2>Komunikacja z serwerem<a class="headerlink" href="#module-website.communication" title="Link to this heading"></a></h2>
+<p>Komunikacja serwer &lt;-&gt; użytkownik. Tutaj znajdują się odpowiedzialne za to metody.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="website.communication.join">
+<span class="sig-prename descclassname"><span class="pre">website.communication.</span></span><span class="sig-name descname"><span class="pre">join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#website.communication.join" title="Link to this definition"></a></dt>
+<dd><p>Przyjęcie informacji o dołączeniu nowego gracza do danego pokoju.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – Dane wysłane przez klienta</p></li>
+<li><p><strong>data</strong><strong>[</strong><strong>'room'</strong><strong>]</strong> (<em>str</em>) – nazwa pokoju</p></li>
+<li><p><strong>data</strong><strong>[</strong><strong>'username'</strong><strong>]</strong> (<em>str</em>) – nazwa użytkownika</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="website.communication.leave">
+<span class="sig-prename descclassname"><span class="pre">website.communication.</span></span><span class="sig-name descname"><span class="pre">leave</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#website.communication.leave" title="Link to this definition"></a></dt>
+<dd><p>Przyjęcie informacji o wyjściu z danego pokoju konkretnej osoby.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – Dane wysyłane przez wychodzącego klienta</p></li>
+<li><p><strong>data</strong><strong>[</strong><strong>'room'</strong><strong>]</strong> (<em>str</em>) – Nazwa pokoju</p></li>
+<li><p><strong>data</strong><strong>[</strong><strong>'username'</strong><strong>]</strong> (<em>str</em>) – nazwa użytkownika</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="website.communication.list_players">
+<span class="sig-prename descclassname"><span class="pre">website.communication.</span></span><span class="sig-name descname"><span class="pre">list_players</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#website.communication.list_players" title="Link to this definition"></a></dt>
+<dd><p>Prośba klienta o odświerzenie punktacji w pokoju, w którym się znajduje.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>code</strong> (<em>str</em>) – Nazwa pokoju</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="website.communication.message">
+<span class="sig-prename descclassname"><span class="pre">website.communication.</span></span><span class="sig-name descname"><span class="pre">message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#website.communication.message" title="Link to this definition"></a></dt>
+<dd><p>Przyjmuje wysyłane wiadomości na czacie i je przetwarza.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – Przechowuje wysłane dane od użytkownika.</p></li>
+<li><p><strong>data</strong><strong>[</strong><strong>'msg'</strong><strong>]</strong> (<em>str</em>) – Treść wiadomości.</p></li>
+<li><p><strong>data</strong><strong>[</strong><strong>'username'</strong><strong>]</strong> (<em>str</em>) – Nazwa nadawcy.</p></li>
+<li><p><strong>data</strong><strong>[</strong><strong>'room'</strong><strong>]</strong> (<em>str</em>) – Nazwa pokoju.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="website.communication.repeat_audio">
+<span class="sig-prename descclassname"><span class="pre">website.communication.</span></span><span class="sig-name descname"><span class="pre">repeat_audio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#website.communication.repeat_audio" title="Link to this definition"></a></dt>
+<dd><p>Prośba o powtórzenie utworu w danym pokoju.</p>
+<section id="parametry">
+<h3>Parametry<a class="headerlink" href="#parametry" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>data<span class="classifier">dict</span></dt><dd><dl class="simple">
+<dt>Dane wysłane przez klienta</dt><dd><p>data[«room»] - nazwa pokoju</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </section>
-<section id="module-consts">
-<span id="stale"></span><h2>Stałe<a class="headerlink" href="#module-consts" title="Link to this heading"></a></h2>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="website.communication.request_audio">
+<span class="sig-prename descclassname"><span class="pre">website.communication.</span></span><span class="sig-name descname"><span class="pre">request_audio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#website.communication.request_audio" title="Link to this definition"></a></dt>
+<dd><p>Przyjęcie żądania utworu przez klienta.</p>
+<section id="id1">
+<h3>Parametry<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>data<span class="classifier">dict</span></dt><dd><dl class="simple">
+<dt>Dane wysłane przez klienta</dt><dd><p>data[«room»] - nazwa pokoju</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="website.communication.start">
+<span class="sig-prename descclassname"><span class="pre">website.communication.</span></span><span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#website.communication.start" title="Link to this definition"></a></dt>
+<dd><p>Przyjęcie informacji o rozpoczęciu nowego meczu w danym pokoju.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – <dl class="simple">
+<dt>Dane wysłane przez klienta</dt><dd><p>data[«room»] - nazwa pokoju,
+data[«cathegory»] - kategoria muzyczna</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="website.communication.update_state">
+<span class="sig-prename descclassname"><span class="pre">website.communication.</span></span><span class="sig-name descname"><span class="pre">update_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#website.communication.update_state" title="Link to this definition"></a></dt>
+<dd><p>Prośba o zaktualizowanie stanu gry po dołączeniu nowej osoby.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – <dl class="simple">
+<dt>Dane wysłane przez klienta</dt><dd><p>data[«room»] - nazwa pokoju,</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-website.consts">
+<span id="stale"></span><h2>Stałe<a class="headerlink" href="#module-website.consts" title="Link to this heading"></a></h2>
 <p>Stałe wykorzystywane w module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">HOST_ADDR<span class="colon">:</span></dt>
@@ -152,11 +296,11 @@
 </dd>
 </dl>
 </section>
-<section id="module-downloader">
-<span id="downloader"></span><h2>Downloader<a class="headerlink" href="#module-downloader" title="Link to this heading"></a></h2>
+<section id="module-website.downloader">
+<span id="downloader"></span><h2>Downloader<a class="headerlink" href="#module-website.downloader" title="Link to this heading"></a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="downloader.cut_by_string">
-<span class="sig-prename descclassname"><span class="pre">downloader.</span></span><span class="sig-name descname"><span class="pre">cut_by_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">divider</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/downloader.html#cut_by_string"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#downloader.cut_by_string" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.downloader.cut_by_string">
+<span class="sig-prename descclassname"><span class="pre">website.downloader.</span></span><span class="sig-name descname"><span class="pre">cut_by_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">divider</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/website/downloader.html#cut_by_string"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.downloader.cut_by_string" title="Link to this definition"></a></dt>
 <dd><p>Ucina tekst w wybranym miejscu.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -175,8 +319,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="downloader.download_audio_section">
-<span class="sig-prename descclassname"><span class="pre">downloader.</span></span><span class="sig-name descname"><span class="pre">download_audio_section</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ext</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">15</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/downloader.html#download_audio_section"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#downloader.download_audio_section" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.downloader.download_audio_section">
+<span class="sig-prename descclassname"><span class="pre">website.downloader.</span></span><span class="sig-name descname"><span class="pre">download_audio_section</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ext</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">15</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/website/downloader.html#download_audio_section"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.downloader.download_audio_section" title="Link to this definition"></a></dt>
 <dd><p>Pobiera i zapisuje pliki muzyczne na podanej ścieżce pod określoną nazwą.
 Zapisany plik muzyczny jest obcinany do wybranej długości trwania.</p>
 <dl class="field-list simple">
@@ -194,8 +338,8 @@ Zapisany plik muzyczny jest obcinany do wybranej długości trwania.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="downloader.download_music">
-<span class="sig-prename descclassname"><span class="pre">downloader.</span></span><span class="sig-name descname"><span class="pre">download_music</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">URLs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extention</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">15</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/downloader.html#download_music"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#downloader.download_music" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.downloader.download_music">
+<span class="sig-prename descclassname"><span class="pre">website.downloader.</span></span><span class="sig-name descname"><span class="pre">download_music</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">URLs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extention</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">15</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/website/downloader.html#download_music"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.downloader.download_music" title="Link to this definition"></a></dt>
 <dd><p>Pobiera utowry z listy.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -218,8 +362,8 @@ Zapisany plik muzyczny jest obcinany do wybranej długości trwania.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="downloader.format_text">
-<span class="sig-prename descclassname"><span class="pre">downloader.</span></span><span class="sig-name descname"><span class="pre">format_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/downloader.html#format_text"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#downloader.format_text" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.downloader.format_text">
+<span class="sig-prename descclassname"><span class="pre">website.downloader.</span></span><span class="sig-name descname"><span class="pre">format_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/website/downloader.html#format_text"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.downloader.format_text" title="Link to this definition"></a></dt>
 <dd><p>Modyfikuje tekst, pozbywając się zbędnych znaków.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -235,8 +379,8 @@ Zapisany plik muzyczny jest obcinany do wybranej długości trwania.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="downloader.get_basic_info">
-<span class="sig-prename descclassname"><span class="pre">downloader.</span></span><span class="sig-name descname"><span class="pre">get_basic_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url:</span> <span class="pre">str)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'str'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'int'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/downloader.html#get_basic_info"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#downloader.get_basic_info" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.downloader.get_basic_info">
+<span class="sig-prename descclassname"><span class="pre">website.downloader.</span></span><span class="sig-name descname"><span class="pre">get_basic_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url:</span> <span class="pre">str)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'str'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'int'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/website/downloader.html#get_basic_info"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.downloader.get_basic_info" title="Link to this definition"></a></dt>
 <dd><p>Pobiera informacje o utworach z YouTube’a.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -252,8 +396,8 @@ Zapisany plik muzyczny jest obcinany do wybranej długości trwania.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="downloader.get_links">
-<span class="sig-prename descclassname"><span class="pre">downloader.</span></span><span class="sig-name descname"><span class="pre">get_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/downloader.html#get_links"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#downloader.get_links" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.downloader.get_links">
+<span class="sig-prename descclassname"><span class="pre">website.downloader.</span></span><span class="sig-name descname"><span class="pre">get_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/website/downloader.html#get_links"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.downloader.get_links" title="Link to this definition"></a></dt>
 <dd><p>Pobieranie ścieżek do utworów.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -269,8 +413,8 @@ Zapisany plik muzyczny jest obcinany do wybranej długości trwania.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="downloader.get_seconds">
-<span class="sig-prename descclassname"><span class="pre">downloader.</span></span><span class="sig-name descname"><span class="pre">get_seconds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/downloader.html#get_seconds"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#downloader.get_seconds" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.downloader.get_seconds">
+<span class="sig-prename descclassname"><span class="pre">website.downloader.</span></span><span class="sig-name descname"><span class="pre">get_seconds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/website/downloader.html#get_seconds"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.downloader.get_seconds" title="Link to this definition"></a></dt>
 <dd><p>Zwraca z danego czasu sekundy w formacie int.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -286,8 +430,8 @@ Zapisany plik muzyczny jest obcinany do wybranej długości trwania.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="downloader.get_time">
-<span class="sig-prename descclassname"><span class="pre">downloader.</span></span><span class="sig-name descname"><span class="pre">get_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">allSeconds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/downloader.html#get_time"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#downloader.get_time" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.downloader.get_time">
+<span class="sig-prename descclassname"><span class="pre">website.downloader.</span></span><span class="sig-name descname"><span class="pre">get_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">allSeconds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/website/downloader.html#get_time"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.downloader.get_time" title="Link to this definition"></a></dt>
 <dd><p>Przekształca czas podany w sekundach na czas w formacie mm:ss.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -303,8 +447,8 @@ Zapisany plik muzyczny jest obcinany do wybranej długości trwania.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="downloader.play_audio">
-<span class="sig-prename descclassname"><span class="pre">downloader.</span></span><span class="sig-name descname"><span class="pre">play_audio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/downloader.html#play_audio"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#downloader.play_audio" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.downloader.play_audio">
+<span class="sig-prename descclassname"><span class="pre">website.downloader.</span></span><span class="sig-name descname"><span class="pre">play_audio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/website/downloader.html#play_audio"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.downloader.play_audio" title="Link to this definition"></a></dt>
 <dd><p>Odtworzenie utworu z konkretnej ścieżki.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -314,8 +458,8 @@ Zapisany plik muzyczny jest obcinany do wybranej długości trwania.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="downloader.remove_between_chars">
-<span class="sig-prename descclassname"><span class="pre">downloader.</span></span><span class="sig-name descname"><span class="pre">remove_between_chars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">char1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">char2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/downloader.html#remove_between_chars"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#downloader.remove_between_chars" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.downloader.remove_between_chars">
+<span class="sig-prename descclassname"><span class="pre">website.downloader.</span></span><span class="sig-name descname"><span class="pre">remove_between_chars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">char1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">char2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/website/downloader.html#remove_between_chars"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.downloader.remove_between_chars" title="Link to this definition"></a></dt>
 <dd><p>Usuwa wszystkie znaki z danego tekstu, które znajdują się pomiędzy dwoma wybranymi znakami.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -335,8 +479,8 @@ Zapisany plik muzyczny jest obcinany do wybranej długości trwania.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="downloader.remove_icons">
-<span class="sig-prename descclassname"><span class="pre">downloader.</span></span><span class="sig-name descname"><span class="pre">remove_icons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/downloader.html#remove_icons"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#downloader.remove_icons" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.downloader.remove_icons">
+<span class="sig-prename descclassname"><span class="pre">website.downloader.</span></span><span class="sig-name descname"><span class="pre">remove_icons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/website/downloader.html#remove_icons"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.downloader.remove_icons" title="Link to this definition"></a></dt>
 <dd><p>Usuwa emoji lub inne ikonki z tektu.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -352,8 +496,8 @@ Zapisany plik muzyczny jest obcinany do wybranej długości trwania.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="downloader.remove_numbering">
-<span class="sig-prename descclassname"><span class="pre">downloader.</span></span><span class="sig-name descname"><span class="pre">remove_numbering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numbering_char</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/downloader.html#remove_numbering"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#downloader.remove_numbering" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.downloader.remove_numbering">
+<span class="sig-prename descclassname"><span class="pre">website.downloader.</span></span><span class="sig-name descname"><span class="pre">remove_numbering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numbering_char</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/website/downloader.html#remove_numbering"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.downloader.remove_numbering" title="Link to this definition"></a></dt>
 <dd><p>Usuwa numerowanie w tekście.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -372,8 +516,8 @@ Zapisany plik muzyczny jest obcinany do wybranej długości trwania.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="downloader.test">
-<span class="sig-prename descclassname"><span class="pre">downloader.</span></span><span class="sig-name descname"><span class="pre">test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">links</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/downloader.html#test"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#downloader.test" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.downloader.test">
+<span class="sig-prename descclassname"><span class="pre">website.downloader.</span></span><span class="sig-name descname"><span class="pre">test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">links</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/website/downloader.html#test"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.downloader.test" title="Link to this definition"></a></dt>
 <dd><p>Funkcja testowa. Sprawdzanie działania programu.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -383,8 +527,8 @@ Zapisany plik muzyczny jest obcinany do wybranej długości trwania.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="downloader.test_download">
-<span class="sig-prename descclassname"><span class="pre">downloader.</span></span><span class="sig-name descname"><span class="pre">test_download</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">links</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/downloader.html#test_download"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#downloader.test_download" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.downloader.test_download">
+<span class="sig-prename descclassname"><span class="pre">website.downloader.</span></span><span class="sig-name descname"><span class="pre">test_download</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">links</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/website/downloader.html#test_download"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.downloader.test_download" title="Link to this definition"></a></dt>
 <dd><p>Funkcja testowa. Sprawdzanie pobierania utworów masowo.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -394,8 +538,8 @@ Zapisany plik muzyczny jest obcinany do wybranej długości trwania.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="downloader.to_two_places">
-<span class="sig-prename descclassname"><span class="pre">downloader.</span></span><span class="sig-name descname"><span class="pre">to_two_places</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/downloader.html#to_two_places"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#downloader.to_two_places" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.downloader.to_two_places">
+<span class="sig-prename descclassname"><span class="pre">website.downloader.</span></span><span class="sig-name descname"><span class="pre">to_two_places</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/website/downloader.html#to_two_places"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.downloader.to_two_places" title="Link to this definition"></a></dt>
 <dd><p>Uzupełnia podaną liczbę do miejsc dziesiętnych m.in. zamienia format czasu m:s na mm:ss.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -411,8 +555,8 @@ Zapisany plik muzyczny jest obcinany do wybranej długości trwania.</p>
 </dd></dl>
 
 </section>
-<section id="module-game_manager">
-<span id="zarzadzanie-stanem-gry"></span><h2>Zarządzanie stanem gry<a class="headerlink" href="#module-game_manager" title="Link to this heading"></a></h2>
+<section id="module-website.game_manager">
+<span id="zarzadzanie-stanem-gry"></span><h2>Zarządzanie stanem gry<a class="headerlink" href="#module-website.game_manager" title="Link to this heading"></a></h2>
 <section id="game-manager">
 <h3>Game Manager<a class="headerlink" href="#game-manager" title="Link to this heading"></a></h3>
 <p>Ta klasa jest odpowiedzialna za zarządzanie aktualnym stanem gier w pokojach.
@@ -420,8 +564,8 @@ Zliczanie punktów, wyświetlanie ich, zarządzanie kolejnką utworów oraz kont
 Wszystko jest w tej klasie.</p>
 </section>
 <dl class="py class">
-<dt class="sig sig-object py" id="game_manager.GameManager">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">game_manager.</span></span><span class="sig-name descname"><span class="pre">GameManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_manager.html#GameManager"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#game_manager.GameManager" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.game_manager.GameManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">website.game_manager.</span></span><span class="sig-name descname"><span class="pre">GameManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/website/game_manager.html#GameManager"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.game_manager.GameManager" title="Link to this definition"></a></dt>
 <dd><p>Klasy bazowe: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Zarządzanie stanem gry w pokojach</p>
 <dl class="field-list simple">
@@ -430,8 +574,8 @@ Wszystko jest w tej klasie.</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="game_manager.GameManager.add_player">
-<span class="sig-name descname"><span class="pre">add_player</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nickname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/game_manager.html#GameManager.add_player"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#game_manager.GameManager.add_player" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.game_manager.GameManager.add_player">
+<span class="sig-name descname"><span class="pre">add_player</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nickname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/website/game_manager.html#GameManager.add_player"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.game_manager.GameManager.add_player" title="Link to this definition"></a></dt>
 <dd><p>Dodawanie graczy do punktacji.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -441,8 +585,8 @@ Wszystko jest w tej klasie.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="game_manager.GameManager.add_point">
-<span class="sig-name descname"><span class="pre">add_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nickname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/game_manager.html#GameManager.add_point"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#game_manager.GameManager.add_point" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.game_manager.GameManager.add_point">
+<span class="sig-name descname"><span class="pre">add_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nickname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/website/game_manager.html#GameManager.add_point"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.game_manager.GameManager.add_point" title="Link to this definition"></a></dt>
 <dd><p>Przyznawanie punktów graczowi.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -452,8 +596,8 @@ Wszystko jest w tej klasie.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="game_manager.GameManager.check_similarity">
-<span class="sig-name descname"><span class="pre">check_similarity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player_guess</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/game_manager.html#GameManager.check_similarity"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#game_manager.GameManager.check_similarity" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.game_manager.GameManager.check_similarity">
+<span class="sig-name descname"><span class="pre">check_similarity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player_guess</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/website/game_manager.html#GameManager.check_similarity"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.game_manager.GameManager.check_similarity" title="Link to this definition"></a></dt>
 <dd><p>Sprawdzanie podobieństwa próby gracza z odpowiedzią.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -469,8 +613,8 @@ Wszystko jest w tej klasie.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="game_manager.GameManager.check_song">
-<span class="sig-name descname"><span class="pre">check_song</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player_guess</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/game_manager.html#GameManager.check_song"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#game_manager.GameManager.check_song" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.game_manager.GameManager.check_song">
+<span class="sig-name descname"><span class="pre">check_song</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player_guess</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/website/game_manager.html#GameManager.check_song"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.game_manager.GameManager.check_song" title="Link to this definition"></a></dt>
 <dd><p>Sprawdza poprawność odpowiedzi gracza.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -486,8 +630,8 @@ Wszystko jest w tej klasie.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="game_manager.GameManager.get_points">
-<span class="sig-name descname"><span class="pre">get_points</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/game_manager.html#GameManager.get_points"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#game_manager.GameManager.get_points" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.game_manager.GameManager.get_points">
+<span class="sig-name descname"><span class="pre">get_points</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/website/game_manager.html#GameManager.get_points"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.game_manager.GameManager.get_points" title="Link to this definition"></a></dt>
 <dd><p>Pobieranie informacji o punktach.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Zwraca<span class="colon">:</span></dt>
@@ -500,8 +644,8 @@ Wszystko jest w tej klasie.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="game_manager.GameManager.get_song">
-<span class="sig-name descname"><span class="pre">get_song</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/game_manager.html#GameManager.get_song"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#game_manager.GameManager.get_song" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.game_manager.GameManager.get_song">
+<span class="sig-name descname"><span class="pre">get_song</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/website/game_manager.html#GameManager.get_song"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.game_manager.GameManager.get_song" title="Link to this definition"></a></dt>
 <dd><p>Pobieranie aktualnego utworu.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Zwraca<span class="colon">:</span></dt>
@@ -514,8 +658,8 @@ Wszystko jest w tej klasie.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="game_manager.GameManager.next_song">
-<span class="sig-name descname"><span class="pre">next_song</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/game_manager.html#GameManager.next_song"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#game_manager.GameManager.next_song" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.game_manager.GameManager.next_song">
+<span class="sig-name descname"><span class="pre">next_song</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/website/game_manager.html#GameManager.next_song"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.game_manager.GameManager.next_song" title="Link to this definition"></a></dt>
 <dd><p>Pobieranie kolejnego utworu.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Zwraca<span class="colon">:</span></dt>
@@ -528,8 +672,8 @@ Wszystko jest w tej klasie.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="game_manager.GameManager.remove_unnecessary_chars">
-<span class="sig-name descname"><span class="pre">remove_unnecessary_chars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/game_manager.html#GameManager.remove_unnecessary_chars"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#game_manager.GameManager.remove_unnecessary_chars" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.game_manager.GameManager.remove_unnecessary_chars">
+<span class="sig-name descname"><span class="pre">remove_unnecessary_chars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/website/game_manager.html#GameManager.remove_unnecessary_chars"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.game_manager.GameManager.remove_unnecessary_chars" title="Link to this definition"></a></dt>
 <dd><p>Usuwanie zbędnych symboli z tekstu.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -545,8 +689,8 @@ Wszystko jest w tej klasie.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="game_manager.GameManager.set_cathegory">
-<span class="sig-name descname"><span class="pre">set_cathegory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cathegory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/game_manager.html#GameManager.set_cathegory"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#game_manager.GameManager.set_cathegory" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.game_manager.GameManager.set_cathegory">
+<span class="sig-name descname"><span class="pre">set_cathegory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cathegory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/website/game_manager.html#GameManager.set_cathegory"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.game_manager.GameManager.set_cathegory" title="Link to this definition"></a></dt>
 <dd><p>Ustawia kategorię muzyczną</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -556,16 +700,16 @@ Wszystko jest w tej klasie.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="game_manager.GameManager.set_songs">
-<span class="sig-name descname"><span class="pre">set_songs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/game_manager.html#GameManager.set_songs"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#game_manager.GameManager.set_songs" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.game_manager.GameManager.set_songs">
+<span class="sig-name descname"><span class="pre">set_songs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/website/game_manager.html#GameManager.set_songs"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.game_manager.GameManager.set_songs" title="Link to this definition"></a></dt>
 <dd><p>Ładuje odpowiednie utwory i ustala losową kolejkę.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="game_manager.levenshtein_distance">
-<span class="sig-prename descclassname"><span class="pre">game_manager.</span></span><span class="sig-name descname"><span class="pre">levenshtein_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/game_manager.html#levenshtein_distance"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#game_manager.levenshtein_distance" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.game_manager.levenshtein_distance">
+<span class="sig-prename descclassname"><span class="pre">website.game_manager.</span></span><span class="sig-name descname"><span class="pre">levenshtein_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/website/game_manager.html#levenshtein_distance"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.game_manager.levenshtein_distance" title="Link to this definition"></a></dt>
 <dd><p>Obliczanie odległości Levenshtein’a - sprawdzanie podobieństwa dwóch tekstów.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parametry<span class="colon">:</span></dt>
@@ -584,11 +728,11 @@ Wszystko jest w tej klasie.</p>
 </dd></dl>
 
 </section>
-<section id="module-models">
-<span id="struktura-bazy-danych"></span><h2>Struktura bazy danych<a class="headerlink" href="#module-models" title="Link to this heading"></a></h2>
+<section id="module-website.models">
+<span id="struktura-bazy-danych"></span><h2>Struktura bazy danych<a class="headerlink" href="#module-website.models" title="Link to this heading"></a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="models.Room">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.</span></span><span class="sig-name descname"><span class="pre">Room</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models.html#Room"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#models.Room" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.models.Room">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">website.models.</span></span><span class="sig-name descname"><span class="pre">Room</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/website/models.html#Room"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.models.Room" title="Link to this definition"></a></dt>
 <dd><p>Klasy bazowe: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
 <p>Model pokoju</p>
 <dl class="field-list simple">
@@ -602,8 +746,8 @@ Wszystko jest w tej klasie.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="models.User">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.</span></span><span class="sig-name descname"><span class="pre">User</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models.html#User"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#models.User" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.models.User">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">website.models.</span></span><span class="sig-name descname"><span class="pre">User</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/website/models.html#User"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.models.User" title="Link to this definition"></a></dt>
 <dd><p>Klasy bazowe: <code class="xref py py-class docutils literal notranslate"><span class="pre">UserMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
 <p>Model użytkownika</p>
 <dl class="field-list simple">
@@ -620,8 +764,8 @@ Wszystko jest w tej klasie.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="models.User_Room">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.</span></span><span class="sig-name descname"><span class="pre">User_Room</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models.html#User_Room"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#models.User_Room" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="website.models.User_Room">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">website.models.</span></span><span class="sig-name descname"><span class="pre">User_Room</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/website/models.html#User_Room"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.models.User_Room" title="Link to this definition"></a></dt>
 <dd><p>Klasy bazowe: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
 <p>Model Użytkownik-Pokój (dla relacji)</p>
 <dl class="field-list simple">
@@ -638,14 +782,115 @@ Wszystko jest w tej klasie.</p>
 </dd></dl>
 
 </section>
-<section id="zarzadzanie-podstronami">
-<h2>Zarządzanie podstronami<a class="headerlink" href="#zarzadzanie-podstronami" title="Link to this heading"></a></h2>
+<section id="module-website.views">
+<span id="zarzadzanie-podstronami"></span><h2>Zarządzanie podstronami<a class="headerlink" href="#module-website.views" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="website.views.home">
+<span class="sig-prename descclassname"><span class="pre">website.views.</span></span><span class="sig-name descname"><span class="pre">home</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#website.views.home" title="Link to this definition"></a></dt>
+<dd><p>Obsługa żądań klienta na stronę główną.</p>
+<section id="zwraca">
+<h3>Zwraca<a class="headerlink" href="#zwraca" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>str</dt><dd><p>Wygenerowana strona w formie tekstowej</p>
+</dd>
+</dl>
 </section>
-<section id="wzory-formularzy">
-<h2>Wzory formularzy<a class="headerlink" href="#wzory-formularzy" title="Link to this heading"></a></h2>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="website.views.load_user">
+<span class="sig-prename descclassname"><span class="pre">website.views.</span></span><span class="sig-name descname"><span class="pre">load_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#website.views.load_user" title="Link to this definition"></a></dt>
+<dd><p>! Nadpisuje metody znajdowania użytkowników po id.</p>
+<p>&#64;param id   Id szukanego użytkownika.</p>
+<p>&#64;return     Obiekt bazy danych przechowujący dane użytkownika.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="website.views.new_game">
+<span class="sig-prename descclassname"><span class="pre">website.views.</span></span><span class="sig-name descname"><span class="pre">new_game</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#website.views.new_game" title="Link to this definition"></a></dt>
+<dd><p>Obsługa żądań klienta na podstronę pokoju.</p>
+<section id="id2">
+<h3>Parametry<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>game_id<span class="classifier">str</span></dt><dd><p>Nazwa pokoju</p>
+</dd>
+</dl>
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<section id="id3">
+<h3>Zwraca<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>str</dt><dd><p>Wygenerowana strona w formie tekstowej</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+<section id="module-website.wtform_fields">
+<span id="wzory-formularzy"></span><h2>Wzory formularzy<a class="headerlink" href="#module-website.wtform_fields" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="website.wtform_fields.CreatingGameForm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">website.wtform_fields.</span></span><span class="sig-name descname"><span class="pre">CreatingGameForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/website/wtform_fields.html#CreatingGameForm"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.wtform_fields.CreatingGameForm" title="Link to this definition"></a></dt>
+<dd><p>Klasy bazowe: <code class="xref py py-class docutils literal notranslate"><span class="pre">FlaskForm</span></code></p>
+<p>Registration form</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="website.wtform_fields.CreatingGameForm.submit_new_game">
+<span class="sig-name descname"><span class="pre">submit_new_game</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Start'</span></em><a class="headerlink" href="#website.wtform_fields.CreatingGameForm.submit_new_game" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="website.wtform_fields.CreatingGameForm.username">
+<span class="sig-name descname"><span class="pre">username</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'username_label'</span></em><a class="headerlink" href="#website.wtform_fields.CreatingGameForm.username" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="website.wtform_fields.JoiningGameForm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">website.wtform_fields.</span></span><span class="sig-name descname"><span class="pre">JoiningGameForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/website/wtform_fields.html#JoiningGameForm"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.wtform_fields.JoiningGameForm" title="Link to this definition"></a></dt>
+<dd><p>Klasy bazowe: <code class="xref py py-class docutils literal notranslate"><span class="pre">FlaskForm</span></code></p>
+<p>Login form</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="website.wtform_fields.JoiningGameForm.link">
+<span class="sig-name descname"><span class="pre">link</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'link'</span></em><a class="headerlink" href="#website.wtform_fields.JoiningGameForm.link" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="website.wtform_fields.JoiningGameForm.submit_joining_game">
+<span class="sig-name descname"><span class="pre">submit_joining_game</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Join</span> <span class="pre">game'</span></em><a class="headerlink" href="#website.wtform_fields.JoiningGameForm.submit_joining_game" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="website.wtform_fields.JoiningGameForm.username">
+<span class="sig-name descname"><span class="pre">username</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'username_label'</span></em><a class="headerlink" href="#website.wtform_fields.JoiningGameForm.username" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="website.wtform_fields.JoiningGameFromLinkForm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">website.wtform_fields.</span></span><span class="sig-name descname"><span class="pre">JoiningGameFromLinkForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/website/wtform_fields.html#JoiningGameFromLinkForm"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.wtform_fields.JoiningGameFromLinkForm" title="Link to this definition"></a></dt>
+<dd><p>Klasy bazowe: <code class="xref py py-class docutils literal notranslate"><span class="pre">FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="website.wtform_fields.JoiningGameFromLinkForm.submit_joining_game_from_link">
+<span class="sig-name descname"><span class="pre">submit_joining_game_from_link</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Join</span> <span class="pre">game'</span></em><a class="headerlink" href="#website.wtform_fields.JoiningGameFromLinkForm.submit_joining_game_from_link" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="website.wtform_fields.JoiningGameFromLinkForm.username">
+<span class="sig-name descname"><span class="pre">username</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'username_label'</span></em><a class="headerlink" href="#website.wtform_fields.JoiningGameFromLinkForm.username" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-website">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-website" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="website.create_app">
+<span class="sig-prename descclassname"><span class="pre">website.</span></span><span class="sig-name descname"><span class="pre">create_app</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/website.html#create_app"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#website.create_app" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 </section>
 </section>
 

@@ -1,11 +1,4 @@
-"""
-    KOMUNIKACJA
-    -----------
-
-    Komunikacja serwer - użytkownik.
-    Tutaj znajdują się odpowiedzialne za to metody.
-
-"""
+"""Komunikacja serwer <-> użytkownik. Tutaj znajdują się odpowiedzialne za to metody."""
 
 from flask_socketio import SocketIO, send, emit, join_room, leave_room
 from flask_login import logout_user, current_user
@@ -25,9 +18,14 @@ def message(data):
     :param data: Przechowuje wysłane dane od użytkownika.
     :type data: dict
 
-    :param data["msg"]: (str) treść wiadomości
-    :param data["username"]: (str) nazwa nadawcy
-    :param data["room"]: (str) nazwa pokoju
+    :param data['msg']: Treść wiadomości.
+    :type data['msg']: str
+
+    :param data['username']: Nazwa nadawcy.
+    :type data['username']: str
+
+    :param data['room']: Nazwa pokoju.
+    :type data['room']: str
 
     """
 
@@ -59,12 +57,14 @@ def message(data):
 def join(data):
     """Przyjęcie informacji o dołączeniu nowego gracza do danego pokoju.
     
-    Parameters
-    ----------
-    data : dict
-        Dane wysłane przez klienta 
-            data['room'] - nazwa pokoju,
-            data['username'] - nazwa użytkownika
+    :param data: Dane wysłane przez klienta.
+    :type data: dict
+
+    :param data['room']: Nazwa pokoju.
+    :type data['room']: str
+
+    :param data['username']: Nazwa użytkownika.
+    :type data['username']: str
 
     """
     
@@ -75,12 +75,14 @@ def join(data):
 def leave(data):
     """Przyjęcie informacji o wyjściu z danego pokoju konkretnej osoby.
     
-    Parameters
-    ----------
-    data : dict
-        Dane wysłane przez wychodzącego klienta 
-            data['room'] - nazwa pokoju,
-            data['username'] - nazwa użytkownika
+    :param data: Dane wysyłane przez wychodzącego klienta.
+    :type data: dict
+
+    :param data['room']: Nazwa pokoju.
+    :type data['room']: str
+
+    :param data['username']: Nazwa użytkownika.
+    :type data['username']: str
 
     """
     
@@ -96,6 +98,7 @@ def leave(data):
 def start(data):
     """Przyjęcie informacji o rozpoczęciu nowego meczu w danym pokoju.
     
+    :param data: 
     Parameters
     ----------
     data : dict

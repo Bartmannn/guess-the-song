@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="pl" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>website.game_manager &mdash; Guess The Song 0.9 - dokumentacja</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=c520d581"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/translations.js?v=a186e9ce"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Indeks" href="../../genindex.html" />
+    <link rel="search" title="Szukaj" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Guess The Song
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Szukaj" aria-label="Szukaj" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">website</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Guess The Song</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Kod modułu</a></li>
+          <li class="breadcrumb-item"><a href="../website.html">website</a></li>
+      <li class="breadcrumb-item active">website.game_manager</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Kod źródłowy modułu website.game_manager</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Game Manager</span>
+<span class="sd">    ------------</span>
+
+<span class="sd">    Ta klasa jest odpowiedzialna za zarządzanie aktualnym stanem gier w pokojach.</span>
+<span class="sd">    Zliczanie punktów, wyświetlanie ich, zarządzanie kolejnką utworów oraz kontrolowanie rund.</span>
+<span class="sd">    Wszystko jest w tej klasie.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+
+<div class="viewcode-block" id="GameManager">
+<a class="viewcode-back" href="../../website.html#website.game_manager.GameManager">[dokumentacja]</a>
+<span class="k">class</span> <span class="nc">GameManager</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Zarządzanie stanem gry w pokojach</span>
+
+<span class="sd">        :param game_id:  Nazwa pokoju.</span>
+<span class="sd">        :type game_id: str</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">game_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cathegory</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">music_path</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">round</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">song_titles</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="GameManager.set_cathegory">
+<a class="viewcode-back" href="../../website.html#website.game_manager.GameManager.set_cathegory">[dokumentacja]</a>
+    <span class="k">def</span> <span class="nf">set_cathegory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cathegory</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Ustawia kategorię muzyczną</span>
+<span class="sd">        </span>
+<span class="sd">            :param cathegory: Wybrana kategoria muzyczna.</span>
+<span class="sd">            :type cathegory: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">cathegory</span> <span class="o">=</span> <span class="n">cathegory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">music_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;./website/static/music/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cathegory</span><span class="si">}</span><span class="s2">/&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_songs</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="GameManager.set_songs">
+<a class="viewcode-back" href="../../website.html#website.game_manager.GameManager.set_songs">[dokumentacja]</a>
+    <span class="k">def</span> <span class="nf">set_songs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ładuje odpowiednie utwory i ustala losową kolejkę.&quot;&quot;&quot;</span>
+        
+        <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">listdir</span>
+        <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">shuffle</span>
+
+        <span class="n">res</span> <span class="o">=</span> <span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">music_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">title</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;mp3&quot;</span> <span class="ow">in</span> <span class="n">title</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">song_titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+        
+        <span class="n">shuffle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">song_titles</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">round</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">song_titles</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GameManager.check_song">
+<a class="viewcode-back" href="../../website.html#website.game_manager.GameManager.check_song">[dokumentacja]</a>
+    <span class="k">def</span> <span class="nf">check_song</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">player_guess</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sprawdza poprawność odpowiedzi gracza.</span>
+
+<span class="sd">            :param player_guess: Odpowiedź gracza.</span>
+<span class="sd">            :type player_guess: str</span>
+<span class="sd">            :return: Kod odpowiedzi.</span>
+<span class="sd">            :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="n">player_guess</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">4</span>
+        <span class="n">guess</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_unnecessary_chars</span><span class="p">(</span><span class="n">player_guess</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">guess</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">song_titles</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">round</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; - &quot;</span><span class="p">))</span>
+        <span class="n">author</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">album</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">song_titles</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">round</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.mp3&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; - &quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">author</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">guess</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="n">title</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">guess</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">album</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">guess</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="k">return</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="mi">3</span></div>
+
+
+<div class="viewcode-block" id="GameManager.check_similarity">
+<a class="viewcode-back" href="../../website.html#website.game_manager.GameManager.check_similarity">[dokumentacja]</a>
+    <span class="k">def</span> <span class="nf">check_similarity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">player_guess</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sprawdzanie podobieństwa próby gracza z odpowiedzią.</span>
+
+<span class="sd">            :param player_guess: Odpowiedź gracza.</span>
+<span class="sd">            :type player_guess: str</span>
+
+<span class="sd">            :return: Informacja zwrotna.</span>
+<span class="sd">            :rtype: str</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">guess</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_unnecessary_chars</span><span class="p">(</span><span class="n">player_guess</span><span class="p">)</span>
+        <span class="n">author</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">album</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">song_titles</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">round</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.mp3&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; - &quot;</span><span class="p">)</span>
+        <span class="n">author_comp</span> <span class="o">=</span> <span class="n">levenshtein_distance</span><span class="p">(</span><span class="n">guess</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="n">author</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="n">title_comp</span> <span class="o">=</span> <span class="n">levenshtein_distance</span><span class="p">(</span><span class="n">guess</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="n">title</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="n">album_comp</span> <span class="o">=</span> <span class="n">levenshtein_distance</span><span class="p">(</span><span class="n">guess</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="n">album</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">author_comp</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">title_comp</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">album_comp</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">author_comp</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="ow">and</span> <span class="n">title_comp</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="ow">and</span> <span class="n">album_comp</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="s2">&quot;Close!&quot;</span></div>
+
+        
+<div class="viewcode-block" id="GameManager.get_song">
+<a class="viewcode-back" href="../../website.html#website.game_manager.GameManager.get_song">[dokumentacja]</a>
+    <span class="k">def</span> <span class="nf">get_song</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pobieranie aktualnego utworu.</span>
+
+<span class="sd">            :return: Ścieżka utworu.</span>
+<span class="sd">            :rtype: str</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">music_path</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">song_titles</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">round</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
+
+<div class="viewcode-block" id="GameManager.next_song">
+<a class="viewcode-back" href="../../website.html#website.game_manager.GameManager.next_song">[dokumentacja]</a>
+    <span class="k">def</span> <span class="nf">next_song</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pobieranie kolejnego utworu.</span>
+
+<span class="sd">            :return: Ścieżka do kolejnego utworu.</span>
+<span class="sd">            :rtype: str</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">round</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">round</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">song_titles</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">music_path</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">song_titles</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">round</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
+
+<div class="viewcode-block" id="GameManager.remove_unnecessary_chars">
+<a class="viewcode-back" href="../../website.html#website.game_manager.GameManager.remove_unnecessary_chars">[dokumentacja]</a>
+    <span class="k">def</span> <span class="nf">remove_unnecessary_chars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Usuwanie zbędnych symboli z tekstu.</span>
+
+<span class="sd">            :param text: Tekst, który ma zostać poddany obróbce.</span>
+<span class="sd">            :type text: str</span>
+
+<span class="sd">            :return: Zmodyfikowany tekst.</span>
+<span class="sd">            :rtype: str</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="k">while</span> <span class="s2">&quot;  &quot;</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot; &quot;</span><span class="p">:</span>
+            <span class="n">text</span><span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="k">if</span> <span class="n">text</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot; &quot;</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">text</span></div>
+
+
+<div class="viewcode-block" id="GameManager.get_points">
+<a class="viewcode-back" href="../../website.html#website.game_manager.GameManager.get_points">[dokumentacja]</a>
+    <span class="k">def</span> <span class="nf">get_points</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pobieranie informacji o punktach.</span>
+
+<span class="sd">            :return: Informacji o punktacji.</span>
+<span class="sd">            :rtype: str</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">results</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">results</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2"> points &lt;br&gt;&quot;</span>
+        <span class="k">return</span> <span class="n">results</span></div>
+
+
+<div class="viewcode-block" id="GameManager.add_player">
+<a class="viewcode-back" href="../../website.html#website.game_manager.GameManager.add_player">[dokumentacja]</a>
+    <span class="k">def</span> <span class="nf">add_player</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nickname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Dodawanie graczy do punktacji.</span>
+
+<span class="sd">            :param nickname: Nazwa gracza.</span>
+<span class="sd">            :type nickname: str</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">nickname</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+    
+<div class="viewcode-block" id="GameManager.add_point">
+<a class="viewcode-back" href="../../website.html#website.game_manager.GameManager.add_point">[dokumentacja]</a>
+    <span class="k">def</span> <span class="nf">add_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nickname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Przyznawanie punktów graczowi.</span>
+
+<span class="sd">            :param nickname: Nazwa gracza.</span>
+<span class="sd">            :type nickname: str</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">nickname</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">nickname</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span></div>
+</div>
+
+
+
+<span class="c1"># https://www.geeksforgeeks.org/python-similarity-metrics-of-strings/</span>
+<div class="viewcode-block" id="levenshtein_distance">
+<a class="viewcode-back" href="../../website.html#website.game_manager.levenshtein_distance">[dokumentacja]</a>
+<span class="k">def</span> <span class="nf">levenshtein_distance</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Obliczanie odległości Levenshtein&#39;a - sprawdzanie podobieństwa dwóch tekstów.</span>
+
+<span class="sd">        :param s: Pierwszy tekst do porównania.</span>
+<span class="sd">        :type s: str</span>
+
+<span class="sd">        :param t: Drugi tekst do porównania.</span>
+<span class="sd">        :type t: str</span>
+
+<span class="sd">        :return: Liczba niepasujących do siebie liter.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">m</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+        <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="p">,</span> <span class="n">s</span>
+        <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))]</span> <span class="o">+</span> <span class="p">[[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">d</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">]</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Prawa zastrzeżone 2024, Krzysztof Formal, Piotr Korycki, Bartosz Bohdziewicz.</p>
+  </div>
+
+  Zbudowano w <a href="https://www.sphinx-doc.org/">Sphinx</a> używając
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    dostarczone przez <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

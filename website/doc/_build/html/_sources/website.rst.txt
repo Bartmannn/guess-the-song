@@ -7,7 +7,7 @@ website package
 Komunikacja z serwerem
 ----------------------
 
-.. automodule:: communication
+.. automodule:: website.communication
    :members:
    :undoc-members:
    :show-inheritance:
@@ -15,7 +15,7 @@ Komunikacja z serwerem
 Stałe
 -----
 
-.. automodule:: consts
+.. automodule:: website.consts
    :members:
    :undoc-members:
    :show-inheritance:
@@ -23,7 +23,7 @@ Stałe
 Downloader
 ----------
 
-.. automodule:: downloader
+.. automodule:: website.downloader
    :members:
    :undoc-members:
    :show-inheritance:
@@ -31,7 +31,7 @@ Downloader
 Zarządzanie stanem gry
 ----------------------
 
-.. automodule:: game_manager
+.. automodule:: website.game_manager
    :members:
    :undoc-members:
    :show-inheritance:
@@ -39,7 +39,7 @@ Zarządzanie stanem gry
 Struktura bazy danych
 ---------------------
 
-.. automodule:: models
+.. automodule:: website.models
    :members:
    :undoc-members:
    :show-inheritance:
@@ -47,7 +47,7 @@ Struktura bazy danych
 Zarządzanie podstronami
 -----------------------
 
-.. automodule:: views
+.. automodule:: website.views
    :members:
    :undoc-members:
    :show-inheritance:
@@ -55,7 +55,7 @@ Zarządzanie podstronami
 Wzory formularzy
 ----------------
 
-.. automodule:: wtform_fields
+.. automodule:: website.wtform_fields
    :members:
    :undoc-members:
    :show-inheritance:
@@ -63,7 +63,7 @@ Wzory formularzy
 Module contents
 ---------------
 
-.. automodule:: module
+.. automodule:: website
    :members:
    :undoc-members:
    :show-inheritance:
