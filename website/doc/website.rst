@@ -4,14 +4,6 @@ website package
 .. Submodules
 .. ----------
 
-Komunikacja z serwerem
-----------------------
-
-.. automodule:: website.communication
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Stałe
 -----
 
@@ -20,10 +12,18 @@ Stałe
    :undoc-members:
    :show-inheritance:
 
-Downloader
-----------
+Zarządzanie podstronami
+-----------------------
 
-.. automodule:: website.downloader
+.. automodule:: website.views
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Komunikacja z serwerem
+----------------------
+
+.. automodule:: website.communication
    :members:
    :undoc-members:
    :show-inheritance:
@@ -44,18 +44,18 @@ Struktura bazy danych
    :undoc-members:
    :show-inheritance:
 
-Zarządzanie podstronami
------------------------
-
-.. automodule:: website.views
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Wzory formularzy
 ----------------
 
 .. automodule:: website.wtform_fields
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Downloader
+----------
+
+.. automodule:: website.downloader
    :members:
    :undoc-members:
    :show-inheritance:

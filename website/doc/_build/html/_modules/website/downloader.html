@@ -73,7 +73,15 @@
            <div itemprop="articleBody">
              
   <h1>Kod źródłowy modułu website.downloader</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Zestaw narzędzi pozwalających na pobieranie utworów oraz ich obróbki.</span>
+<span class="sd">    Dzięki nim można pobierać wybrane fragmenty utworów, wyodrębnić z nich</span>
+<span class="sd">    potrzebne informacje: wykonawcę, tytuł oraz album/tytuł/film, </span>
+<span class="sd">    z którego muzyka pochodzi).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 
 <span class="n">DEST_PATH</span> <span class="o">=</span> <span class="s2">&quot;./Pobrane/&quot;</span>

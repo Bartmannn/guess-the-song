@@ -83,7 +83,12 @@
 <a class="viewcode-back" href="../../website.html#website.wtform_fields.CreatingGameForm">[dokumentacja]</a>
 <span class="k">class</span> <span class="nc">CreatingGameForm</span><span class="p">(</span><span class="n">FlaskForm</span><span class="p">):</span>
 
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Registration form&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Formularz do zainicjowania nowej gry.</span>
+<span class="sd">    </span>
+<span class="sd">        :username: (wtforms.fields.core.UnboundField) Obiekt pola tekstowego do wprowadzania nazwy użytkownika.</span>
+<span class="sd">        :submit_new_game: (wtforms.fields.core.UnboundField) Obiekt przycisku do zatwierdzania nazwy i stworzenia nowej gry.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">username</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s2">&quot;username_label&quot;</span><span class="p">,</span>
         <span class="n">validators</span> <span class="o">=</span> <span class="p">[</span>
@@ -93,52 +98,62 @@
     <span class="p">)</span>
     <span class="n">submit_new_game</span> <span class="o">=</span> <span class="n">SubmitField</span><span class="p">(</span><span class="s2">&quot;Start&quot;</span><span class="p">)</span></div>
 
+    <span class="c1"># print(f&quot;\n\nInput: {type(username)} | Przycisk: {type(submit_new_game)} | Creating Game Form&quot;)</span>
 
 
 
-<div class="viewcode-block" id="JoiningGameForm">
-<a class="viewcode-back" href="../../website.html#website.wtform_fields.JoiningGameForm">[dokumentacja]</a>
-<span class="k">class</span> <span class="nc">JoiningGameForm</span><span class="p">(</span><span class="n">FlaskForm</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Login form &quot;&quot;&quot;</span>
+<span class="c1"># class JoiningGameForm(FlaskForm):</span>
+<span class="c1">#     &quot;&quot;&quot; Login form &quot;&quot;&quot;</span>
 
-    <span class="n">username</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s2">&quot;username_label&quot;</span><span class="p">,</span>
-        <span class="n">validators</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">InputRequired</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Username required&quot;</span><span class="p">),</span>
-            <span class="n">Length</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Username must be between 4 and 25 characters&quot;</span><span class="p">)</span>
-        <span class="p">]</span>
-    <span class="p">)</span>
-    <span class="n">link</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s2">&quot;link&quot;</span><span class="p">,</span>
-        <span class="n">validators</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">InputRequired</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Invitation link required&quot;</span><span class="p">)</span>
-        <span class="p">]</span>
-    <span class="p">)</span>
-    <span class="n">submit_joining_game</span> <span class="o">=</span> <span class="n">SubmitField</span><span class="p">(</span><span class="s2">&quot;Join game&quot;</span><span class="p">)</span></div>
+<span class="c1">#     username = StringField(&quot;username_label&quot;,</span>
+<span class="c1">#         validators = [</span>
+<span class="c1">#             InputRequired(message=&quot;Username required&quot;),</span>
+<span class="c1">#             Length(min=4, max=25, message=&quot;Username must be between 4 and 25 characters&quot;)</span>
+<span class="c1">#         ]</span>
+<span class="c1">#     )</span>
+<span class="c1">#     link = StringField(&quot;link&quot;,</span>
+<span class="c1">#         validators = [</span>
+<span class="c1">#             InputRequired(message=&quot;Invitation link required&quot;)</span>
+<span class="c1">#         ]</span>
+<span class="c1">#     )</span>
+<span class="c1">#     submit_joining_game = SubmitField(&quot;Join game&quot;)</span>
 
-
-<span class="k">class</span> <span class="nc">JoiningGameFromLinkForm</span><span class="p">(</span><span class="n">FlaskForm</span><span class="p">):</span>
-
-    <span class="n">username</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s2">&quot;username_label&quot;</span><span class="p">,</span>
-        <span class="n">validators</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">InputRequired</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Username required&quot;</span><span class="p">),</span>
-            <span class="n">Length</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Username must be between 4 and 25 characters&quot;</span><span class="p">)</span>
-        <span class="p">]</span>
-    <span class="p">)</span>
-    <span class="n">submit_joining_game_from_link</span> <span class="o">=</span> <span class="n">SubmitField</span><span class="p">(</span><span class="s2">&quot;Join game&quot;</span><span class="p">)</span>
-
-
+<span class="c1">#     print(f&quot;\n\nInput: {type(username)} | Przycisk: {type(submit_new_game)} | Creating Game Form&quot;)</span>
 
 <div class="viewcode-block" id="JoiningGameFromLinkForm">
 <a class="viewcode-back" href="../../website.html#website.wtform_fields.JoiningGameFromLinkForm">[dokumentacja]</a>
 <span class="k">class</span> <span class="nc">JoiningGameFromLinkForm</span><span class="p">(</span><span class="n">FlaskForm</span><span class="p">):</span>
 
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Formularz do dołączania do istniejących gier.</span>
+<span class="sd">    </span>
+<span class="sd">        :username: (wtforms.fields.core.UnboundField) Obiekt pola tekstowego do wprowadzania nazwy użytkownika.</span>
+<span class="sd">        :submit_joining_game: (wtforms.fields.core.UnboundField) Obiekt przycisku do zatwierdzania nazwy i dołączenia.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
     <span class="n">username</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s2">&quot;username_label&quot;</span><span class="p">,</span>
         <span class="n">validators</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">InputRequired</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Username required&quot;</span><span class="p">),</span>
             <span class="n">Length</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Username must be between 4 and 25 characters&quot;</span><span class="p">)</span>
         <span class="p">]</span>
     <span class="p">)</span>
-    <span class="n">submit_joining_game_from_link</span> <span class="o">=</span> <span class="n">SubmitField</span><span class="p">(</span><span class="s2">&quot;Join game&quot;</span><span class="p">)</span></div>
+    <span class="n">submit_joining_game</span> <span class="o">=</span> <span class="n">SubmitField</span><span class="p">(</span><span class="s2">&quot;Join game&quot;</span><span class="p">)</span></div>
 
+    <span class="c1"># print(f&quot;\n\nInput: {type(username)} | Przycisk: {type(submit_joining_game_from_link)} | Joining Game Form&quot;)</span>
+
+
+
+<span class="c1"># class JoiningGameFromLinkForm(FlaskForm):</span>
+
+<span class="c1">#     username = StringField(&quot;username_label&quot;,</span>
+<span class="c1">#         validators = [</span>
+<span class="c1">#             InputRequired(message=&quot;Username required&quot;),</span>
+<span class="c1">#             Length(min=4, max=25, message=&quot;Username must be between 4 and 25 characters&quot;)</span>
+<span class="c1">#         ]</span>
+<span class="c1">#     )</span>
+<span class="c1">#     submit_joining_game_from_link = SubmitField(&quot;Join game&quot;)</span>
+
+<span class="c1">#     print(f&quot;\n\nInput: {type(username)} | Przycisk: {type(submit_new_game)} | Creating Game Form&quot;)</span>
 
 
         
