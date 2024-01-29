@@ -7,15 +7,32 @@ from random import randint
 from flask_login import LoginManager, login_user, current_user, login_required, logout_user
 import sys
 from .game_manager import GameManager
+
 views = Blueprint("views", __name__)
 login  = LoginManager()
 
 @login.user_loader
-def load_user(id):
+def load_user(id: int) -> User:
+    """Nadpisuje metody znajdowania użytkowników po id.
+
+    :param id: Id szukanego użytkownika.
+    :type id: int
+
+    :return: Obiekt bazy danych przechowujący dane użytkownika.
+    :rtype: website.models.User
+
+    """
+
     return User.query.get(int(id))
 
 @views.route("/", methods=["GET", "POST"])
-def home():
+def home() -> str:
+    """Obsługa strony głównej.
+
+    :return: Kod źródłowy strony internetowej.
+    :rtype: str
+    
+    """
 
     new_game_form = CreatingGameForm()
 
@@ -48,24 +65,33 @@ def home():
 
         login_user(user)
         return redirect(url_for("views.new_game", game_id=server_id, is_admin=True))
-
     return render_template("index.html", creating_game=new_game_form)
 
 @views.route("/<game_id>", methods=["GET", "POST"])
-def new_game(game_id):
+def new_game(game_id: str) -> str:
+    """Obsługa strony pokoju.
+
+    :param game_id: Nazwa pokoju.
+    :type game_id: str
+
+    :return: Kod źródłowy podstrony.
+    :rtype: str
+
+    """
+
     if current_user.is_authenticated:
         is_admin = User.query.filter_by(id=current_user.id).first().is_admin
         return render_template("game_room.html", room_name=game_id, invite_link=HOST_URL+game_id, code=game_id, username=current_user.username, is_admin=is_admin)
 
-    joining_form = JoiningGameForm()
+    joining_form = JoiningGameFromLinkForm()
     if joining_form.submit_joining_game.data and joining_form.validate():
         username = joining_form.username.data
-        code = joining_form.link.data
+        # code = joining_form.link.data
 
         user = User(username=username, is_admin=False)
         db.session.add(user)
 
-        room = Room.query.filter_by(invitation_link=code).first()
+        room = Room.query.filter_by(invitation_link=game_id).first()
         if room == None:
             return "Game does not exist"
 
@@ -74,7 +100,6 @@ def new_game(game_id):
         db.session.commit()
 
         login_user(user)
-        return redirect(url_for("views.new_game", game_id=code))
+        return redirect(url_for("views.new_game", game_id=game_id))
 
     return render_template("log_to_room.html", room_name=game_id, joining_game=joining_form)
-    

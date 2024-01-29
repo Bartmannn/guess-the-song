@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="pl" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>website.downloader &mdash; Guess The Song 0.9 - dokumentacja</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=c520d581"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/translations.js?v=a186e9ce"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Indeks" href="../../genindex.html" />
+    <link rel="search" title="Szukaj" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Guess The Song
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Szukaj" aria-label="Szukaj" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">website</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Guess The Song</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Kod modułu</a></li>
+          <li class="breadcrumb-item"><a href="../website.html">website</a></li>
+      <li class="breadcrumb-item active">website.downloader</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Kod źródłowy modułu website.downloader</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Zestaw narzędzi pozwalających na pobieranie utworów oraz ich obróbki.</span>
+<span class="sd">    Dzięki nim można pobierać wybrane fragmenty utworów, wyodrębnić z nich</span>
+<span class="sd">    potrzebne informacje: wykonawcę, tytuł oraz album/tytuł/film, </span>
+<span class="sd">    z którego muzyka pochodzi).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="n">DEST_PATH</span> <span class="o">=</span> <span class="s2">&quot;./Pobrane/&quot;</span>
+<span class="n">EXTENTION</span> <span class="o">=</span> <span class="s2">&quot;mp3&quot;</span>
+
+<span class="c1"># ile ma mieć melodia - uzależniam od tego fragment </span>
+<span class="c1"># do pobrania (ma znaczenie przy optymalizacji)</span>
+<span class="n">DURATION</span> <span class="o">=</span> <span class="mi">15</span>
+
+<div class="viewcode-block" id="remove_between_chars">
+<a class="viewcode-back" href="../../website.html#website.downloader.remove_between_chars">[dokumentacja]</a>
+<span class="k">def</span> <span class="nf">remove_between_chars</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">char1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">char2</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Usuwa wszystkie znaki z danego tekstu, które znajdują się pomiędzy dwoma wybranymi znakami.</span>
+<span class="sd">        </span>
+<span class="sd">        :param text: Tekst do zmodyfikowania.</span>
+<span class="sd">        :type text: str</span>
+
+<span class="sd">        :param char1: Znak, od którego zaczyna się usuwanie.</span>
+<span class="sd">        :type char1: str</span>
+
+<span class="sd">        :param char2: Znak, na którym kończy się usuwanie.</span>
+<span class="sd">        :type char2: str</span>
+
+<span class="sd">        :return: Zmodyfikowany tekst.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;\ \</span><span class="si">{}</span><span class="s2">.*?\</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">char1</span><span class="p">,</span> <span class="n">char2</span><span class="p">)</span>
+    <span class="n">pattern_match</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">while</span> <span class="n">pattern_match</span><span class="p">:</span>
+        <span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">matches</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pattern_match</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="n">text</span></div>
+
+
+<div class="viewcode-block" id="remove_icons">
+<a class="viewcode-back" href="../../website.html#website.downloader.remove_icons">[dokumentacja]</a>
+<span class="k">def</span> <span class="nf">remove_icons</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Usuwa emoji lub inne ikonki z tektu.</span>
+<span class="sd">        </span>
+<span class="sd">        :param text: Tekst do zmodyfikowania.</span>
+<span class="sd">        :type text: str</span>
+
+<span class="sd">        :return: Zmodyfikowany tekst.</span>
+<span class="sd">        :rtype: str</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+
+    <span class="n">new_text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">u</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">emoji_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;[&quot;</span>
+        <span class="sa">u</span><span class="s2">&quot;</span><span class="se">\U0001F600</span><span class="s2">-</span><span class="se">\U0001F64F</span><span class="s2">&quot;</span>  <span class="c1"># emoticons</span>
+        <span class="sa">u</span><span class="s2">&quot;</span><span class="se">\U0001F300</span><span class="s2">-</span><span class="se">\U0001F5FF</span><span class="s2">&quot;</span>  <span class="c1"># symbols &amp; pictographs</span>
+        <span class="sa">u</span><span class="s2">&quot;</span><span class="se">\U0001F680</span><span class="s2">-</span><span class="se">\U0001F6FF</span><span class="s2">&quot;</span>  <span class="c1"># transport &amp; map symbols</span>
+        <span class="sa">u</span><span class="s2">&quot;</span><span class="se">\U0001F1E0</span><span class="s2">-</span><span class="se">\U0001F1FF</span><span class="s2">&quot;</span>  <span class="c1"># flags (iOS)</span>
+                           <span class="s2">&quot;]+&quot;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">UNICODE</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">emoji_pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">new_text</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="remove_numbering">
+<a class="viewcode-back" href="../../website.html#website.downloader.remove_numbering">[dokumentacja]</a>
+<span class="k">def</span> <span class="nf">remove_numbering</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">numbering_char</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Usuwa numerowanie w tekście.</span>
+<span class="sd">        </span>
+<span class="sd">        :param text: Tekst do zmodyfikowania.</span>
+<span class="sd">        :type text: str</span>
+
+<span class="sd">        :param numbering_char: Znak okreslający numerowanie (np. #)</span>
+<span class="sd">        :type numbering_char: str</span>
+
+<span class="sd">        :return: Zmodyfikowany tekst.</span>
+<span class="sd">        :rtype: str</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+
+
+    <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">\d*&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">numbering_char</span><span class="p">)</span>
+    <span class="n">new_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_text</span></div>
+
+
+<div class="viewcode-block" id="cut_by_string">
+<a class="viewcode-back" href="../../website.html#website.downloader.cut_by_string">[dokumentacja]</a>
+<span class="k">def</span> <span class="nf">cut_by_string</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">divider</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ucina tekst w wybranym miejscu.</span>
+<span class="sd">    </span>
+<span class="sd">        :param text: Tekst do zmodyfikowania.</span>
+<span class="sd">        :type text: str</span>
+
+<span class="sd">        :param divider: Znak, który określa miejsce cięcia.</span>
+<span class="sd">        :type divider: str</span>
+
+<span class="sd">        :retrun: Zwraca pierwszy z uzyskanych kawałków.</span>
+<span class="sd">        :rtype: str</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">divider</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="format_text">
+<a class="viewcode-back" href="../../website.html#website.downloader.format_text">[dokumentacja]</a>
+<span class="k">def</span> <span class="nf">format_text</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Modyfikuje tekst, pozbywając się zbędnych znaków.</span>
+
+<span class="sd">        :param text: Tekst do zmodyfikowania.</span>
+<span class="sd">        :type text: str</span>
+
+<span class="sd">        :return: Zmodyfikowany tekst.</span>
+<span class="sd">        :rtype: str</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">if</span> <span class="n">text</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">text</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="n">text</span> <span class="o">=</span> <span class="n">remove_between_chars</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="s2">&quot;)&quot;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">remove_between_chars</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;[&quot;</span><span class="p">,</span> <span class="s2">&quot;]&quot;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">remove_between_chars</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="s2">&quot;}&quot;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">remove_icons</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">remove_numbering</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;No.&quot;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">remove_numbering</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;#&quot;</span><span class="p">)</span>
+
+    <span class="c1"># tutaj problem z nazwami utworów z &quot; - &quot; takim patternem</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; - &quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; – &quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+
+    <span class="n">text</span> <span class="o">=</span> <span class="n">cut_by_string</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot; ft.&quot;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">cut_by_string</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot; feat&quot;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">cut_by_string</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot; | &quot;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; Official Video&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">text</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot; &quot;</span><span class="p">:</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    
+    <span class="k">return</span> <span class="n">text</span></div>
+
+
+<div class="viewcode-block" id="get_basic_info">
+<a class="viewcode-back" href="../../website.html#website.downloader.get_basic_info">[dokumentacja]</a>
+<span class="k">def</span> <span class="nf">get_basic_info</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pobiera informacje o utworach z YouTube&#39;a.</span>
+<span class="sd">        </span>
+<span class="sd">        :param url: Link do filmu na YouTube.</span>
+<span class="sd">        :type url: str</span>
+
+<span class="sd">        :return: Tytuł wraz z długością trwania filmu.</span>
+<span class="sd">        :rtype: (str, int)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+
+    <span class="kn">from</span> <span class="nn">yt_dlp</span> <span class="kn">import</span> <span class="n">YoutubeDL</span>
+    
+    <span class="n">video_title</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">video_duration</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">ydl_opts</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;quiet&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="c1"># wyłącza printowanie informacji</span>
+    <span class="p">}</span>
+
+    <span class="k">with</span> <span class="n">YoutubeDL</span><span class="p">(</span><span class="n">ydl_opts</span><span class="p">)</span> <span class="k">as</span> <span class="n">ydl</span><span class="p">:</span>
+        <span class="n">info_dict</span> <span class="o">=</span> <span class="n">ydl</span><span class="o">.</span><span class="n">extract_info</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">video_title</span> <span class="o">=</span> <span class="n">info_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">video_duration</span> <span class="o">=</span> <span class="n">info_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;duration&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="n">video_title</span> <span class="o">=</span> <span class="n">format_text</span><span class="p">(</span><span class="n">video_title</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">video_title</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">video_duration</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_seconds">
+<a class="viewcode-back" href="../../website.html#website.downloader.get_seconds">[dokumentacja]</a>
+<span class="k">def</span> <span class="nf">get_seconds</span><span class="p">(</span><span class="n">time</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Zwraca z danego czasu sekundy w formacie int.</span>
+
+<span class="sd">        :param time: Czas w formacie mm:ss.</span>
+<span class="sd">        :type time: str</span>
+
+<span class="sd">        :return: Liczba sekund.</span>
+<span class="sd">        :rtype: int</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># na tym etapie minuty i sekundy to jeszcze string&#39;i</span>
+    <span class="c1"># dzielę dany czas przez co powstaje mi tablica 2-elementowa</span>
+    <span class="nb">min</span><span class="p">,</span> <span class="n">sec</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+
+    <span class="c1"># parsuję str na int i zwracam czas w sekundach</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">)</span><span class="o">*</span><span class="mi">60</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">sec</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="to_two_places">
+<a class="viewcode-back" href="../../website.html#website.downloader.to_two_places">[dokumentacja]</a>
+<span class="k">def</span> <span class="nf">to_two_places</span><span class="p">(</span><span class="n">number</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Uzupełnia podaną liczbę do miejsc dziesiętnych m.in. zamienia format czasu m:s na mm:ss.</span>
+
+<span class="sd">        :param number: Liczba do zmodyfikowania.</span>
+<span class="sd">        :type number: int</span>
+
+<span class="sd">        :return: Zmodyfikowana liczba.</span>
+<span class="sd">        :rtype: str</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># jeśli długość liczby jest równa 2 nic nie rób</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">number</span><span class="p">))</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">number</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="c1"># jeśli liczba ma tylko jedności, dodaj 0 na początek</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;0</span><span class="si">{</span><span class="n">number</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
+
+<div class="viewcode-block" id="get_time">
+<a class="viewcode-back" href="../../website.html#website.downloader.get_time">[dokumentacja]</a>
+<span class="k">def</span> <span class="nf">get_time</span><span class="p">(</span><span class="n">allSeconds</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Przekształca czas podany w sekundach na czas w formacie mm:ss.</span>
+<span class="sd">        </span>
+<span class="sd">        :param allSeconds: Liczba sekund.</span>
+<span class="sd">        :type allSeconds: int</span>
+
+<span class="sd">        :return: Czas w formacie mm:ss.</span>
+<span class="sd">        :rtype: str</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># dzielenie całkowite podanych sekund na minuty</span>
+    <span class="c1"># dzielenie całkowite &quot;ucina&quot; część ułamkową</span>
+    <span class="nb">min</span> <span class="o">=</span> <span class="n">allSeconds</span><span class="o">//</span><span class="mi">60</span>
+    <span class="n">sec</span> <span class="o">=</span> <span class="n">allSeconds</span> <span class="o">-</span> <span class="nb">min</span><span class="o">*</span><span class="mi">60</span>
+
+    <span class="c1"># zwracany wynik poprawiamy o dodanie miejsc dziesiętnych</span>
+    <span class="c1"># chcemy zwrócić czas w formacie mm:ss</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">to_two_places</span><span class="p">(</span><span class="nb">min</span><span class="p">)</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">to_two_places</span><span class="p">(</span><span class="n">sec</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
+
+<div class="viewcode-block" id="download_audio_section">
+<a class="viewcode-back" href="../../website.html#website.downloader.download_audio_section">[dokumentacja]</a>
+<span class="k">def</span> <span class="nf">download_audio_section</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">audio_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ext</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">audio_length</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pobiera i zapisuje pliki muzyczne na podanej ścieżce pod określoną nazwą.</span>
+<span class="sd">        Zapisany plik muzyczny jest obcinany do wybranej długości trwania.</span>
+<span class="sd">        </span>
+<span class="sd">        :param url: Link do utworu.</span>
+<span class="sd">        :type url: str</span>
+
+<span class="sd">        :param dest_path: Ścieżka zapisu.</span>
+<span class="sd">        :type dest_path: str</span>
+<span class="sd">        </span>
+<span class="sd">        :param audio_name: Nazwa pliku.</span>
+<span class="sd">        :type audio_name: str</span>
+<span class="sd">        </span>
+<span class="sd">        :param ext: Rozszerzenie pliku.</span>
+<span class="sd">        :type ext: str</span>
+<span class="sd">        </span>
+<span class="sd">        :param audio_length: Długość trwania utworu.</span>
+<span class="sd">        :type audio_length: int</span>
+<span class="sd">        </span>
+<span class="sd">        :param duration: Pożądana długość utworu.</span>
+<span class="sd">        :type duration: int</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># biblioteki importuję tutaj, dla wygody przy zrozumieniu kodu</span>
+    <span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">run</span><span class="p">,</span> <span class="n">PIPE</span>
+    <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
+
+    <span class="c1"># początek utworu losuję, żeby ta sama piosenka zaczynała się w różnych momentach</span>
+    <span class="n">audio_start</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">audio_length</span><span class="o">-</span><span class="n">duration</span><span class="p">)</span>
+
+    <span class="c1"># koniec utworu</span>
+    <span class="n">audio_end</span> <span class="o">=</span> <span class="n">audio_start</span><span class="o">+</span><span class="n">duration</span>
+
+    <span class="c1"># wywołanie polecenia yt-dlp z odpowiednimi argumentami</span>
+    <span class="n">run</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="s2">&quot;yt-dlp&quot;</span><span class="p">,</span> <span class="c1"># wywołanie samego programu</span>
+            <span class="s2">&quot;-x&quot;</span><span class="p">,</span> <span class="c1"># żadanie tylko dźwięku</span>
+            <span class="s2">&quot;--audio-format&quot;</span><span class="p">,</span> <span class="n">ext</span><span class="p">,</span> <span class="c1"># konwersja pobranego pliku na dźwiękowy w odpowiednim formacie</span>
+            <span class="s2">&quot;--audio-quality&quot;</span><span class="p">,</span> <span class="n">ext</span><span class="p">,</span> <span class="c1"># jakość pobieranego formatu (mp3 == worst nie wiem dlaczego)</span>
+            <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dest_path</span><span class="si">}{</span><span class="n">audio_name</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="c1"># zapisanie pliku w podanym miejscu</span>
+            <span class="s2">&quot;--download-sections&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;*</span><span class="si">{</span><span class="n">get_time</span><span class="p">(</span><span class="n">audio_start</span><span class="p">)</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">get_time</span><span class="p">(</span><span class="n">audio_end</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="c1"># określenie przedziału czasu</span>
+            <span class="s2">&quot;--force-keyframes-at-cuts&quot;</span><span class="p">,</span> <span class="c1"># tak jakby wymusza podany zakres, jest wtedy odpowiednia długość</span>
+            <span class="n">url</span> <span class="c1"># link do utworu</span>
+        <span class="p">],</span>
+        <span class="n">stdout</span><span class="o">=</span><span class="n">PIPE</span> <span class="c1"># nie wypisuje informacji w konsoli</span>
+    <span class="p">)</span></div>
+
+
+    <span class="c1"># z jakiego powodu to polecenia pobiera utwór w postaci filmu, a potem tworzy plik muzyczny</span>
+    <span class="c1"># plik filmowy usuwa i zostawia ten z utworem</span>
+    <span class="c1"># przedział czasowy działa przy pobieraniu, więc można zaoszczędzić sporo danych</span>
+
+<div class="viewcode-block" id="play_audio">
+<a class="viewcode-back" href="../../website.html#website.downloader.play_audio">[dokumentacja]</a>
+<span class="k">def</span> <span class="nf">play_audio</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Odtworzenie utworu z konkretnej ścieżki.</span>
+
+<span class="sd">        :param path: Ścieżka do utworu.</span>
+<span class="sd">        :type path: str</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+    <span class="kn">import</span> <span class="nn">vlc</span>
+
+    <span class="n">player</span> <span class="o">=</span> <span class="n">vlc</span><span class="o">.</span><span class="n">Instance</span><span class="p">(</span><span class="s2">&quot;--no-xlib -q &gt; /dev/null 2&gt;&amp;1&quot;</span><span class="p">)</span>
+    <span class="n">media_player</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">media_player_new</span><span class="p">()</span>
+
+    <span class="n">media</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">media_new</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">media_player</span><span class="o">.</span><span class="n">set_media</span><span class="p">(</span><span class="n">media</span><span class="p">)</span>
+    <span class="n">media_player</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+
+    <span class="n">sleep</span><span class="p">(</span><span class="n">DURATION</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="download_music">
+<a class="viewcode-back" href="../../website.html#website.downloader.download_music">[dokumentacja]</a>
+<span class="k">def</span> <span class="nf">download_music</span><span class="p">(</span><span class="n">URLs</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">extention</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest_path</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DURATION</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pobiera utowry z listy.</span>
+
+<span class="sd">        :param URLs: Lista linków do utworów, które mają zostać pobrane.</span>
+<span class="sd">        :type URLs: list</span>
+<span class="sd">        </span>
+<span class="sd">        :param extention: Rozszerzenie w jakim mają być zapisane utwory.</span>
+<span class="sd">        :type extention: str</span>
+<span class="sd">        </span>
+<span class="sd">        :param dest_path: Ścieżka docelowa zapisu utworów.</span>
+<span class="sd">        :type dest_path: str</span>
+<span class="sd">        </span>
+<span class="sd">        :param: duration: Docelowa długość trwania utworu.</span>
+<span class="sd">        :type duration: int</span>
+
+<span class="sd">        :return: Lista tytułów pobranych utworów.</span>
+<span class="sd">        :rtype: list</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+
+
+    <span class="n">titles</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">URLs</span><span class="p">:</span>
+
+        <span class="n">audio_title</span><span class="p">,</span> <span class="n">audio_length</span> <span class="o">=</span> <span class="n">get_basic_info</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">relative_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dest_path</span><span class="si">}{</span><span class="n">audio_title</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">extention</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="c1"># cała zabawa zaczyna się w tej funkcji</span>
+        <span class="n">download_audio_section</span><span class="p">(</span>
+            <span class="n">url</span><span class="p">,</span>
+            <span class="n">dest_path</span><span class="p">,</span>
+            <span class="n">audio_title</span><span class="p">,</span>
+            <span class="n">extention</span><span class="p">,</span>
+            <span class="n">audio_length</span><span class="p">,</span>
+            <span class="n">duration</span>
+        <span class="p">)</span>
+
+        <span class="n">titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">audio_title</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">titles</span></div>
+
+
+<div class="viewcode-block" id="test">
+<a class="viewcode-back" href="../../website.html#website.downloader.test">[dokumentacja]</a>
+<span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">links</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Funkcja testowa. Sprawdzanie działania programu.</span>
+<span class="sd">    </span>
+<span class="sd">        :param links: Link do utworu.</span>
+<span class="sd">        :type links: str    </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+
+
+    <span class="kn">from</span> <span class="nn">yt_dlp</span> <span class="kn">import</span> <span class="n">YoutubeDL</span>
+
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;quiet&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;no-warnings&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">links</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">YoutubeDL</span><span class="p">(</span><span class="n">options</span><span class="p">)</span> <span class="k">as</span> <span class="n">ydl</span><span class="p">:</span>
+            <span class="n">info_dict</span> <span class="o">=</span> <span class="n">ydl</span><span class="o">.</span><span class="n">extract_info</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">album</span> <span class="o">=</span> <span class="n">info_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;album&quot;</span><span class="p">)</span>
+            <span class="n">artist</span> <span class="o">=</span> <span class="n">info_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;artist&quot;</span><span class="p">)</span>
+            <span class="n">track</span> <span class="o">=</span> <span class="n">info_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;track&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">album</span><span class="p">,</span> <span class="n">artist</span><span class="p">,</span> <span class="n">track</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="test_download">
+<a class="viewcode-back" href="../../website.html#website.downloader.test_download">[dokumentacja]</a>
+<span class="k">def</span> <span class="nf">test_download</span><span class="p">(</span><span class="n">links</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Funkcja testowa. Sprawdzanie pobierania utworów masowo.</span>
+<span class="sd">    </span>
+<span class="sd">        :param links: Lista linków utworów do pobrania.</span>
+<span class="sd">        :type links: list</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    
+    <span class="kn">from</span> <span class="nn">yt_dlp</span> <span class="kn">import</span> <span class="n">YoutubeDL</span>
+    <span class="kn">from</span> <span class="nn">yt_dlp.utils</span> <span class="kn">import</span> <span class="n">download_range_func</span>
+    <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
+
+    <span class="n">start_time</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">end_time</span> <span class="o">=</span> <span class="mi">20</span>
+
+    <span class="n">info_options</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;quiet&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">links</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">YoutubeDL</span><span class="p">(</span><span class="n">info_options</span><span class="p">)</span> <span class="k">as</span> <span class="n">ydl</span><span class="p">:</span>
+            <span class="n">info_dict</span> <span class="o">=</span> <span class="n">ydl</span><span class="o">.</span><span class="n">extract_info</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">album</span> <span class="o">=</span> <span class="n">format_text</span><span class="p">(</span><span class="n">info_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;album&quot;</span><span class="p">))</span>
+            <span class="n">artist</span> <span class="o">=</span> <span class="n">format_text</span><span class="p">(</span><span class="n">info_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;artist&quot;</span><span class="p">))</span>
+            <span class="n">track</span> <span class="o">=</span> <span class="n">format_text</span><span class="p">(</span><span class="n">info_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;track&quot;</span><span class="p">))</span>
+            <span class="n">duration</span> <span class="o">=</span> <span class="n">info_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;duration&quot;</span><span class="p">)</span>
+            <span class="n">start_time</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">duration</span><span class="o">-</span><span class="mi">15</span><span class="p">)</span>
+            <span class="n">end_time</span> <span class="o">=</span> <span class="n">start_time</span> <span class="o">+</span> <span class="mi">15</span>
+
+        <span class="n">download_options</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;quiet&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;mp3/bestaudio/best&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;postprocessors&#39;</span><span class="p">:</span> <span class="p">[{</span>
+                <span class="s1">&#39;key&#39;</span><span class="p">:</span> <span class="s1">&#39;FFmpegExtractAudio&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;preferredcodec&#39;</span><span class="p">:</span> <span class="s1">&#39;mp3&#39;</span><span class="p">,</span>
+            <span class="p">}],</span>
+            <span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;download_ranges&quot;</span><span class="p">:</span> <span class="n">download_range_func</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">[(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">)]),</span>
+            <span class="s2">&quot;force_keyframes_at_cuts&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;outtmpl&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">artist</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">track</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">album</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">with</span> <span class="n">YoutubeDL</span><span class="p">(</span><span class="n">download_options</span><span class="p">)</span> <span class="k">as</span> <span class="n">ydl</span><span class="p">:</span>
+            <span class="n">ydl</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">link</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_links">
+<a class="viewcode-back" href="../../website.html#website.downloader.get_links">[dokumentacja]</a>
+<span class="k">def</span> <span class="nf">get_links</span><span class="p">(</span><span class="n">path_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pobieranie ścieżek do utworów.</span>
+<span class="sd">    </span>
+<span class="sd">        :param path_file: Ścieżka do folderu z utworami.</span>
+<span class="sd">        :type path_file: str</span>
+
+<span class="sd">        :return: Lista utworów.</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+
+    <span class="n">links</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">links</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="n">links</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="c1"># yt-dlp --flat-playlist -i --print-to-file url file.txt &quot;playlist-url&quot;</span>
+
+    <span class="n">urls</span> <span class="o">=</span> <span class="n">get_links</span><span class="p">(</span><span class="s2">&quot;.</span><span class="se">\\</span><span class="s2">links.txt&quot;</span><span class="p">)</span>
+    <span class="c1"># urls = [&quot;https://music.youtube.com/watch?v=6LASz6HAL7E&amp;si=duLuY-Nzb55GDtrv&quot;]</span>
+    <span class="c1"># print(urls)</span>
+    <span class="n">test_download</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span>
+
+
+
+
+
+    <span class="c1"># URLs = [</span>
+    <span class="c1">#     &quot;https://youtu.be/dBHj3m96LpI?si=pu7KSPBGMEpTaOWx&quot;,</span>
+    <span class="c1">#     &quot;https://youtu.be/kPM8WktA7Kk?si=gNeH9flApCXzklws&quot;,</span>
+    <span class="c1">#     &quot;https://youtu.be/sMIMn9_nFpo?si=amEPleJf02esif_s&quot;,</span>
+    <span class="c1">#     &quot;https://youtu.be/QRxH-II0OsA?si=XHQdx__rT1OCYTiB&quot;,</span>
+    <span class="c1">#     &quot;https://youtu.be/uG1ls8fbVN0?si=Mjy4npcPD4b5bWOa&quot;,</span>
+    <span class="c1">#     &quot;https://youtu.be/WbnHutA1u_0?si=uVfaiVSSRlNKQFJn&quot;,</span>
+    <span class="c1">#     &quot;https://youtu.be/dBHj3m96LpI?si=dHN2AenV42n4k853&quot;,</span>
+    <span class="c1">#     &quot;https://youtu.be/WDQW08NbKGI?si=7_tOLmEXymnVrVCq&quot;</span>
+    <span class="c1"># ]</span>
+
+    <span class="c1"># for url in URLs:</span>
+
+    <span class="c1">#     audio_title, audio_length = get_basic_info(url=url)</span>
+    <span class="c1">#     relative_path = f&quot;{DEST_PATH}{audio_title}.{EXTENTION}&quot;</span>
+
+    <span class="c1">#     # cała zabawa zaczyna się w tej funkcji</span>
+    <span class="c1">#     download_audio_section(</span>
+    <span class="c1">#         url,</span>
+    <span class="c1">#         DEST_PATH,</span>
+    <span class="c1">#         audio_title,</span>
+    <span class="c1">#         EXTENTION,</span>
+    <span class="c1">#         audio_length,</span>
+    <span class="c1">#         DURATION</span>
+    <span class="c1">#     )</span>
+
+        <span class="c1"># play_audio(relative_path)</span>
+
+    <span class="c1"># na koniec usuwam utwór z komputera</span>
+    <span class="c1"># os.remove(relative_path)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Prawa zastrzeżone 2024, Krzysztof Formal, Piotr Korycki, Bartosz Bohdziewicz.</p>
+  </div>
+
+  Zbudowano w <a href="https://www.sphinx-doc.org/">Sphinx</a> używając
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    dostarczone przez <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
