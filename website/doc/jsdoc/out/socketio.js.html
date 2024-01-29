@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: socketio.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: socketio.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * JavaScript code for handling game logic and communication with the server using Socket.IO.
+ */
+
+var startButton = document.getElementById("start_game_button");
+var nextButton = document.getElementById("next_round_button");
+var songsChoice = document.getElementById("songs");
+var mediaPlayer = document.getElementById("audioPlayer");
+var audioSource = document.getElementById('audioSource');
+var cathegory = "";
+
+/**
+ * Executes the following code after the DOM has been fully loaded.
+ * @event DOMContentLoaded
+ */
+document.addEventListener("DOMContentLoaded", () => {
+    var socket = io();
+
+    joinRoom();
+    // updateState()
+
+    var audioPlayer = document.getElementById("audioPlayer");
+    socket.emit("list_players", room_name);
+    printSysMsg("To start click \"Next round\" button.");
+    printSysMsg("To guess song type \"\\&lt;your guess>\" and send.")
+
+    // Display messages
+    socket.on("message", data => {
+        const p = document.createElement("p");
+        const span_username = document.createElement("span");
+        var messages = document.querySelector("#messages_area");
+
+        span_username.style = "font-size: 1rem; color: darkgrey;";
+
+        const br = document.createElement("br");
+
+        if (data.username) {
+            span_username.innerHTML = data.username;
+            p.innerHTML = span_username.outerHTML + br.outerHTML + data.msg;
+            messages.append(p);
+        } else {
+            printSysMsg(data.msg);
+        }
+
+        if (messages.scrollTop + messages.clientHeight !== messages.scrollHeight) {
+            messages.scrollTop = messages.scrollHeight;
+        }
+    });
+
+    socket.on('stream_audio', data => {
+        if (audioSource.src[0] != "h") {
+            audioPlayer.currentTime += 15;
+        }
+
+        var blob = new Blob([data.audio_data], { type: 'audio/mpeg' });
+        var url = URL.createObjectURL(blob);
+
+        audioSource.src = url;
+        audioPlayer.load();
+        audioPlayer.play();
+
+        console.log("Playing");
+    });
+
+    socket.on("list_players", data => {
+        document.querySelector("#users_list").innerHTML = "";
+        var players_list = data["players"];
+        var li;
+        for (var i = 0; i &lt; players_list.length; i++) {
+            li = document.createElement("li");
+            li.innerHTML = players_list[i];
+            document.querySelector("#users_list").append(li);
+        }
+    });
+
+    socket.on("server_info", data => {
+        const p = document.createElement("p");
+        const span_username = document.createElement("span");
+        const br = document.createElement("br");
+        var messages = document.querySelector("#messages_area");
+
+        span_username.style = "font-size: 1rem; color: darkgrey;";
+
+        span_username.innerHTML = "Serwer";
+        p.innerHTML = span_username.outerHTML + br.outerHTML + data.msg;
+        messages.append(p);
+
+        if (messages.scrollTop + messages.clientHeight !== messages.scrollHeight) {
+            messages.scrollTop = messages.scrollHeight;
+        }
+    });
+
+    /**
+     * Handle the 'Start Game' event from the server.
+     * @event start_game
+     */
+    socket.on("start_game", () => {
+        startButton.style.display = "none";
+        nextButton.style.display = "block";
+
+        songsChoice.style.display = "none";
+        mediaPlayer.style.display = "block";
+    });
+
+    /**
+     * Handle the 'Game Over' event from the server.
+     * @event game_over
+     */
+    socket.on("game_over", () => {
+        if (audioSource.src[0] != "h") {
+            audioPlayer.currentTime += 15;
+        }
+
+        startButton.style.display = "block";
+        nextButton.style.display = "none";
+
+        songsChoice.style.display = "block";
+        mediaPlayer.style.display = "none";
+    });
+
+    /**
+     * Send a message to the server when the 'Send' button is clicked.
+     * @event click
+     */
+    socket.on("update_state", () => {
+        startButton.style.display = "none";
+        nextButton.style.display = "block";
+        songsChoice.style.display = "none";
+        mediaPlayer.style.display = "block";
+
+        // socket.emit("update_state")
+    });
+
+    /**
+     * Start the game when the 'Start' button is clicked.
+     * @event click
+     */
+    document.querySelector("#send_message").onclick = () => {
+        socket.send({"msg": document.querySelector("#user_message").value, "username": username, "room": room_name, "admin": is_admin});
+        document.querySelector("#user_message").value = "";
+    }
+
+    /**
+     * Set next round when 'Next Round' is clicked
+     * @event click
+     */
+    document.querySelector("#next_round_button").onclick = () => {
+        socket.emit("request_audio", {"room": room_name});
+    }
+
+    startButton.onclick = () => {
+        cathegory = songsChoice.value
+        socket.emit('start', {"room": room_name, "cathegory": cathegory});
+    }
+
+    /**
+     * Leave the game room.
+     * @function
+     */
+    function leaveRoom() {
+        socket.emit("leave", {"username": username, "room": room});
+    }
+
+    /**
+     * Join the game room and update the state.
+     * @function
+     */
+    function joinRoom() {
+        socket.emit("join", {"username": username, "room": room_name});
+        socket.emit("update_state", {"room": room_name});
+    }
+
+    /**
+     * Display a system message.
+     * @function
+     * @param {string} msg - The message to display.
+     */
+    function printSysMsg(msg) {
+        const p = document.createElement("p");
+        p.innerHTML = msg;
+        p.style = "font-size: 1rem;";
+        document.querySelector("#messages_area").append(p);
+    }
+
+});</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:DOMContentLoaded">DOMContentLoaded</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:game_over">game_over</a></li><li><a href="global.html#event:keyup">keyup</a></li><li><a href="global.html#event:start_game">start_game</a></li></ul><h3>Global</h3><ul><li><a href="global.html#config">config</a></li><li><a href="global.html#configContent">configContent</a></li><li><a href="global.html#copyButton">copyButton</a></li><li><a href="global.html#gameContent">gameContent</a></li><li><a href="global.html#music">music</a></li><li><a href="global.html#nextRoundButton">nextRoundButton</a></li><li><a href="global.html#startButton">startButton</a></li><li><a href="global.html#startGameButton">startGameButton</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Jan 29 2024 23:35:36 GMT+0100 (czas środkowoeuropejski standardowy)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
