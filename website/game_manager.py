@@ -181,7 +181,10 @@ class GameManager:
 # https://www.geeksforgeeks.org/python-similarity-metrics-of-strings/
 def levenshtein_distance(s: str, t: str) -> int:
     """Obliczanie odległości Levenshtein'a - sprawdzanie podobieństwa dwóch tekstów.
+        Funkcja zaczerpnięta ze 'strony_'.
 
+        .. _strony: https://www.geeksforgeeks.org/python-similarity-metrics-of-strings/
+ 
         :param s: Pierwszy tekst do porównania.
         :type s: str
 

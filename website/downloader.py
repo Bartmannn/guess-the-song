@@ -1,3 +1,11 @@
+"""
+    Zestaw narzędzi pozwalających na pobieranie utworów oraz ich obróbki.
+    Dzięki nim można pobierać wybrane fragmenty utworów, wyodrębnić z nich
+    potrzebne informacje: wykonawcę, tytuł oraz album/tytuł/film, 
+    z którego muzyka pochodzi).
+"""
+
+
 import os
 import re
 
