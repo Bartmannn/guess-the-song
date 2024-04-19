@@ -27,7 +27,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * JavaScript code for handling game logic and communication with the server using Socket.IO.
+ * Kod JavaScript dla zdefiniowania logiki gry oraz przechwytywania komunikatów z serwera za pomocą Socket.IO. 
  */
 
 var startButton = document.getElementById("start_game_button");
@@ -38,21 +38,23 @@ var audioSource = document.getElementById('audioSource');
 var cathegory = "";
 
 /**
- * Executes the following code after the DOM has been fully loaded.
+ * Wykonuje poniższy kod po pełnym załadowaniu DOM strony.
  * @event DOMContentLoaded
  */
 document.addEventListener("DOMContentLoaded", () => {
     var socket = io();
 
     joinRoom();
-    // updateState()
 
     var audioPlayer = document.getElementById("audioPlayer");
     socket.emit("list_players", room_name);
     printSysMsg("To start click \"Next round\" button.");
     printSysMsg("To guess song type \"\\&lt;your guess>\" and send.")
 
-    // Display messages
+    /**
+     * Przechwytywanie wiadomości użytkowników z serwera oraz ich wyświetlanie.
+     * @event message
+     */
     socket.on("message", data => {
         const p = document.createElement("p");
         const span_username = document.createElement("span");
@@ -75,6 +77,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    /**
+     * Prośba z serwera o odtwarzanie utworu.
+     * @event stream_audio
+     */
     socket.on('stream_audio', data => {
         if (audioSource.src[0] != "h") {
             audioPlayer.currentTime += 15;
@@ -90,6 +96,10 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Playing");
     });
 
+    /**
+     * Przechwytywanie prośby z serwera o wylistowanie aktualnych graczy.
+     * @event list_players
+     */
     socket.on("list_players", data => {
         document.querySelector("#users_list").innerHTML = "";
         var players_list = data["players"];
@@ -101,6 +111,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    /**
+     * Przechwytywanie wiadomości z serwera oraz jej wyświetlanie jako komunikat.
+     * @event server_info
+     */
     socket.on("server_info", data => {
         const p = document.createElement("p");
         const span_username = document.createElement("span");
@@ -119,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /**
-     * Handle the 'Start Game' event from the server.
+     * Przychwytuje wydarzenie 'start_game' z serwera.
      * @event start_game
      */
     socket.on("start_game", () => {
@@ -131,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /**
-     * Handle the 'Game Over' event from the server.
+     * Przechwytuje wydarzenie 'Game Over' z serwera.
      * @event game_over
      */
     socket.on("game_over", () => {
@@ -147,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /**
-     * Send a message to the server when the 'Send' button is clicked.
+     * Przechwytuje komunikat z serwera z prośbą o zaktualizowanie stanu pokoju.
      * @event click
      */
     socket.on("update_state", () => {
@@ -155,34 +169,36 @@ document.addEventListener("DOMContentLoaded", () => {
         nextButton.style.display = "block";
         songsChoice.style.display = "none";
         mediaPlayer.style.display = "block";
-
-        // socket.emit("update_state")
     });
 
     /**
-     * Start the game when the 'Start' button is clicked.
+     * Wyślij wiadomość po kliknięciu przycisku 'send_message'.
      * @event click
      */
     document.querySelector("#send_message").onclick = () => {
-        socket.send({"msg": document.querySelector("#user_message").value, "username": username, "room": room_name, "admin": is_admin});
+        socket.send({"msg": document.querySelector("#user_message").value, "username": username, "room": room_name, "is_admin": is_admin});
         document.querySelector("#user_message").value = "";
     }
 
     /**
-     * Set next round when 'Next Round' is clicked
+     * Rozpocznij nową rundę w przypadku kliknięcia przycisku 'Next Round'.
      * @event click
      */
     document.querySelector("#next_round_button").onclick = () => {
         socket.emit("request_audio", {"room": room_name});
     }
 
+    /**
+     * Zacznij grę kiedy przycisk 'Start' zostanie kliknięty.
+     * @event click
+     */
     startButton.onclick = () => {
         cathegory = songsChoice.value
         socket.emit('start', {"room": room_name, "cathegory": cathegory});
     }
 
     /**
-     * Leave the game room.
+     * Wysyła informację do serwera o opuszczeniu pokoju.
      * @function
      */
     function leaveRoom() {
@@ -190,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
-     * Join the game room and update the state.
+     * Dołącz do pokoju i zaktualizuj jego stan.
      * @function
      */
     function joinRoom() {
@@ -199,9 +215,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
-     * Display a system message.
+     * Wyświetla wiadomości systemowe na czacie.
      * @function
-     * @param {string} msg - The message to display.
+     * @param {string} msg - Wiadomość do wyświetlenia.
      */
     function printSysMsg(msg) {
         const p = document.createElement("p");
@@ -220,13 +236,13 @@ document.addEventListener("DOMContentLoaded", () => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:DOMContentLoaded">DOMContentLoaded</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:game_over">game_over</a></li><li><a href="global.html#event:keyup">keyup</a></li><li><a href="global.html#event:start_game">start_game</a></li></ul><h3>Global</h3><ul><li><a href="global.html#config">config</a></li><li><a href="global.html#configContent">configContent</a></li><li><a href="global.html#copyButton">copyButton</a></li><li><a href="global.html#gameContent">gameContent</a></li><li><a href="global.html#music">music</a></li><li><a href="global.html#nextRoundButton">nextRoundButton</a></li><li><a href="global.html#startButton">startButton</a></li><li><a href="global.html#startGameButton">startGameButton</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:DOMContentLoaded">DOMContentLoaded</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:game_over">game_over</a></li><li><a href="global.html#event:keyup">keyup</a></li><li><a href="global.html#event:list_players">list_players</a></li><li><a href="global.html#event:message">message</a></li><li><a href="global.html#event:server_info">server_info</a></li><li><a href="global.html#event:start_game">start_game</a></li><li><a href="global.html#event:stream_audio">stream_audio</a></li></ul><h3>Global</h3><ul><li><a href="global.html#config">config</a></li><li><a href="global.html#configContent">configContent</a></li><li><a href="global.html#copyButton">copyButton</a></li><li><a href="global.html#gameContent">gameContent</a></li><li><a href="global.html#music">music</a></li><li><a href="global.html#nextRoundButton">nextRoundButton</a></li><li><a href="global.html#startButton">startButton</a></li><li><a href="global.html#startGameButton">startGameButton</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Jan 29 2024 23:35:36 GMT+0100 (czas środkowoeuropejski standardowy)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jan 30 2024 09:58:47 GMT+0100 (czas środkowoeuropejski standardowy)
 </footer>
 
 <script> prettyPrint(); </script>

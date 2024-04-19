@@ -1,31 +1,24 @@
 /**
- * Reference to the 'Copy to Clipboard' button HTML element.
+ * Odwołanie do przycisku 'Copy to Clipboard'.
  * @type {HTMLElement}
  */
 var copyButton = document.getElementById("copyToClipboard");
 
 /**
- * Reference to the 'Next Round' button HTML element.
+ * Odwołanie do przycisku 'Next Round'.
  * @type {HTMLElement}
  */
 var nextRoundButton = document.getElementById("next_round_button");
 
 /**
- * Reference to the 'Start Game' button HTML element.
+ * Odwołanie do przycisku 'Start Game'.
  * @type {HTMLElement}
  */
 var startGameButton = document.getElementById("start_game_button");
 
-
 /**
- * Variable indicating the administrative status.
- * @type {boolean}
- */
-console.log(is_admin);
-
-/**
- * Add an onclick event listener to the 'Copy to Clipboard' button.
- * Copies the content of the 'invite_link' field to the clipboard.
+ * Wydarzenie zdefiniowane na przycisku 'Copy to Clipboard'.
+ * Kopiuje zawartość pola 'invite_link'.
  * @event click
  */
 copyButton.onclick = () => {
@@ -37,7 +30,7 @@ copyButton.onclick = () => {
 
 
 /**
- * Disable and apply grayscale filters to buttons if the user is not an admin.
+ * Wyłącza i aplikuje skalę szarości do przycisków, jeśli gracz nie jest adminem.
  * @type {boolean}
  */
 if (is_admin == "False") {

@@ -1,23 +1,23 @@
 /**
- * Execute the following code after the DOM has been fully loaded.
+ * Wykonuje kod po pełnym załadowaniu strony.
  * @event DOMContentLoaded
  */
 document.addEventListener("DOMContentLoaded", () => {
     /**
-     * Reference to the 'user_message' input field HTML element.
+     * Odwołanie do elementu HTML 'user_message'.
      * @type {HTMLInputElement}
      */
     let msg = document.querySelector("#user_message");
 
     /**
-     * Add an event listener to the 'keyup' event for the 'user_message' input field.
+     * Dodanie wydarzenia na zwolnienie przycisku dla pola 'user_message'.
      * @event keyup
-     * @param {KeyboardEvent} event - The keyup event object.
+     * @param {KeyboardEvent} event - Obiekt wydarzenia.
      */
 
     msg.addEventListener("keyup", event => {
         /**
-         * Key code for the "Enter" key.
+         * Kod przycisku entera.
          * @const
          * @type {number}
          */

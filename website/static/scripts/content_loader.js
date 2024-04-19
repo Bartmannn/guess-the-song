@@ -1,5 +1,5 @@
 /**
- * HTML content representing the game room.
+ * Kod HTML odpowiadający pokojowi gry.
  * @type {string}
  */
 const gameContent = "\
@@ -30,7 +30,7 @@ const gameContent = "\
 "
 
 /**
- * HTML content representing the configuration view of the room.
+ * Kod HTML odpowiadający widokowi konfiguracji w pokoju.
  * @type {string}
  */
 const configContent = "\
@@ -61,7 +61,7 @@ const configContent = "\
 "
 
 /**
- * HTML content representing a configuration section with a dropdown for song selection.
+ * Kod HTML reprezentujący rozwijane menu z kategoriami muzycznymi.
  * @type {string}
  */
 const config = "\
@@ -74,7 +74,7 @@ const config = "\
 "
 
 /**
- * HTML content representing an audio player for music playback.
+ * Kod HTML reprezentujący odtwarzacz muzyczny.
  * @type {string}
  */
 const music = "\

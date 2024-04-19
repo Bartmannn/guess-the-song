@@ -104,7 +104,7 @@
 
 
 <div class="description">
-    HTML content representing a configuration section with a dropdown for song selection.
+    Kod HTML reprezentujący rozwijane menu z kategoriami muzycznymi.
 </div>
 
 
@@ -176,7 +176,7 @@
 
 
 <div class="description">
-    HTML content representing the configuration view of the room.
+    Kod HTML odpowiadający widokowi konfiguracji w pokoju.
 </div>
 
 
@@ -248,7 +248,7 @@
 
 
 <div class="description">
-    Reference to the 'Copy to Clipboard' button HTML element.
+    Odwołanie do przycisku 'Copy to Clipboard'.
 </div>
 
 
@@ -320,7 +320,7 @@
 
 
 <div class="description">
-    HTML content representing the game room.
+    Kod HTML odpowiadający pokojowi gry.
 </div>
 
 
@@ -392,7 +392,7 @@
 
 
 <div class="description">
-    HTML content representing an audio player for music playback.
+    Kod HTML reprezentujący odtwarzacz muzyczny.
 </div>
 
 
@@ -464,7 +464,7 @@
 
 
 <div class="description">
-    Reference to the 'Next Round' button HTML element.
+    Odwołanie do przycisku 'Next Round'.
 </div>
 
 
@@ -536,7 +536,7 @@
 
 
 <div class="description">
-    JavaScript code for handling game logic and communication with the server using Socket.IO.
+    Kod JavaScript dla zdefiniowania logiki gry oraz przechwytywania komunikatów z serwera za pomocą Socket.IO.
 </div>
 
 
@@ -598,7 +598,7 @@
 
 
 <div class="description">
-    Reference to the 'Start Game' button HTML element.
+    Odwołanie do przycisku 'Start Game'.
 </div>
 
 
@@ -686,7 +686,7 @@
 
 
 <div class="description">
-    Execute the following code after the DOM has been fully loaded.
+    Wykonuje kod po pełnym załadowaniu strony.
 </div>
 
 
@@ -774,7 +774,7 @@
 
 
 <div class="description">
-    Executes the following code after the DOM has been fully loaded.
+    Wykonuje poniższy kod po pełnym załadowaniu DOM strony.
 </div>
 
 
@@ -862,7 +862,7 @@
 
 
 <div class="description">
-    Add an onclick event listener to the 'Copy to Clipboard' button.Copies the content of the 'invite_link' field to the clipboard.
+    Wydarzenie zdefiniowane na przycisku 'Copy to Clipboard'.Kopiuje zawartość pola 'invite_link'.
 </div>
 
 
@@ -906,7 +906,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line26">line 26</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -950,7 +950,7 @@
 
 
 <div class="description">
-    Send a message to the server when the 'Send' button is clicked.
+    Przechwytuje komunikat z serwera z prośbą o zaktualizowanie stanu pokoju.
 </div>
 
 
@@ -994,7 +994,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="socketio.js.html">socketio.js</a>, <a href="socketio.js.html#line121">line 121</a>
+        <a href="socketio.js.html">socketio.js</a>, <a href="socketio.js.html#line135">line 135</a>
     </li></ul></dd>
     
 
@@ -1038,7 +1038,7 @@
 
 
 <div class="description">
-    Start the game when the 'Start' button is clicked.
+    Wyślij wiadomość po kliknięciu przycisku 'send_message'.
 </div>
 
 
@@ -1082,7 +1082,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="socketio.js.html">socketio.js</a>, <a href="socketio.js.html#line134">line 134</a>
+        <a href="socketio.js.html">socketio.js</a>, <a href="socketio.js.html#line146">line 146</a>
     </li></ul></dd>
     
 
@@ -1126,7 +1126,7 @@
 
 
 <div class="description">
-    Set next round when 'Next Round' is clicked
+    Rozpocznij nową rundę w przypadku kliknięcia przycisku 'Next Round'.
 </div>
 
 
@@ -1170,7 +1170,95 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="socketio.js.html">socketio.js</a>, <a href="socketio.js.html#line143">line 143</a>
+        <a href="socketio.js.html">socketio.js</a>, <a href="socketio.js.html#line155">line 155</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="event:click">click</h4>
+    
+
+    
+
+
+
+<div class="description">
+    Zacznij grę kiedy przycisk 'Start' zostanie kliknięty.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="socketio.js.html">socketio.js</a>, <a href="socketio.js.html#line163">line 163</a>
     </li></ul></dd>
     
 
@@ -1214,7 +1302,7 @@
 
 
 <div class="description">
-    Handle the 'Game Over' event from the server.
+    Przechwytuje wydarzenie 'Game Over' z serwera.
 </div>
 
 
@@ -1258,7 +1346,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="socketio.js.html">socketio.js</a>, <a href="socketio.js.html#line105">line 105</a>
+        <a href="socketio.js.html">socketio.js</a>, <a href="socketio.js.html#line119">line 119</a>
     </li></ul></dd>
     
 
@@ -1302,7 +1390,7 @@
 
 
 <div class="description">
-    Add an event listener to the 'keyup' event for the 'user_message' input field.
+    Dodanie wydarzenia na zwolnienie przycisku dla pola 'user_message'.
 </div>
 
 
@@ -1354,7 +1442,7 @@
 
             
 
-            <td class="description last">The keyup event object.</td>
+            <td class="description last">Obiekt wydarzenia.</td>
         </tr>
 
     
@@ -1431,7 +1519,7 @@
     
 
     
-    <h4 class="name" id="event:start_game">start_game</h4>
+    <h4 class="name" id="event:list_players">list_players</h4>
     
 
     
@@ -1439,7 +1527,7 @@
 
 
 <div class="description">
-    Handle the 'Start Game' event from the server.
+    Przechwytywanie prośby z serwera o wylistowanie aktualnych graczy.
 </div>
 
 
@@ -1483,7 +1571,359 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="socketio.js.html">socketio.js</a>, <a href="socketio.js.html#line93">line 93</a>
+        <a href="socketio.js.html">socketio.js</a>, <a href="socketio.js.html#line71">line 71</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="event:message">message</h4>
+    
+
+    
+
+
+
+<div class="description">
+    Przechwytywanie wiadomości użytkowników z serwera oraz ich wyświetlanie.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="socketio.js.html">socketio.js</a>, <a href="socketio.js.html#line26">line 26</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="event:server_info">server_info</h4>
+    
+
+    
+
+
+
+<div class="description">
+    Przechwytywanie wiadomości z serwera oraz jej wyświetlanie jako komunikat.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="socketio.js.html">socketio.js</a>, <a href="socketio.js.html#line86">line 86</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="event:start_game">start_game</h4>
+    
+
+    
+
+
+
+<div class="description">
+    Przychwytuje wydarzenie 'start_game' z serwera.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="socketio.js.html">socketio.js</a>, <a href="socketio.js.html#line107">line 107</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="event:stream_audio">stream_audio</h4>
+    
+
+    
+
+
+
+<div class="description">
+    Prośba z serwera o odtwarzanie utworu.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="socketio.js.html">socketio.js</a>, <a href="socketio.js.html#line52">line 52</a>
     </li></ul></dd>
     
 
@@ -1525,13 +1965,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:DOMContentLoaded">DOMContentLoaded</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:game_over">game_over</a></li><li><a href="global.html#event:keyup">keyup</a></li><li><a href="global.html#event:start_game">start_game</a></li></ul><h3>Global</h3><ul><li><a href="global.html#config">config</a></li><li><a href="global.html#configContent">configContent</a></li><li><a href="global.html#copyButton">copyButton</a></li><li><a href="global.html#gameContent">gameContent</a></li><li><a href="global.html#music">music</a></li><li><a href="global.html#nextRoundButton">nextRoundButton</a></li><li><a href="global.html#startButton">startButton</a></li><li><a href="global.html#startGameButton">startGameButton</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:DOMContentLoaded">DOMContentLoaded</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:game_over">game_over</a></li><li><a href="global.html#event:keyup">keyup</a></li><li><a href="global.html#event:list_players">list_players</a></li><li><a href="global.html#event:message">message</a></li><li><a href="global.html#event:server_info">server_info</a></li><li><a href="global.html#event:start_game">start_game</a></li><li><a href="global.html#event:stream_audio">stream_audio</a></li></ul><h3>Global</h3><ul><li><a href="global.html#config">config</a></li><li><a href="global.html#configContent">configContent</a></li><li><a href="global.html#copyButton">copyButton</a></li><li><a href="global.html#gameContent">gameContent</a></li><li><a href="global.html#music">music</a></li><li><a href="global.html#nextRoundButton">nextRoundButton</a></li><li><a href="global.html#startButton">startButton</a></li><li><a href="global.html#startGameButton">startGameButton</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Jan 29 2024 23:35:36 GMT+0100 (czas środkowoeuropejski standardowy)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jan 30 2024 09:58:47 GMT+0100 (czas środkowoeuropejski standardowy)
 </footer>
 
 <script> prettyPrint(); </script>

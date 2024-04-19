@@ -1,5 +1,5 @@
 /**
- * JavaScript code for handling game logic and communication with the server using Socket.IO.
+ * Kod JavaScript dla zdefiniowania logiki gry oraz przechwytywania komunikatów z serwera za pomocą Socket.IO. 
  */
 
 var startButton = document.getElementById("start_game_button");
@@ -10,21 +10,23 @@ var audioSource = document.getElementById('audioSource');
 var cathegory = "";
 
 /**
- * Executes the following code after the DOM has been fully loaded.
+ * Wykonuje poniższy kod po pełnym załadowaniu DOM strony.
  * @event DOMContentLoaded
  */
 document.addEventListener("DOMContentLoaded", () => {
     var socket = io();
 
     joinRoom();
-    // updateState()
 
     var audioPlayer = document.getElementById("audioPlayer");
     socket.emit("list_players", room_name);
     printSysMsg("To start click \"Next round\" button.");
     printSysMsg("To guess song type \"\\<your guess>\" and send.")
 
-    // Display messages
+    /**
+     * Przechwytywanie wiadomości użytkowników z serwera oraz ich wyświetlanie.
+     * @event message
+     */
     socket.on("message", data => {
         const p = document.createElement("p");
         const span_username = document.createElement("span");
@@ -47,6 +49,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    /**
+     * Prośba z serwera o odtwarzanie utworu.
+     * @event stream_audio
+     */
     socket.on('stream_audio', data => {
         if (audioSource.src[0] != "h") {
             audioPlayer.currentTime += 15;
@@ -62,6 +68,10 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Playing");
     });
 
+    /**
+     * Przechwytywanie prośby z serwera o wylistowanie aktualnych graczy.
+     * @event list_players
+     */
     socket.on("list_players", data => {
         document.querySelector("#users_list").innerHTML = "";
         var players_list = data["players"];
@@ -73,6 +83,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    /**
+     * Przechwytywanie wiadomości z serwera oraz jej wyświetlanie jako komunikat.
+     * @event server_info
+     */
     socket.on("server_info", data => {
         const p = document.createElement("p");
         const span_username = document.createElement("span");
@@ -91,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /**
-     * Handle the 'Start Game' event from the server.
+     * Przychwytuje wydarzenie 'start_game' z serwera.
      * @event start_game
      */
     socket.on("start_game", () => {
@@ -103,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /**
-     * Handle the 'Game Over' event from the server.
+     * Przechwytuje wydarzenie 'Game Over' z serwera.
      * @event game_over
      */
     socket.on("game_over", () => {
@@ -119,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /**
-     * Send a message to the server when the 'Send' button is clicked.
+     * Przechwytuje komunikat z serwera z prośbą o zaktualizowanie stanu pokoju.
      * @event click
      */
     socket.on("update_state", () => {
@@ -127,12 +141,10 @@ document.addEventListener("DOMContentLoaded", () => {
         nextButton.style.display = "block";
         songsChoice.style.display = "none";
         mediaPlayer.style.display = "block";
-
-        // socket.emit("update_state")
     });
 
     /**
-     * Start the game when the 'Start' button is clicked.
+     * Wyślij wiadomość po kliknięciu przycisku 'send_message'.
      * @event click
      */
     document.querySelector("#send_message").onclick = () => {
@@ -141,20 +153,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
-     * Set next round when 'Next Round' is clicked
+     * Rozpocznij nową rundę w przypadku kliknięcia przycisku 'Next Round'.
      * @event click
      */
     document.querySelector("#next_round_button").onclick = () => {
         socket.emit("request_audio", {"room": room_name});
     }
 
+    /**
+     * Zacznij grę kiedy przycisk 'Start' zostanie kliknięty.
+     * @event click
+     */
     startButton.onclick = () => {
         cathegory = songsChoice.value
         socket.emit('start', {"room": room_name, "cathegory": cathegory});
     }
 
     /**
-     * Leave the game room.
+     * Wysyła informację do serwera o opuszczeniu pokoju.
      * @function
      */
     function leaveRoom() {
@@ -162,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
-     * Join the game room and update the state.
+     * Dołącz do pokoju i zaktualizuj jego stan.
      * @function
      */
     function joinRoom() {
@@ -171,9 +187,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
-     * Display a system message.
+     * Wyświetla wiadomości systemowe na czacie.
      * @function
-     * @param {string} msg - The message to display.
+     * @param {string} msg - Wiadomość do wyświetlenia.
      */
     function printSysMsg(msg) {
         const p = document.createElement("p");
