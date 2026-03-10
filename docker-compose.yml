@@ -13,6 +13,8 @@ services:
       PUBLIC_PORT: 5002
       PUBLIC_SCHEME: http
       SECRET_KEY: dev-secret-key
+      SONGS_PER_GAME: "10"
+      CLIP_DURATION: "15"
       DATABASE_URL: sqlite:////app/data/guess_the_song.db
     volumes:
       - ./data:/app/data
