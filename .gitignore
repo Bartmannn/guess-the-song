@@ -8,6 +8,7 @@ instance/*
 .env
 virtual/
 Concept\ Arts/
+data/
 
 ### Flask.Python Stack ###
 # Byte-compiled / optimized / DLL files

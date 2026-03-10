@@ -12,7 +12,7 @@ setup(
         "Flask-SQLAlchemy==3.1.1",
         "Flask-WTF==1.2.1",
         "WTForms==3.1.1",
-        "yt-dlp==2024.12.13",
+        "yt-dlp==2026.3.3",
         "psycopg2-binary==2.9.10",
     ],
     entry_points={
