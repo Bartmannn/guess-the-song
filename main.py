@@ -1,7 +1,27 @@
 from website import create_app
-from website.consts import HOST_PORT
+from website.consts import (
+    ALLOW_UNSAFE_WERKZEUG,
+    DEBUG,
+    HOST_ADDR,
+    HOST_PORT,
+    USE_SSL,
+)
 
-socketio, app = create_app()
+
+def main() -> None:
+    socketio, app = create_app()
+
+    run_options = {
+        "debug": DEBUG,
+        "host": HOST_ADDR,
+        "port": HOST_PORT,
+        "allow_unsafe_werkzeug": ALLOW_UNSAFE_WERKZEUG,
+    }
+    if USE_SSL:
+        run_options["ssl_context"] = "adhoc"
+
+    socketio.run(app, **run_options)
+
+
 if __name__ == "__main__":
-    # wymagana biblioteka pyopenssl 
-    socketio.run(app, debug=True, host="0.0.0.0", port=HOST_PORT, ssl_context="adhoc")
+    main()

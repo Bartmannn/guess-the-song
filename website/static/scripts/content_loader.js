@@ -1,7 +1,3 @@
-/**
- * Kod HTML odpowiadający pokojowi gry.
- * @type {string}
- */
 const gameContent = "\
 <h1>Room: "+ room_name +" - <span id='current_round'></span></h1>\
 <div class='game_room'>\
@@ -29,10 +25,6 @@ const gameContent = "\
 <input type='button' style='display: block;' id='next_round_button' value='Next'>\
 "
 
-/**
- * Kod HTML odpowiadający widokowi konfiguracji w pokoju.
- * @type {string}
- */
 const configContent = "\
 <h1>Room: "+ room_name +"</h1>\
     <div class='game_room'>\
@@ -42,10 +34,10 @@ const configContent = "\
             </ol>\
         </div>\
         <select name='songs' id='songs'>\
-            <option value='popular'>Utwory popularne w Polsce</option>\
+            <option value='modern'>Modern</option>\
             <option value='all'>Wszystko</option>\
-            <option value='films'>Filmy</option>\
-            <option value='games'>Gry</option>\
+            <option value='films'>Films</option>\
+            <option value='games'>Games</option>\
         </select>\
         <div class='chat'>\
             <p>Messages</p>\
@@ -60,23 +52,15 @@ const configContent = "\
 <input type='button' style='display: none;' id='next_round_button' value='Next'>\
 "
 
-/**
- * Kod HTML reprezentujący rozwijane menu z kategoriami muzycznymi.
- * @type {string}
- */
 const config = "\
 <select name='songs' id='songs'>\
-    <option value='popular'>Utwory popularne w Polsce</option>\
+    <option value='modern'>Modern</option>\
     <option value='all'>Wszystko</option>\
-    <option value='films'>Filmy</option>\
-    <option value='games'>Gry</option>\
+    <option value='films'>Films</option>\
+    <option value='games'>Games</option>\
 </select>\
 "
 
-/**
- * Kod HTML reprezentujący odtwarzacz muzyczny.
- * @type {string}
- */
 const music = "\
 <audio id='audioPlayer' autoplay>\
     <source src='' type='audio/mpeg' id='audioSource'>\

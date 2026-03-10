@@ -1,5 +1,5 @@
 from flask import Flask
-from .consts import URI
+from .consts import SECRET_KEY, URI
 from .models import *
 from flask_socketio import SocketIO
 from .communication import *
@@ -16,8 +16,9 @@ def create_app() -> set:
     """
 
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = "DowolnyKluczPRYWATNY561835818356"
+    app.config["SECRET_KEY"] = SECRET_KEY
     app.config["SQLALCHEMY_DATABASE_URI"] = URI
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.init_app(app)
     socketio.init_app(app)
@@ -26,6 +27,7 @@ def create_app() -> set:
     from .views import views
     app.register_blueprint(views, url_prefix="/")
 
-    # print(f"\n\nsocketio: {type(socketio)} | app: {type(app)}")
+    with app.app_context():
+        db.create_all()
 
     return socketio, app
