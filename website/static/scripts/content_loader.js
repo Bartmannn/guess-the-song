@@ -34,10 +34,10 @@ const configContent = "\
             </ol>\
         </div>\
         <select name='songs' id='songs'>\
-            <option value='popular'>Utwory popularne w Polsce</option>\
+            <option value='modern'>Modern</option>\
             <option value='all'>Wszystko</option>\
-            <option value='films'>Filmy</option>\
-            <option value='games'>Gry</option>\
+            <option value='films'>Films</option>\
+            <option value='games'>Games</option>\
         </select>\
         <div class='chat'>\
             <p>Messages</p>\
@@ -54,10 +54,10 @@ const configContent = "\
 
 const config = "\
 <select name='songs' id='songs'>\
-    <option value='popular'>Utwory popularne w Polsce</option>\
+    <option value='modern'>Modern</option>\
     <option value='all'>Wszystko</option>\
-    <option value='films'>Filmy</option>\
-    <option value='games'>Gry</option>\
+    <option value='films'>Films</option>\
+    <option value='games'>Games</option>\
 </select>\
 "
 

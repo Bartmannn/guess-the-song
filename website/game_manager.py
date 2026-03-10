@@ -1,204 +1,172 @@
-"""
-    Game Manager
-    ------------
+"""Zarzadzanie stanem gry i odpowiedziami graczy."""
 
-    Ta klasa jest odpowiedzialna za zarządzanie aktualnym stanem gier w pokojach.
-    Zliczanie punktów, wyświetlanie ich, zarządzanie kolejnką utworów oraz kontrolowanie rund.
-    Wszystko jest w tej klasie.
-"""
+from __future__ import annotations
 
-from pathlib import Path
-
-
-MUSIC_ROOT = Path(__file__).resolve().parent / "static" / "music"
+from .consts import CLIP_DURATION, SONGS_PER_GAME
+from .downloader import (
+    PreparedSong,
+    cleanup_round_directory,
+    create_round_directory,
+    prepare_song,
+    remove_song_file,
+    select_round_urls,
+)
 
 
 class GameManager:
-    """ Zarządzanie stanem gry w pokojach
-
-        :param game_id:  Nazwa pokoju.
-        :type game_id: str
-
-    """
-    
+    """Stan jednej rozgrywki w pokoju."""
 
     def __init__(self, game_id: str):
-
         self.id = game_id
         self.cathegory = ""
-        self.music_path = ""
-        self.round = -1
-        self.song_titles = []
-        self.points = {}
+        self.round = 0
+        self.pending_urls: list[str] = []
+        self.current_song_data: PreparedSong | None = None
+        self.points: dict[str, int] = {}
+        self.total_rounds = SONGS_PER_GAME
+        self.room_directory = create_round_directory(self.id)
+        self.last_prepare_error: str | None = None
 
-    def set_cathegory(self, cathegory: str) -> None:
-        """ Ustawia kategorię muzyczną
-        
-            :param cathegory: Wybrana kategoria muzyczna.
-            :type cathegory: str
-        """
-        
+    def start_new_game(self, cathegory: str) -> None:
+        """Losuje zestaw utworow dla rozgrywki bez pobierania audio."""
+
+        self.cleanup()
         self.cathegory = cathegory
-        self.music_path = MUSIC_ROOT / self.cathegory
-        self.set_songs()
+        self.pending_urls = select_round_urls(cathegory, song_count=self.total_rounds)
+        self.room_directory = create_round_directory(self.id)
+        self.round = 0
+        self.last_prepare_error = None
 
-    def set_songs(self) -> None:
-        """Ładuje odpowiednie utwory i ustala losową kolejkę."""
-        
-        from random import shuffle
+    def prepare_next_song(self) -> PreparedSong | None:
+        """Pobiera kolejny utwor z kolejki i ustawia go jako aktywny."""
 
-        self.song_titles = [
-            song_path.name for song_path in self.music_path.iterdir()
-            if song_path.suffix == ".mp3"
-        ]
-        
-        shuffle(self.song_titles)
-        self.round = -1
-        print(self.song_titles)
+        self.last_prepare_error = None
 
-    def check_song(self, player_guess: str) -> int:
-        """Sprawdza poprawność odpowiedzi gracza.
+        while self.pending_urls:
+            source_url = self.pending_urls.pop(0)
+            next_round = self.round + 1
+            try:
+                self.current_song_data = prepare_song(
+                    url=source_url,
+                    destination=self.room_directory,
+                    index=next_round,
+                    clip_duration=CLIP_DURATION,
+                )
+            except Exception as error:
+                self.last_prepare_error = str(error)
+                continue
 
-            :param player_guess: Odpowiedź gracza.
-            :type player_guess: str
-            :return: Kod odpowiedzi.
-            :rtype: int
-        """
-        
-        if player_guess[0] != "\\":
-            return 4
-        guess = self.remove_unnecessary_chars(player_guess)
-        print(guess)
-        print(self.song_titles[self.round].split(" - "))
-        author, title, album = self.song_titles[self.round].replace(".mp3", "").split(" - ")
-        if author.lower() == guess.lower():
-            return 0
-        elif title.lower() == guess.lower():
-            return 1
-        elif album.lower() == guess.lower():
-            return 2
-        return 3
+            self.round = next_round
+            return self.current_song_data
 
-    def check_similarity(self, player_guess: str) -> str:
-        """Sprawdzanie podobieństwa próby gracza z odpowiedzią.
+        self.current_song_data = None
+        return None
 
-            :param player_guess: Odpowiedź gracza.
-            :type player_guess: str
+    def finish_current_round(self) -> str | None:
+        """Zamyka aktualna runde i usuwa odtworzony plik z dysku."""
 
-            :return: Informacja zwrotna.
-            :rtype: str
-
-        """
-        
-        guess = self.remove_unnecessary_chars(player_guess)
-        author, title, album = self.song_titles[self.round].replace(".mp3", "").split(" - ")
-        author_comp = levenshtein_distance(guess.lower(), author.lower())
-        title_comp = levenshtein_distance(guess.lower(), title.lower())
-        album_comp = levenshtein_distance(guess.lower(), album.lower())
-        print(f"\n {author_comp} | {title_comp} | {album_comp} \n")
-        if author_comp > 5 and title_comp > 5 and album_comp > 5:
+        song = self.current_song_data
+        if song is None:
             return None
-        return "Close!"
-        
-    def get_song(self) -> str:
-        """Pobieranie aktualnego utworu.
 
-            :return: Ścieżka utworu.
-            :rtype: str
+        summary = (
+            f"Round {self.round} finished. "
+            f"Artist: {song.artist} | Title: {song.title} | Album/Source: {song.album}"
+        )
+        remove_song_file(song)
+        self.current_song_data = None
+        return summary
 
-        """
-        
-        return str(self.music_path / self.song_titles[self.round])
+    def cleanup(self) -> None:
+        """Usuwa pliki pobrane dla pokoju i zeruje stan gry."""
 
-    def next_song(self) -> str:
-        """Pobieranie kolejnego utworu.
+        cleanup_round_directory(self.id)
+        self.pending_urls = []
+        self.current_song_data = None
+        self.round = 0
+        self.room_directory = create_round_directory(self.id)
+        self.last_prepare_error = None
 
-            :return: Ścieżka do kolejnego utworu.
-            :rtype: str
+    def current_song(self) -> PreparedSong | None:
+        """Zwraca aktualny utwor, jesli istnieje."""
 
-        """
-        
-        self.round += 1
-        if self.round >= len(self.song_titles):
+        return self.current_song_data
+
+    def has_more_songs(self) -> bool:
+        """Informuje, czy w kolejce sa jeszcze nieodtworzone utwory."""
+
+        return len(self.pending_urls) > 0
+
+    def get_song(self) -> str | None:
+        """Pobiera sciezke aktualnego utworu."""
+
+        song = self.current_song()
+        if song is None:
             return None
-        return str(self.music_path / self.song_titles[self.round])
+        return str(song.file_path)
 
     def remove_unnecessary_chars(self, text: str) -> str:
-        """Usuwanie zbędnych symboli z tekstu.
+        """Czyści odpowiedz gracza z komendy i nadmiarowych spacji."""
 
-            :param text: Tekst, który ma zostać poddany obróbce.
-            :type text: str
+        if not text:
+            return ""
 
-            :return: Zmodyfikowany tekst.
-            :rtype: str
-
-        """
-        
         text = text[1:]
         while "  " in text:
             text = text.replace("  ", " ")
-        if text[0] == " ":
-            text= text[1:]
-        if text[-1] == " ":
-            text = text[:-1]
+        return text.strip()
 
-        return text
+    def check_song(self, player_guess: str) -> int:
+        """Sprawdza poprawnosc odpowiedzi gracza."""
+
+        song = self.current_song()
+        if song is None or not player_guess or player_guess[0] != "\\":
+            return 4
+
+        guess = self.remove_unnecessary_chars(player_guess).lower()
+        if guess == song.artist.lower():
+            return 0
+        if guess == song.title.lower():
+            return 1
+        if guess == song.album.lower():
+            return 2
+        return 3
+
+    def check_similarity(self, player_guess: str) -> str | None:
+        """Sprawdza podobienstwo wpisanej odpowiedzi do poprawnych."""
+
+        song = self.current_song()
+        if song is None:
+            return None
+
+        guess = self.remove_unnecessary_chars(player_guess).lower()
+        answers = [song.artist.lower(), song.title.lower(), song.album.lower()]
+        if min(levenshtein_distance(guess, answer) for answer in answers) > 5:
+            return None
+        return "Close!"
 
     def get_points(self) -> str:
-        """Pobieranie informacji o punktach.
+        """Zwraca aktualna punktacje."""
 
-            :return: Informacji o punktacji.
-            :rtype: str
-        
-        """
-        
-        results = ""
+        results = "Final scores:<br>"
         for key, value in self.points.items():
             results += f"{key} : {value} points <br>"
         return results
 
     def add_player(self, nickname: str) -> None:
-        """Dodawanie graczy do punktacji.
+        """Dodaje gracza do punktacji."""
 
-            :param nickname: Nazwa gracza.
-            :type nickname: str
-        
-        """
-        
-        self.points[nickname] = 0
-    
+        self.points.setdefault(nickname, 0)
+
     def add_point(self, nickname: str) -> None:
-        """Przyznawanie punktów graczowi.
+        """Przyznaje punkt graczowi."""
 
-            :param nickname: Nazwa gracza.
-            :type nickname: str
-        
-        """
-        
-        try:
-            self.points[nickname] += 1
-        except KeyError:
-            self.points[nickname] = 1
+        self.points[nickname] = self.points.get(nickname, 0) + 1
 
 
-# https://www.geeksforgeeks.org/python-similarity-metrics-of-strings/
 def levenshtein_distance(s: str, t: str) -> int:
-    """Obliczanie odległości Levenshtein'a - sprawdzanie podobieństwa dwóch tekstów.
-        Funkcja zaczerpnięta ze 'strony_'.
+    """Oblicza odleglosc Levenshteina pomiedzy dwoma napisami."""
 
-        .. _strony: https://www.geeksforgeeks.org/python-similarity-metrics-of-strings/
- 
-        :param s: Pierwszy tekst do porównania.
-        :type s: str
-
-        :param t: Drugi tekst do porównania.
-        :type t: str
-
-        :return: Liczba niepasujących do siebie liter.
-        :rtype: int
-    
-    """
-    
     m, n = len(s), len(t)
     if m < n:
         s, t = t, s

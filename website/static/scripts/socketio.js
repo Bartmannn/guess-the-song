@@ -7,13 +7,14 @@ var cathegory = "";
 
 document.addEventListener("DOMContentLoaded", () => {
     var socket = io();
+    var isPreparing = false;
 
     joinRoom();
     // updateState()
 
     var audioPlayer = document.getElementById("audioPlayer");
     socket.emit("list_players", room_name);
-    printSysMsg("To start click \"Next round\" button.");
+    printSysMsg("To start click \"Start\" button.");
     printSysMsg("To guess song type \"\\<your guess>\" and send.")
 
     // Display messages
@@ -40,6 +41,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     socket.on('stream_audio', data => {
+        isPreparing = false;
+        nextButton.disabled = false;
+
         if (audioSource.src[0] != "h") {
             audioPlayer.currentTime += 15;
         }
@@ -66,23 +70,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     socket.on("server_info", data => {
-        const p = document.createElement("p");
-        const span_username = document.createElement("span");
-        const br = document.createElement("br");
-        var messages = document.querySelector("#messages_area");
-
-        span_username.style = "font-size: 1rem; color: darkgrey;";
-
-        span_username.innerHTML = "Serwer";
-        p.innerHTML = span_username.outerHTML + br.outerHTML + data.msg;
-        messages.append(p);
-
-        if (messages.scrollTop + messages.clientHeight !== messages.scrollHeight) {
-            messages.scrollTop = messages.scrollHeight;
-        }
+        printSysMsg(data.msg);
     });
 
     socket.on("start_game", () => {
+        isPreparing = false;
+        startButton.disabled = false;
+        nextButton.disabled = false;
         startButton.style.display = "none";
         nextButton.style.display = "block";
 
@@ -90,7 +84,22 @@ document.addEventListener("DOMContentLoaded", () => {
         mediaPlayer.style.display = "block";
     });
 
+    socket.on("preparing_game", data => {
+        isPreparing = true;
+        startButton.disabled = true;
+        nextButton.disabled = true;
+    });
+
+    socket.on("prepare_failed", data => {
+        isPreparing = false;
+        startButton.disabled = false;
+        nextButton.disabled = false;
+    });
+
     socket.on("game_over", () => {
+        isPreparing = false;
+        startButton.disabled = false;
+        nextButton.disabled = false;
         if (audioSource.src[0] != "h") {
             audioPlayer.currentTime += 15;
         }
@@ -105,6 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
     socket.on("update_state", () => {
         startButton.style.display = "none";
         nextButton.style.display = "block";
+        nextButton.disabled = false;
         songsChoice.style.display = "none";
         mediaPlayer.style.display = "block";
 
@@ -118,10 +128,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     document.querySelector("#next_round_button").onclick = () => {
+        if (isPreparing) {
+            return;
+        }
         socket.emit("request_audio", {"room": room_name});
     }
 
     startButton.onclick = () => {
+        if (isPreparing) {
+            return;
+        }
         cathegory = songsChoice.value
         socket.emit('start', {"room": room_name, "cathegory": cathegory});
     }

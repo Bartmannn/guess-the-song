@@ -35,12 +35,16 @@ SECRET_KEY = getenv("SECRET_KEY", "change-me-in-production")
 # DATABASE #
 DEFAULT_SQLITE_PATH = BASE_DIR / "data" / "guess_the_song.db"
 DEFAULT_SQLITE_PATH.parent.mkdir(parents=True, exist_ok=True)
+GENERATED_AUDIO_DIR = BASE_DIR / "data" / "game_audio"
+GENERATED_AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 
 DB_USER = getenv("DB_USER", "postgres")
 DB_PSWD = getenv("DB_PSWD", "postgres")
 DB_ADDRESS = getenv("DB_ADDRESS", "localhost")
 DB_PORT = int(getenv("DB_PORT", "5432"))
 DB_NAME = getenv("DB_NAME", "guess_the_song")
+SONGS_PER_GAME = int(getenv("SONGS_PER_GAME", "10"))
+CLIP_DURATION = int(getenv("CLIP_DURATION", "15"))
 URI = getenv(
     "DATABASE_URL",
     f"sqlite:///{DEFAULT_SQLITE_PATH}",
