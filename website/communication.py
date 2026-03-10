@@ -13,7 +13,7 @@ from .models import *
 from .game_manager import GameManager
 
 
-socketio = SocketIO()
+socketio = SocketIO(async_mode="threading")
 game_states = {}
 
 @socketio.on("message")

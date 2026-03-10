@@ -1,0 +1,18 @@
+services:
+  app:
+    build: .
+    ports:
+      - "5002:5002"
+    environment:
+      APP_HOST: 0.0.0.0
+      APP_PORT: 5002
+      APP_DEBUG: "false"
+      APP_USE_SSL: "false"
+      ALLOW_UNSAFE_WERKZEUG: "true"
+      PUBLIC_HOST: localhost
+      PUBLIC_PORT: 5002
+      PUBLIC_SCHEME: http
+      SECRET_KEY: dev-secret-key
+      DATABASE_URL: sqlite:////app/data/guess_the_song.db
+    volumes:
+      - ./data:/app/data

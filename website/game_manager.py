@@ -7,6 +7,10 @@
     Wszystko jest w tej klasie.
 """
 
+from pathlib import Path
+
+
+MUSIC_ROOT = Path(__file__).resolve().parent / "static" / "music"
 
 
 class GameManager:
@@ -35,19 +39,18 @@ class GameManager:
         """
         
         self.cathegory = cathegory
-        self.music_path = f"./website/static/music/{self.cathegory}/"
+        self.music_path = MUSIC_ROOT / self.cathegory
         self.set_songs()
 
     def set_songs(self) -> None:
         """Ładuje odpowiednie utwory i ustala losową kolejkę."""
         
-        from os import listdir
         from random import shuffle
 
-        res = listdir(self.music_path.replace("/", "\\"))
-        for title in res:
-            if "mp3" in title.split("."):
-                self.song_titles.append(title)
+        self.song_titles = [
+            song_path.name for song_path in self.music_path.iterdir()
+            if song_path.suffix == ".mp3"
+        ]
         
         shuffle(self.song_titles)
         self.round = -1
@@ -105,7 +108,7 @@ class GameManager:
 
         """
         
-        return f"{self.music_path}{self.song_titles[self.round]}"
+        return str(self.music_path / self.song_titles[self.round])
 
     def next_song(self) -> str:
         """Pobieranie kolejnego utworu.
@@ -118,7 +121,7 @@ class GameManager:
         self.round += 1
         if self.round >= len(self.song_titles):
             return None
-        return f"{self.music_path}{self.song_titles[self.round]}"
+        return str(self.music_path / self.song_titles[self.round])
 
     def remove_unnecessary_chars(self, text: str) -> str:
         """Usuwanie zbędnych symboli z tekstu.
